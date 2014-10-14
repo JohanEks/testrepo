@@ -47,18 +47,20 @@
 		//var yearDim  = ndx.dimension(function(d) {return +d.Year;});
 		var usageSum = monthDim.group().reduceSum(function (d) {return d.usage;});
 
-		barChart.width(500)
-			.height(300)
+		barChart.width(1000)
+			.height(400)
 			.dimension(monthDim)
 			.group(usageSum)
 			.x(d3.scale.ordinal().domain(months))
 			.xUnits(dc.units.ordinal)
 			.elasticY(true)
-			.elasticX(true)
+			//.elasticX(true)
 			.brushOn(false)
 			.margins({ top: 10, left: 50, right: 10, bottom: 50 })  
 			.gap(70)
-			.ordering(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
+			
+			//.title(function(d) { return months[d.date.getMonth()];})
+			//.ordering([{"January",0}, {"February",1}, {"March",2}, {"April", 3}, {"May", 4}, {"June", 5}, {"July", 6}, {"August", 7}, {"September", 8}, {"October", 9}, {"November", 10}, {"December",11}])
 
 
         dc.renderAll(); 
