@@ -12,7 +12,8 @@
     
   </head>
   <body> 
-  	<div id="chart-usage-bar"> 
+  	<div id="split-bar-chart"></div>
+    <div id="chart-usage-bar"> 
   	</div>
     <div id="chart-usage-line"></div>
     <div id="chart-usage-line-date"></div>
@@ -32,17 +33,74 @@
 
 		var objectifiedData = [];
 		var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var lastMonthDate = new Date(hourData[hourData.length-1][0]);
+    var lastMonth = lastMonthDate.getMonth();
+    var monthSum = [];
+    monthSum.length = 12;
+    for (index = 0; index <monthSum.length; index++) {
+      monthSum[index] = 0;
+    }
 
     for (index = 0; index < hourData.length; index++) {
         var usageDate = new Date(hourData[index][0]);
-        if (objectifiedData.length == 0){
-          objectifiedData[0] = {"date":usageDate, "usage":hourData[index][1], "month":months[usageDate.getMonth()]};
-        }       
-        else {
-          objectifiedData[objectifiedData.length] = {"date":usageDate, "usage":hourData[index][1], "month":months[usageDate.getMonth()]};
+        var usageMonth = usageDate.getMonth();
+        monthSum[usageMonth] += hourData[index][1]; 
+          objectifiedData[objectifiedData.length] = {date: usageDate, usage: hourData[index][1], month:months[usageMonth]};
+    }
+
+    //console.log(monthSum);
+    var greenMonths = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var yellowMonths = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var redMonths = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var upperThreshold = 550;
+    var lowerThreshold = 500;
+    for (i = 0; i < monthSum.length; i++) {
+      if (monthSum[i] > upperThreshold){
+        greenMonths[i] = lowerThreshold;
+        yellowMonths[i] = upperThreshold - lowerThreshold;
+        redMonths[i] = monthSum[i] - upperThreshold;
       }
-    } 
-		
+      else if (monthSum[i]> lowerThreshold) {
+        greenMonths[i] = lowerThreshold;
+        yellowMonths[i] = monthSum[i] - lowerThreshold;
+      }
+      else {
+        greenMonths[i] = monthSum[i];
+      };
+
+    }
+
+    /*var objectifiedGreenMonths=[];
+    var objectifiedYellowMonths=[];
+    var objectifiedRedMonths=[];
+    */
+/*    for (i=0; i < greenMonths.length; i++){
+      objectifiedGreenMonths += [{"month": months[i], "useage": greenMonths[i]}];
+    }
+    for (i=0; i < yellowMonths.length; i++){
+      objectifiedYellowMonths += [{"month": months[i], "useage": yellowMonths[i]}];
+    }
+    for (i=0; i < redMonths.length; i++){
+      objectifiedRedMonths += [{"month": months[i], "useage": RedMonths[i]}];
+    }
+*/
+    var objectifiedMonths = [];
+    for (i=0; i < months.length; i++){
+      objectifiedMonths += [{month: months[i], green: greenMonths[i], yellow: yellowMonths[i], red: redMonths[i]}];
+      //console.log(objectifiedMonths);
+      console.log(months[i]);
+      console.log(greenMonths[i]);
+      console.log(yellowMonths[i]);
+      console.log(redMonths[i]);
+      
+    }
+    
+    console.log(objectifiedMonths[2].month);
+    console.log(objectifiedMonths[2].green);
+    console.log(objectifiedMonths[2].yellow);
+    console.log(objectifiedMonths[2].red);
+    console.log(objectifiedMonths);	
+
     var ndx = crossfilter(objectifiedData);
     var barChart = dc.barChart("#chart-usage-bar");
     var monthDim = ndx.dimension(function (d) {
@@ -50,6 +108,41 @@
     });
 		//var yearDim  = ndx.dimension(function(d) {return +d.Year;});
 		var usageSum = monthDim.group().reduceSum(function (d) {return d.usage;});
+//    console.log(usageSum);   
+
+/*
+    for (index = 1; index < usageSum.size(); index++) {
+      if (usageSum.top(index). > ) {};
+    }
+  */  
+
+    //console.log(usageSum.top(1).value);
+
+    var ndy = crossfilter(objectifiedMonths);
+    var splitBarChart = dc.barChart("#split-bar-chart");
+    var splitMonthDim = ndy.dimension(function (d) {
+      return d.month;
+    });
+    var green1=splitMonthDim.group().reduceSum(function(d) {return d.green;});
+    var yellow1=splitMonthDim.group().reduceSum(function(d) {return d.yellow;});
+    var red1=splitMonthDim.group().reduceSum(function(d) {return d.red;});
+    console.log(green1);
+
+    splitBarChart.width(800)
+      .height(500)
+      .dimension(splitMonthDim)
+      .group(green1)
+      //.stack(yellow1)
+      //.stack(red1)
+      .x(d3.scale.ordinal().range([splitMonthDim]).domain(months))
+      .xUnits(dc.units.ordinal)
+     // .elasticX(true)
+      .elasticY(true)
+      .brushOn(false)
+      .margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+      .gap(50)
+      .xAxisLabel("Månad")
+      .yAxisLabel("Elanvändning")
 
 		barChart.width(800)
 			.height(500)
