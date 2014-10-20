@@ -6,12 +6,49 @@
     <meta name="description" content="Webpage for graphs">
     <!-- http://meyerweb.com/eric/tools/css/reset/ -->
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen" /> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
     
   </head>
   <body> 
+
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+       <!-- <img src="pics/img001.jpg" alt=""> -->
+        <div style="height:500px"; "width: 500px">
+          <div id="barchart-usage-date"></div>
+        </div>
+        <div class="carousel-caption">
+          1
+        </div>
+      </div>
+      <div style="height:500px" class="item">
+        <img src="pics/img002.jpg" alt="...">
+        <div class="carousel-caption">
+          2
+        </div>
+      </div>
+    </div>
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+
     <div id ="barchart-usage-month"></div>
     <div id="barchart-usage-date"></div>
     <div id="split-bar-chart"></div>
@@ -28,6 +65,7 @@
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.js" ></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-alpha.2/dc.js" ></script>    
     <script type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
     $("#barchart-usage-month").hide();
