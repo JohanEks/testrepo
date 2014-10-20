@@ -5,8 +5,9 @@
     <title>Grafer med äkta data</title>
     <meta name="description" content="Webpage for graphs">
     <!-- http://meyerweb.com/eric/tools/css/reset/ -->
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen" /> 
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/carouselstyle.css">
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
     <![endif]-->
@@ -14,33 +15,46 @@
   </head>
   <body> 
 
-  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel"  style="background-color:#FCFCFC">
     <!-- Indicators -->
     <ol class="carousel-indicators">
       <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
       <li data-target="#carousel-example-generic" data-slide-to="1"></li>
       <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+      <li data-target="#carousel-example-generic" data-slide-to="4"></li>
     </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-       <!-- <img src="pics/img001.jpg" alt=""> -->
-        <div style="height:500px"; "width: 500px">
-          <div id="barchart-usage-date"></div>
-          <div id ="barchart-usage-month"></div>
-        </div>
-        <div class="carousel-caption">
-          1
-        </div>
+    
+    <div class="carousel-inner karusell">
+      <div class="item center active">
+        <div id="barchart-usage-month" class="center"></div>
+        <div id="barchart-usage-date" class="center"></div>
+        <div class="carousel-caption">1</div>
       </div>
-      <div style="height:500px" class="item">
-        <div id="split-bar-chart"></div>
-        <div class="carousel-caption">
-          2
-        </div>
+      
+      <div class="item center">
+        <div class="center" id="split-bar-chart"></div>
+        <div class="carousel-caption">2</div>
       </div>
+      
+      <div class="item center">
+        <div id="chart-usage-bar" class="center"></div>
+        <div class="carousel-caption">3</div>
+      </div>
+      
+      <div class="item center">
+        <div id="chart-usage-line-date" class="center"></div>
+        <div class="carousel-caption">4</div>
+      </div>
+      
+      <div class="item center">
+        <div id="chart-usage-line" class="center"></div>
+        <div class="carousel-caption">5</div>
+      </div> 
     </div>
+ 
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
       <span class="glyphicon glyphicon-chevron-left"></span>
@@ -56,8 +70,8 @@
     <div id="chart-usage-bar"></div>
     <div id="chart-usage-line"></div>
     <div id="chart-usage-line-date"></div>
-    <!--<h1> Här ska vi visa grafer</h1>
-    <p> Lite information som vi har hittat på world wide web </p> -->
+    <h1> Här ska vi visa grafer</h1>
+    <p> Lite information som vi har hittat på world wide web </p>
 
 
 
@@ -69,15 +83,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
-    $("#barchart-usage-month").hide();
+    /*$('#carousel-example-generic').on('slid.bs.carousel', function () {
+        dc.disableTransitions = true;
+        //dc.renderAll();
+    });   
+*/
+
+    $("#barchart-usage-date").hide();
     $(document).ready(function(){
       $("#barchart-usage-month").click(function(){
         $("#barchart-usage-date").toggle();
         $("#barchart-usage-month").toggle();
+        dc.disableTransitions = true;
+      //  dc.renderAll();
       });
       $("#barchart-usage-date").click(function(){
         $("#barchart-usage-month").toggle();
         $("#barchart-usage-date").toggle();
+    //    dc.renderAll();
       });
     });
 
@@ -167,8 +190,8 @@
     var red1=splitMonthDim.group().reduceSum(function(d) {return d.red;});
 
 
-    splitBarChart.width(800)
-      .height(500)
+    splitBarChart
+    //  .width(800).height(500)
       .dimension(splitMonthDim)
       .group(green1)
       .stack(yellow1)
@@ -177,21 +200,21 @@
       .xUnits(dc.units.ordinal)
       .elasticY(true)
       .brushOn(false)
-      .margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+      .margins({ top: 50, left: 50, right: 50, bottom: 100 })  
       .gap(10)
       .ordinalColors(['green','yellow','red'])
       .xAxisLabel("Månad")
       .yAxisLabel("Elanvändning")
 
-		barChart.width(800)
-			.height(500)
+		barChart
+      //.width(800).height(500)
 			.dimension(monthDim)
 			.group(usageSum)
       .x(d3.scale.ordinal().range([monthDim]).domain(months))
       .xUnits(dc.units.ordinal)
       .elasticY(true)
 			.brushOn(false)
-			.margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+			.margins({ top: 50, left: 50, right: 50, bottom: 100 })  
 			.gap(20)
       .xAxisLabel("Månad")
       .yAxisLabel("Elanvändning")
@@ -200,13 +223,13 @@
 
 
       usagelineChart
-        .width(800).height(500)
+      //  .width(800).height(500)
         .dimension(monthDim)
         .group(usageSum)
         .x(d3.scale.ordinal().domain(months)) 
         .xUnits(dc.units.ordinal)
         .elasticY(true)
-        .margins({ top: 50, left: 50, right: 50, bottom: 50 })
+        .margins({ top: 50, left: 50, right: 50, bottom: 100 })
       ;
 
     var ndi = crossfilter(objectifiedData);
@@ -228,12 +251,12 @@
 
       var usageBarChart  = dc.barChart("#barchart-usage-date");
       usageBarChart
-        .width(800).height(500)
+   //     .width(800).height(500)
         .dimension(barDateDim)
         .group(threeHourSum)
         .x(d3.time.scale().domain([minDate,maxDate]))
     //    .elasticX(true)
-        .margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+      .margins({ top: 50, left: 50, right: 50, bottom: 100 })  
       .xUnits(function(){return 60;})
       .brushOn(false)
       ;
@@ -247,30 +270,42 @@
     var threeHourMonthSum = barMonthDim.group().reduceSum(function (d) {return d.avg;});
     var minDateMonth = new Date(maxDate-2678400000);
 
-      var usageBarChart  = dc.barChart("#barchart-usage-month");
-      usageBarChart
-        .width(800).height(500)
+      var usageMonthBarChart  = dc.barChart("#barchart-usage-month");
+      usageMonthBarChart
+        //.width(800).height(500)
         .dimension(barMonthDim)
         .group(threeHourMonthSum)
         .x(d3.time.scale().domain([minDateMonth,maxDate]))
-    //    .elasticX(true)
-        .margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+            //    .elasticX(true)
+        .margins({ top: 50, left: 50, right: 50, bottom: 100 })  
       .xUnits(function(){return 150;})
       .brushOn(false)
       ;
+    //  usageMonthBarChart.style.margin=0 auto;
+      
 
 
-
-      var usagelineChart  = dc.lineChart("#chart-usage-line-date");
-      usagelineChart
-        .width(800).height(500)
+      var usagelineDateChart  = dc.lineChart("#chart-usage-line-date");
+      usagelineDateChart
+     //   .width(800).height(500)
         .dimension(dateDim)
         .group(usageSumDate)
         .x(d3.time.scale().domain([minDate,maxDate]))
     //    .elasticX(true)
-        .margins({ top: 50, left: 50, right: 50, bottom: 50 })  
+        .margins({ top: 50, left: 50, right: 50, bottom: 100 })  
       ;
 
+        
+        splitBarChart.height = usageMonthBarChart.height;
+        splitBarChart.width = usageMonthBarChart.width;
+        usageBarChart.height = usageMonthBarChart.height;
+        usageBarChart.width = usageMonthBarChart.width;
+        usagelineChart.height = usageMonthBarChart.height;
+        usagelineChart.width = usageMonthBarChart.width;
+        usagelineDateChart.height = usageMonthBarChart.height;
+        usagelineDateChart.width = usageMonthBarChart.width;
+        barChart.height = usageMonthBarChart.height;
+        barChart.width = usageMonthBarChart.width;
 
         dc.renderAll(); 
     </script>
