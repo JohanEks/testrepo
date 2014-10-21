@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Grafer med äkta data</title>
+    <title>Grafer med &auml;kta data</title>
     <meta name="description" content="Webpage for graphs">
     <!-- http://meyerweb.com/eric/tools/css/reset/ -->
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
@@ -202,8 +202,8 @@
       .margins({ top: 50, left: 50, right: 50, bottom: 100 })  
       .gap(10)
       .ordinalColors(['green','yellow','red'])
-      .xAxisLabel("Månad")
-      .yAxisLabel("Elanvändning")
+      .xAxisLabel("M"+unescape("%E5")+"nad")
+      .yAxisLabel("Elanv"+ unescape("%E4")+"ndning")
 
 		barChart
       //.width(800).height(500)
@@ -215,8 +215,8 @@
 			.brushOn(false)
 			.margins({ top: 50, left: 50, right: 50, bottom: 100 })  
 			.gap(20)
-      .xAxisLabel("Månad")
-      .yAxisLabel("Elanvändning")
+      .xAxisLabel("M"+unescape("%E5")+"nad")
+      .yAxisLabel("Elanv"+ unescape("%E4")+"ndning")
 
       var usagelineChart  = dc.lineChart("#chart-usage-line");
 
