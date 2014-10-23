@@ -177,7 +177,11 @@
       return d.month;
     });
 
+
 		var usageSum = monthDim.group().reduceSum(function (d) {return d.usage;});
+
+    console.log(usageSum.top(Infinity).length);
+    //console.log(monthDim.top(Infinity).length);
 
     var ndy = crossfilter(objectifiedMonths);
     var splitBarChart = dc.barChart("#split-bar-chart");
