@@ -133,11 +133,15 @@
 			console.log(objectifiedData.length);
 			for (j = 0; j < data[i].length; j++) {
 	        	var usageDate = new Date(data[i][j][0]);
+	        	var month = new Date(0)
+	        	month.setYear(usageDate.getYear())
+	        	month.setMonth(usageDate.getMonth())
+	        	month.setDate(usageDate.getDate())
 	        	if (i==0) {
 	        		var meter = "s205b";
 	        	}
 	        	else {var meter ="s207a"}
-	        	objectifiedData[objectifiedData.length] = {date: usageDate, usage: data[i][j][1], meter: meter};
+	        	objectifiedData[objectifiedData.length] = {date: month, datedate: usageDate.getYear()+"-"+usageDate.getMonth()+"-"+usageDate.getDay(), usage: data[i][j][1], meter: meter};
 	    	}	
 	    }
 
@@ -154,6 +158,7 @@
 	    });
 
 
+   	    //var usageSumDate = dateDim.group(function(d){ return d.getMonth()}).reduceSum(function (d) {return d.usage;});
    	    var usageSumDate = dateDim.group().reduceSum(function (d) {return d.usage;});
    	    //var usageMeanDate 
    	    var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.usage;});
