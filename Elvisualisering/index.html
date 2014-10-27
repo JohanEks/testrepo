@@ -18,7 +18,8 @@
 
 
 		    				    		 	    		 
-		    				    		 
+			    		<button type = "button" class="btn btn-default" onclick="brushExtent()">Brush</button>
+	    				    		 
 		    	-->
 
 	<body>
@@ -33,7 +34,6 @@
 	    			<button type = "button" class="btn btn-default" onclick="monthlyview()">Månadsvy</button>
 	    			<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
 		    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
-		    		<button type = "button" class="btn btn-default" onclick="brushExtent()">Brush</button>
 		    	</div>
 	    		<div class="col-md-8" id="bar-date-brush" style="border-style: solid; height:10vh"></div>
 		    </div>
@@ -55,7 +55,7 @@
 		    		</div>
 		    	</a>
 		    	<a href="http://www.w3schools.com/bootstrap/bootstrap_case_buttons.asp">
-			    	<div class="col-md-4" style="color:black; border-style: solid;height:30vh">
+			    	<div class="col-md-4" style="border-style: solid;height:30vh">
 			    		<h2>Intressant information?</h2>
 			    		<p>Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
 			    	</div>
@@ -81,11 +81,13 @@
     		var maxDate2 = dateDim.top(1)[0].date;
     		usageLineChart.x(d3.time.scale().domain([minDate2,maxDate2]));
     		usageLineChart.render();
-			});*/
+			});
 
 		function brushExtent(){
-			console.log(d3.brush.extent());
+			console.log(barDateBrush.d3.brush.extent());
 		};
+
+		*/
 
 		function monthlyview(){
 			dateDim.filterAll();
@@ -197,11 +199,13 @@
 	      	//.width(300).height(200)
 			.dimension(meterDim)
 			.group(usageSumMeter)
-	      	.margins({ top: 50, left: 50, right: 50, bottom: 100 })  
+	      	.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+	      	.elasticX(true)  
 			
 		console.log(new Date());
 	    dc.renderAll(); 
 	    console.log(new Date());
+
 
 
 
