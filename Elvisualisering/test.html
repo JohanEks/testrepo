@@ -125,6 +125,7 @@
 		
 		var data =[[s205b, nrOfPpls205b],[s207a,nrOfPpls207a],[s227a, nrOfPpls227a]];
 		
+			
 		var objectifiedData =[];
 		
 		var totUsers = 0;
@@ -132,7 +133,7 @@
 			totUsers += data[i][1];
 		}
 
-
+		
 		for (i = 0; i<data.length; i++){	
 			for (j = 0; j < data[i][0].length; j++) {
 	        	var usageDate = new Date(data[i][0][j][0]);
@@ -208,37 +209,33 @@
    	    function reduceInitAvg() {
    	    	return {hours:0, elUse:0, avg:0};
    	    }
+   	    
    	    var meterHourAvg = meterDim.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg);
 
 
    	    function allReduceAddAvg(p,v) {
    	    	++p.allHours
+   	    	p.users += v.nrUsers;
    	    	p.allElUse  += v.usage;
-   	    	p.allAvg = p.allElUse/(totUsers);
-   	    	console.log(v.hourDate, "date");
-   	    	console.log(p.allHours, "hours");
-   	    	console.log(v.usage,"usage");
-   	    	console.log(p.allElUse, "elUse");
-   	    	console.log(p.allAvg, "allAvg");
+   	    	p.allAvg = p.allElUse/p.users;
    	    	return p;
    	    }
    	    function allReduceRemoveAvg(p,v) {
    	    	--p.allHours
+   	    	p.users -= v.nrUsers;
    	    	p.allElUse -= v.usage;
-   	    	p.allAvg = p.allElUse/(totUsers);
-   	    	console.log(v.hourDate, "date");
-   	    	console.log(p.allHours, "hours");
-   	    	console.log(v.usage,"usage");
-   	    	console.log(p.allElUse, "elUse");
-   	    	console.log(p.allAvg, "allAvg");
+   	    	p.allAvg = p.allElUse/p.users;
+
    	    	return p;
    	    }
    	    function allReduceInitAvg() {
-   	    	return {allHours:0, allElUse:0, allAvg:0};
+   	    	return {allHours:0, users:0, allElUse:0, allAvg:0};
    	    }
    	    var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
-
-
+   	    lineHourAvg.dispose();
+   	    
+   	    var usageAvgMeter = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+        
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
 
@@ -273,19 +270,16 @@
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
 		    .rangeChart(barDateBrush)
 		    .xUnits(d3.time.days)
-		    .brushOn(false) 
+		    .brushOn(false)
+		    .elasticY(true) 
 	      	.compose([
 				dc.lineChart(usageLineChart)
-					.group(usageMeanHour)
+					.group(usageAvgMeter)
 					.colors("red")
-		        	.brushOn(false),
-		  //      	.chartGroup("cg"),
+		        	.valueAccessor(function (d) { return d.value.allAvg;}),
 		        dc.lineChart(usageLineChart)
 		        	.group(lineHourAvg)
-					.valueAccessor(function (d) { 
-						console.log(d.value.allAvg, "xxx"); 
-						return d.value.allAvg; 
-					})
+					.valueAccessor(function (d) { return d.value.allAvg;})
 	      		]);
 
 
