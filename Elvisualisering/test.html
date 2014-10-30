@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+
+		<title>Elvisualisering av Marieberg</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
+
+	</head>
+<!--
+
+
+		    				    		 	    		 
+			    		<button type = "button" class="btn btn-default" onclick="brushExtent()">Brush</button>
+	    				    		 
+		    	-->
+
+	<body>
+	    <div class="container-fluid">
+	    	<div class="row">
+	    		<div class="col-md-4" id="meter-chart" style="border-style: solid; blue; height:30vh">
+	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+	    		</div>
+	    		<div class="col-md-8" style="border-style: solid; height:30vh"></div>
+	    	</div>
+	    
+	    	<div class="row">
+	    		<div class="col-md-4" style="border-style: solid; height:10vh">
+	    			<button type = "button" class="btn btn-default" onclick="monthlyview()">Månadsvy</button>
+	    			<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
+		    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
+		    	</div>
+	    		<div class="col-md-8" id="bar-date-brush" style="border-style: solid; height:10vh">
+	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></div>
+		    </div>
+		    <div class="row">
+		    	<div class="col-md-6" id="usage-line-chart" style="border-style: solid; height:30vh">
+		    		<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+		    	</div>
+		    	<div class="col-md-6" style="border-style: solid; height:30vh"></div>
+			</div>
+			<div class="row" style="background-color: #B8B8B8">
+		    	<a href="http://www.w3schools.com/bootstrap/bootstrap_case_buttons.asp">
+		    		<div class="col-md-4" style="border-style: solid; height:30vh; a:hover{background-color: grey}">
+			    		<h2>Vilken mätare tillhör jag?</h2>
+			    		<p>Klicka här för att ta reda på det.</p>
+			    	</div>
+			    </a>
+		    	<a href="http://www.w3schools.com/bootstrap/bootstrap_case_buttons.asp">
+		    		<div class="col-md-4" style="border-style: solid; height:30vh">
+		    			<h2>Miljöpåverkan</h2>
+		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
+		    		</div>
+		    	</a>
+		    	<a href="http://www.w3schools.com/bootstrap/bootstrap_case_buttons.asp">
+			    	<div class="col-md-4" style="border-style: solid; height:30vh">
+			    		<h2>Intressant information?</h2>
+			    		<p>Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
+			    	</div>
+			    </a>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <!--<script src="../../dist/js/bootstrap.min.js"></script>
+	    <script src="../../assets/js/docs.min.js"></script>
+	    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>	--> 
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.js"></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.js" ></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-alpha.2/dc.js" ></script>    
+	    <script type="text/javascript"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	    <script type="text/javascript">
+
+
+	/*    $('#bar-date-brush').on('click', function(){
+    		var minDate2 = dateDim.bottom(1)[0].date;
+    		var maxDate2 = dateDim.top(1)[0].date;
+    		usageLineChart.x(d3.time.scale().domain([minDate2,maxDate2]));
+    		usageLineChart.render();
+			});
+
+		function brushExtent(){
+			console.log(barDateBrush.d3.brush.extent());
+		};
+
+		*/
+
+		/*
+
+		function monthlyview(){
+	   		updateTimeInterval(dateDim.top(1)[0].hourDate, 2678400000)
+		};
+
+		function weeklyview(){
+    		updateTimeInterval(dateDim.top(1)[0].hourDate, 604800000)
+		};
+
+		function dailyview(){
+			updateTimeInterval(dateDim.top(1)[0].hourDate, 86400000)
+		};
+
+		function updateTimeInterval(max, diff){
+			var minDateDay = new Date(max-diff);
+			barDateBrush.filterAll()
+			barDateBrush.filter([minDateDay, max]);
+		}
+*/
+
+		var s205b = [[1391126400000,10], [1391130000000,8], [1391133600000,6], [1391137200000,4], [1391140800000,2]]; //id 1719, date 2013-10-22-2014-10-21
+		var s207a = [[1391126400000,2], [1391130000000,4], [1391133600000,6], [1391137200000,8], [1391140800000,10]]; //id 1723, date 2013-10-22-2014-10-21
+		var s227a = [[1391126400000,1], [1391130000000,2], [1391133600000,3], [1391137200000,4], [1391140800000,5]]; //id 1726, date 2014-01-01-2014-10-22
+		var nrOfPpls205b = 1;
+		var nrOfPpls207a = 2;
+		var nrOfPpls227a = 3;
+
+		
+		var data =[[s205b, nrOfPpls205b],[s207a,nrOfPpls207a],[s227a, nrOfPpls227a]];
+		
+		var objectifiedData =[];
+		
+		var totUsers = 0;
+		for (i = 0; i<data.length; i++){
+			totUsers += data[i][1];
+		}
+
+
+		for (i = 0; i<data.length; i++){	
+			for (j = 0; j < data[i][0].length; j++) {
+	        	var usageDate = new Date(data[i][0][j][0]);
+	        	var dayDate = new Date(0)
+	        	dayDate.setFullYear(usageDate.getFullYear())
+	        	dayDate.setMonth(usageDate.getMonth())
+	        	dayDate.setDate(usageDate.getDate())
+	        	var usage = data[i][0][j][1];
+	        	var nrUsers = data[i][1];
+	        	if (i==0) {
+	        		var meter = "s205b";
+	        	}
+	        	else if (i==1) {
+	        		var meter ="s207a";
+	        	}
+	        	else {var meter ="s227a"}
+	        	objectifiedData[objectifiedData.length] = {hourDate: usageDate, dayDate: dayDate, usage: usage, meter: meter, meanUse: usage/nrUsers, nrUsers: nrUsers};
+	    	}	
+	    }
+
+
+
+	    var ndx = crossfilter(objectifiedData);
+	    var dateDim = ndx.dimension(function (d) {
+      		return d.dayDate;
+    	});
+
+    	var hourDim = ndx.dimension(function (d) {
+    		return d.hourDate;
+    	});
+
+
+	    var meterDim = ndx.dimension(function (d) {
+	    	return d.meter;
+	    });
+
+
+	    var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
+
+   	    var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
+
+   	    var usageAvgHour  = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduceSum(function (d) {return d.usage/24;});
+
+   	    var usageSumDate = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduceSum(function (d) {return d.usage;});
+
+   	    var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
+
+
+   	    function reduceAddAvg(p,v) {
+   	    	++p.hours
+   	    	p.elUse  += v.meanUse;
+   	    	p.avg = p.elUse/p.hours;
+   	    	return p;
+   	    }
+   	    function reduceRemoveAvg(p,v) {
+   	    	--p.hours
+   	    	p.elUse -= v.meanUse;
+   	    	p.avg = p.elUse/p.hours;
+   	    	return p;
+   	    }
+   	    function reduceInitAvg() {
+   	    	return {hours:0, elUse:0, avg:0};
+   	    }
+   	    var meterHourAvg = meterDim.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg);
+
+
+   	    function allReduceAddAvg(p,v) {
+   	    	++p.allHours
+   	    	p.allElUse  += v.usage;
+   	    	p.allAvg = p.allElUse/(totUsers);
+   	    	console.log(v.hourDate, "date");
+   	    	console.log(p.allHours, "hours");
+   	    	console.log(v.usage,"usage");
+   	    	console.log(p.allElUse, "elUse");
+   	    	console.log(p.allAvg, "allAvg");
+   	    	return p;
+   	    }
+   	    function allReduceRemoveAvg(p,v) {
+   	    	--p.allHours
+   	    	p.allElUse -= v.usage;
+   	    	p.allAvg = p.allElUse/(totUsers);
+   	    	console.log(v.hourDate, "date");
+   	    	console.log(p.allHours, "hours");
+   	    	console.log(v.usage,"usage");
+   	    	console.log(p.allElUse, "elUse");
+   	    	console.log(p.allAvg, "allAvg");
+   	    	return p;
+   	    }
+   	    function allReduceInitAvg() {
+   	    	return {allHours:0, allElUse:0, allAvg:0};
+   	    }
+   	    var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+
+
+        var minDate = hourDim.bottom(1)[0].hourDate;
+        var maxDate = hourDim.top(1)[0].hourDate;
+
+        var meterChart = dc.rowChart("#meter-chart");
+		meterChart
+	      	//.width(300).height(200)
+			.dimension(meterDim)
+			//.group(usageSumMeter)
+			.group(meterHourAvg)
+			.valueAccessor(function (d) { return d.value.avg; })
+	      	.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+	      	.elasticX(true)
+
+
+        var barDateBrush = dc.barChart("#bar-date-brush");
+        barDateBrush
+        	.elasticX(false)
+        	.height(65)
+        	.dimension(hourDim)
+        	.group(usageSumDate)
+        	.x(d3.time.scale().domain([minDate,maxDate]))
+        	.xUnits(d3.time.days)
+
+        	.yAxis().ticks(0)
+
+
+
+    	var usageLineChart  = dc.compositeChart("#usage-line-chart");
+
+      	usageLineChart
+	      	.dimension(hourDim)
+	      	.x(d3.time.scale().domain([minDate,maxDate]))
+		    .rangeChart(barDateBrush)
+		    .xUnits(d3.time.days)
+		    .brushOn(false) 
+	      	.compose([
+				dc.lineChart(usageLineChart)
+					.group(usageMeanHour)
+					.colors("red")
+		        	.brushOn(false),
+		  //      	.chartGroup("cg"),
+		        dc.lineChart(usageLineChart)
+		        	.group(lineHourAvg)
+					.valueAccessor(function (d) { 
+						console.log(d.value.allAvg, "xxx"); 
+						return d.value.allAvg; 
+					})
+	      		]);
+
+
+	    
+	    dc.renderAll(); 
+
+
+	    </script>
+
+	</body>
+
+</html>
