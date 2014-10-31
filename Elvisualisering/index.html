@@ -28,8 +28,9 @@
 	    		<div class="col-md-4" id="meter-chart" style="border-style: solid; blue; height:30vh">
 	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
 	    		</div>
-	    		<div class="col-md-8" id="bubble-chart" style="border-style: solid; height:30vh"></div>
-	    	</div>
+	    		<div class="col-md-8" id="bubble-chart" style="border-style: solid; height:30vh">
+	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+	    	</div></div>
 	    
 	    	<div class="row">
 	    		<div class="col-md-4" style="border-style: solid; height:10vh">
@@ -133,6 +134,10 @@
 		var s207aRef=[0,0,0,0,0,0,0];
 		var s227aRef=[0,0,0,0,0,0,0];
 
+		var s205bDays=[0,0,0,0,0,0,0];
+		var s207aDays=[0,0,0,0,0,0,0];
+		var s227aDays=[0,0,0,0,0,0,0];
+
 		startRefDate = new Date(2014,7,25);
 		endRefDate = new Date(2014,7,31,23,59);
 
@@ -151,18 +156,21 @@
 	        		var meter = "s205b";
 	        		if (dayDate >= startRefDate && dayDate < endRefDate){
 	        			s205bRef[dayDate.getDay()] += usage; 
+	        			++s205bDays[dayDate.getDay()]; 
 	        		}
 	        	}
 	        	else if (i==1) {
 	        		var meter ="s207a";
 	        		if (dayDate >= startRefDate && dayDate < endRefDate){
 	        			s207aRef[dayDate.getDay()] += usage; 
+	        			++s207aDays[dayDate.getDay()];
 	        		}
 	        	}
 	         	else {
 	         		var meter ="s227a";
 	         		if (dayDate >= startRefDate && dayDate < endRefDate){
-	        			s205bRef[dayDate.getDay()] += usage; 
+	        			s227aRef[dayDate.getDay()] += usage; 
+	        			++s227aDays[dayDate.getDay()];
 	        		}
 	        	}
 	        	objectifiedData[objectifiedData.length] = {hourDate: usageDate, dayDate: dayDate, usage: usage, meter: meter, meanUse: usage/nrUsers, nrUsers: nrUsers};
@@ -253,6 +261,7 @@
    	    var usageAvgMeter = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
 
    	    function bubbleReduceAdd(p,v){
+   	    	++p.dataPoints;
    	    	++p.nrWeekdays[v.hourDate.getDay()]; 
    	    	if (v.meter === "s205b"){
    	    		var refDays = s205bRef;
@@ -266,13 +275,14 @@
    	    	p.users = v.nrUsers;
    	    	p.usage += v.usage;
    	    	refSum = 0;
-   	    	for(i=0; i < 7; i++){
-   	    		refSum += p.nrWeekdays[i]*refDays[i];
+   	    	for(i=0; i < p.nrWeekdays.length; i++){
+   	    		refSum += p.nrWeekdays[i]*refDays[i]/24;
    	    	}
    	    	p.change = (p.usage-refSum)/refSum;
    	    	return p;
    	    }
    	    function bubbleReduceRemove(p,v){
+   	    	--p.dataPoints
    	    	--p.nrWeekdays[v.hourDate.getDay()]; 
    	    	if (v.meter === "s205b"){
    	    		var refDays = s205bRef;
@@ -286,15 +296,15 @@
    	    	p.users = v.nrUsers;
    	    	p.usage -= v.usage;
    	    	refSum = 0;
-   	    	for(i=0; i < 7; i++){
-   	    		refSum += p.nrWeekdays[i]*refDays[i];
+   	    	for(i=0; i < p.nrWeekdays.length; i++){
+   	    		refSum += p.nrWeekdays[i]*refDays[i]/24;
    	    	}
    	    	p.change = (p.usage-refSum)/refSum;
    	    	return p;
 
    	    }
    	    function bubbleReduceInit(){
-   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0}
+   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0}
 
    	    }
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
@@ -307,15 +317,28 @@
         bubbleChart
         	.dimension(meterDim)
         	.group(changeBubble)
-        	.keyAccessor(function (d) { return d.value.usage;})
-        	.valueAccessor(function (d) { return d.value.change;})
-        	.radiusValueAccessor(function (d) { return d.value.users;})
-        	.x(d3.scale.linear().domain([0,500]))
-        	.y(d3.scale.linear().domain([-0.5,0.5]))
-        	.r(d3.scale.linear([0, 4000]))
-        	.elasticX(true)
-        	.elasticY(true)
+      //  	.colorAccessor(function (d) { return d.value.usage})
+        	.keyAccessor(function (p) { return p.value.usage/(p.value.dataPoints*p.value.users);})
+        	.valueAccessor(function (p) { return p.value.change;})
+        	.radiusValueAccessor(function (p) { return p.value.users;})
+        	.maxBubbleRelativeSize(0.3)
+        	.x(d3.scale.linear().domain([0,1]))
+        	.y(d3.scale.linear().domain([0.5,-0.5]))
+        	.r(d3.scale.linear().domain([0, 1000]))
+        //	.elasticX(true)
+        //	.elasticY(true)
+        	.yAxisPadding(100)
+        	.xAxisPadding(500)
 
+        	.renderlet(function(bubbleChart){
+        		dc.events.trigger(function(){
+        			for(i=0; i < meterChart.filters().length; i++){
+        				bubbleChart.filter(meterChart.filters()[i]);
+        				meterChart.redraw();
+        				console.log("ss")
+        			}
+        		})
+        	})
 
 
         var meterChart = dc.rowChart("#meter-chart");
@@ -328,6 +351,13 @@
 	      	.margins({ top: 50, left: 50, right: 50, bottom: 100 })
 	      	.elasticX(true)
 
+        	.renderlet(function(meterChart){
+        		dc.events.trigger(function(){
+        			for(i=0; i < bubbleChart.filters().length; i++){
+        				meterChart.filter(bubbleChart.filters()[i]);
+        			}
+        		})
+        	})
 
         var barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
