@@ -16,10 +16,6 @@
 	</head>
 <!--
 
-
-		    				    		 	    		 
-			    		<button type = "button" class="btn btn-default" onclick="brushExtent()">Brush</button>
-	    				    		 
 		    	-->
 
 	<body>
@@ -45,7 +41,9 @@
 		    	<div class="col-md-6" id="usage-line-chart" style="height:30vh">
 		    		<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
 		    	</div>
-		    	<div class="col-md-6" id="month-chart" style="height:30vh"></div><span class="reset" style="display: none;">Current filter: <span class="filter"></span>
+		    	<div class="col-md-6" id="month-chart" style="height:30vh">
+		    		<span class="reset" style="display: none;">Current filter: <span class="filter"></span>
+		    	</div>
 			</div>
 			<div class="row" style="background-color: #B8B8B8">
 		    	<a href="#meter">
@@ -104,19 +102,6 @@
 	    <script type="text/javascript">
 
 
-	/*    $('#bar-date-brush').on('click', function(){
-    		var minDate2 = dateDim.bottom(1)[0].date;
-    		var maxDate2 = dateDim.top(1)[0].date;
-    		usageLineChart.x(d3.time.scale().domain([minDate2,maxDate2]));
-    		usageLineChart.render();
-			});
-
-		function brushExtent(){
-			console.log(barDateBrush.d3.brush.extent());
-		};
-
-		*/
-
 		function monthlyview(){
 	   		updateTimeInterval(dateDim.top(1)[0].hourDate, 2678400000)
 		};
@@ -134,7 +119,6 @@
 			barDateBrush.filterAll()
 			barDateBrush.filter([minDateDay, max]);
 		}
-
 
         var syncfilters = function(chart, otherChart){
         	if(!chart.dontlisten){
@@ -251,20 +235,18 @@
 	        	return dayDate;
    	    }).reduceSum(function (d) {return d.usage;});
 
+   	    usageSumDate.dispose();
+
    	    var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
 
-   	    var usageSumMonth = hourDim.group(function (d){
-   	    	var month = new Date(0)
-	        	month.setFullYear(d.getFullYear())
-	        	month.setMonth(d.getMonth())
-	        	return month;
-   	    }).reduceSum(function (d) {return d.usage;});
+
 
 
    	    function reduceAddAvg(p,v) {
    	    	++p.hours
    	    	p.elUse  += v.meanUse;
    	    	p.avg = p.elUse/p.hours;
+   	    	p.meter = v.meter;
    	    	return p;
    	    }
    	    function reduceRemoveAvg(p,v) {
@@ -274,10 +256,11 @@
    	    	return p;
    	    }
    	    function reduceInitAvg() {
-   	    	return {hours:0, elUse:0, avg:0};
+   	    	return {hours:0, elUse:0, avg:0, meter:""};
    	    }
    	    
    	    var meterHourAvg = meterDim.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg);
+
 
 
    	    function allReduceAddAvg(p,v) {
@@ -324,6 +307,7 @@
    	    		refSum += p.nrWeekdays[i]*refDays[i]/24;
    	    	}
    	    	p.change = (p.usage-refSum)/refSum;
+   	    	p.meter = v.meter;
    	    	return p;
    	    }
    	    function bubbleReduceRemove(p,v){
@@ -349,21 +333,103 @@
 
    	    }
    	    function bubbleReduceInit(){
-   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0}
+   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0, meter:""}
 
    	    }
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
 
 
+   	    function monthReduceAdd(p,v) {
+   	    	++p.hours
+   	    	if (p.meters.indexOf(v.meter) == -1){ 
+   	    		p.meters[p.meters.length] = v.meter;
+   	    		p.users += v.nrUsers;
+   	    	};
+
+   	    	p.monthlyUse += v.usage;
+   	    	p.monthlyUseAvg = p.monthlyUse/p.users;
+   	    	return p;
+   	    }
+   	    function monthReduceRemove(p,v) {
+   	    	--p.hours
+   	    	if (p.meters.indexOf(v.meter) !== -1){
+   	    		p.meters.splice(p.meters.indexOf(v.meter),1);
+   	    		p.users -= v.nrUsers;
+   	    	};
+
+   	    	p.monthlyUse -= v.usage;
+   	    	p.monthlyUseAvg = p.monthlyUse/p.users;
+   	    	return p;
+   	    }
+   	    function monthReduceInit() {
+   	    	return {hours:0, users:0, monthlyUse:0, monthlyUseAvg:0, meters:[]};
+   	    }
+   	    
+   	    var usageSumMonth = hourDim.group(function (d){
+   	    	var month = new Date(0)
+	        	month.setFullYear(d.getFullYear())
+	        	month.setMonth(d.getMonth())
+	        	return month;
+   	    }).reduce(monthReduceAdd, monthReduceRemove, monthReduceInit);
+
+/*
+   	    function minMaxReduceAdd(p,v){
+   	    	if (v.usage < p.min){
+   	    		p.min = v.usage;
+   	   // 		p.minMax[0] = p.min;
+   	    	}
+   	    	if (v.usage > p.max){
+   	    		p.max = v.usage;
+   	    //		p.minMax[1] = p.max;
+   	    	}
+   	    	
+   	    	return p;
+   	    }
+
+   	    function minMaxReduceRemove(p,v){
+   	    	return p;
+   	    }
+
+   	    function minMaxReduceInit(){
+   	    	return {minMax:[0,0], min:Infinity, max:0, keyDate:new Date(0)}
+   	    }
+
+
+
+   	    var maxMinGroup = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	
+	        	if (d.getHours() <= 5){
+	        		dayDate.setHours(0);
+	        		//console.log("morgon",dayDate);
+	        	}
+	        	else if (d.getHours() > 5 && d.getHours() <= 17){
+	        		dayDate.setHours(12)
+	        		//console.log("dag",dayDate);
+	        	}
+	        	else {dayDate.setHours(24);
+	        		//console.log("kväll",dayDate);
+	        	}
+	        	return dayDate;
+   	    }).reduce(minMaxReduceAdd, minMaxReduceRemove, minMaxReduceInit);
+
+*/
+
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
+
+		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a"]).range(["purple", "steelblue", "orange"]);
 
         var bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
         	.dimension(meterDim)
         	.group(changeBubble)
-      //  	.colorAccessor(function (d) { return d.value.usage})
-        	.keyAccessor(function (p) { return p.value.usage/(p.value.dataPoints*p.value.users);})
+      		.colors(colorScale)
+      		.colorAccessor(function (d) { return d.value.meter;})
+			.keyAccessor(function (p) { return p.value.usage/(p.value.dataPoints*p.value.users);})
         	.valueAccessor(function (p) { return p.value.change;})
         	.radiusValueAccessor(function (p) { return p.value.users;})
         	.maxBubbleRelativeSize(0.1)
@@ -371,10 +437,9 @@
         	.y(d3.scale.linear().domain([0.5,-0.5]))
         	.r(d3.scale.linear().domain([0, 1000]))
         	.renderHorizontalGridLines(true)
-        //	.elasticX(true)
-        //	.elasticY(true)
         	.yAxisPadding(100)
         	.xAxisPadding(500)
+
 
         	.on('filtered', function(chart, filter){
         		syncfilters(chart, meterChart);
@@ -383,20 +448,31 @@
         var today = new Date();
         var oneYearAgo = new Date();
         oneYearAgo.setFullYear(oneYearAgo.getFullYear()-1);
-        console.log(oneYearAgo, "last year")
-
+        
         var monthChart = dc.barChart("#month-chart");
         monthChart
         	.dimension(hourDim)
         	.group(usageSumMonth)
-       // 	.xUnits(dc.units.ordinal)
-        //	.x(d3.scale.ordinal())
           	.x(d3.time.scale().domain([oneYearAgo, today]))
 		    .xUnits(function (d){return 20})
-		    .on("click", monthChart.filter())
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
           	.centerBar(true)
+          	.valueAccessor(function (d){ 
+          		return d.value.monthlyUseAvg;})
+        	.y(d3.scale.linear().domain([0,150]))
+
+			monthChart.renderlet(function (chart) {
+			  chart.selectAll('rect').on("click", function (d) {
+			    var minDate = d.x;
+			    var maxDate = new Date(minDate);
+			    maxDate.setMonth(maxDate.getMonth()+1);
+			    maxDate.setHours(maxDate.getHours()-1);
+			    chart.filterAll();
+			    chart.filter([minDate,maxDate]);
+			    syncfilters(chart,barDateBrush);
+			  });
+			});
 
 
         var meterChart = dc.rowChart("#meter-chart");
@@ -405,11 +481,16 @@
 			.group(meterHourAvg)
 			.valueAccessor(function (d) { return d.value.avg; })
 	      	.margins({ top: 50, left: 50, right: 50, bottom: 25 })
-	      	.elasticX(true)
+
+	      	.colors(colorScale)
+	      	.colorAccessor(function (d) { return d.value.meter;})
 
         	.on('filtered', function(chart, filter){
         		syncfilters(chart, bubbleChart);
         	})
+	   //   	.x(d3.scale.linear().domain([0,0.25]))
+	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
+	     // 	.elasticX(true)
 
         var barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
@@ -422,19 +503,6 @@
 
         	.yAxis().ticks(0)
 
-        	
-  /*    barDateBrush.renderlet(function(barDateBrush){     	
-        	var minDate = hourDim.bottom(1)[0].hourDate;
-        	var maxDate = hourDim.top(1)[0].hourDate;
-
-  			dc.events.trigger(function(){
-					//hourDim.filterAll();
-        			//usageLineChart.focus(barDateBrush.filter());
-        			
-    		}, 1000);
-		})	*/
-
-
 
     	var usageLineChart  = dc.compositeChart("#usage-line-chart");
 
@@ -444,29 +512,36 @@
 		    .rangeChart(barDateBrush)
 		    .xUnits(d3.time.days)
 		    .brushOn(false) 
+		    .elasticY(true)
+		    .on('filtered', function(chart,filter){
+						if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+						}
+					})
 	      	.compose([
 		        dc.lineChart(usageLineChart)
 		        	.group(lineHourAvg)
-					.valueAccessor(function (d) { return d.value.allAvg; })
+		        	.valueAccessor(function (d) { return d.value.allAvg})
+		        //	.group(maxMinGroup)
+					/*.valueAccessor(function (d) {  
+						for (i = 0; i = maxMinGroup.size; i++){
+							if (i % 2 == 0){ return d.value.max}
+							else {return d.value.min}
+						}
+					})*/
 					.dashStyle([15,6])
-					.colors("grey"),
+					.colors("grey")
+					.on('filtered', function(chart,filter){
+						if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+						}
+					}),
 				dc.lineChart(usageLineChart)
 					.group(usageAvgMeter)
-		        	.brushOn(false)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
+					//.group(maxMinGroup)
+					//.valueAccessor(function (d) { return d.value.max;})
+		        	.brushOn(false)
 	      		]);
 
-
-
-        	//margins({ top: 50, left: 50, right: 50, bottom: 100 })
-
-        	/*.renderlet(function (barDateBrush){
-        		if (barDateBrush.filter()[1] - barDateBrush.filter()[0] <= 2678400000) {
-        			usageLineChart.group(usageMeanHour)
-        		}
-    			else usageLineChart.group(usageAvgHour);
-        	})
-		*/
 	    
 	    dc.renderAll(); 
 
