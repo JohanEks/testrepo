@@ -12,6 +12,7 @@
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
+		<link rel="stylesheet" type="text/css" href="style.css"> 
 
 	</head>
 <!--<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
@@ -45,24 +46,25 @@
 		    	</div>
 			</div>
 			<div class="row" style="">
-		    	<a href="#meter">
-		    		<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
+		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
+		    			<a href="#meter">
+		    				<div class="circularMeter"></div>
+		    			</a>
 			    		<h2>Vilken mätare tillhör jag?</h2>
-			    		<p>Klicka här för att ta reda på det.</p>
+			    		<p>Beroende på var i huset du sitter tillhör du en av de tio elmätarna.</p>
+			    		<a class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
 			    	</div>
-			    </a>
-		    	<a href="#environment">
-		    		<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
+		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
 		    			<h2>Miljöpåverkan</h2>
 		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
+			    		<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
 		    		</div>
-		    	</a>
-		    	<a href="#info">
-			    	<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
+			    	<div class="col-md-4" style="height:30vh; text-align:center; color:black">
 			    		<h2>Intressant information?</h2>
-			    		<p>Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
+			    		<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
+			    		<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>
+
 			    	</div>
-			    </a>
 			
 			</div>
 			<div id="container" style="width:70%; margin-left:auto; margin-right:auto">
@@ -90,12 +92,12 @@
 								<h2> Om du...</h2>
 							</div>
 							<div class="col-md-6">
-								<h2> Så sparar du...</h2>
+								<h2> så sparar du...</h2>
 							</div>
 						</div>
 						<div class="row">	
 							<div class="col-md-6">
-								<p>...stänger av datorn på lunchen</p>
+								<p>...stänger av datorn på lunchen,</p>
 							</div>
 							<div class="col-md-6">
 								<p>...20 kWh om året vilket motsvara två kilogram koldioxid</p>
@@ -103,7 +105,7 @@
 						</div>
 						<div class="row">	
 							<div class="col-md-6">
-								<p>...släcker efter dig i konferensrum</p>
+								<p>...släcker efter dig i konferensrum,</p>
 							</div>
 							<div class="col-md-6">
 								<p>...ganska mycket!</p>
@@ -112,11 +114,15 @@
 					</div>
 				</div>
 				<div id="info" class="row" style="height:100vh">
-					<h1>Intressant information</h1>
-					<p>Det här är ett examensarbete som syftar till att visualisera elförbrukningen i Swecos kontor i Marieberg.</p>
-					<p>Kontakta gärna oss med ytterligare förslag på hur det går att minska elförbrukning.</p>
-					<p>Återigen, släck lampan!</p>
-				</div>
+					<div class="col-md-8">
+						<h1>Intresserad av att veta mer?</h1>
+						<p>Det här är ett examensarbete som syftar till att visualisera elförbrukningen i Swecos kontor i Marieberg.</p>
+						<p>Kontakta gärna oss om du har några synpunkter eller funderingar kring sidan eller om du har ytterligare förslag på hur det går att minska elförbrukningen.</p>
+						<p>Återigen, släck lampan!</p>
+					</div>
+					<div class="col-md-4">
+						<img src="img/contact.jpg" alt="Kontakta oss" style="height:60vh">
+					</div>
 			</div>
 		</div>
 
