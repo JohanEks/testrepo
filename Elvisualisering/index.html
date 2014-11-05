@@ -14,7 +14,7 @@
 		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
 
 	</head>
-<!--
+<!--<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
 
 		    	-->
 
@@ -22,10 +22,9 @@
 	    <div class="container-fluid">
 	    	<div class="row">
 	    		<div class="col-md-4" id="meter-chart" style="height:30vh">
-	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
 	    		</div>
 	    		<div class="col-md-8" id="bubble-chart" style="height:30vh">
-	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+	    			
 	    	</div></div>
 	    
 	    	<div class="row">
@@ -35,31 +34,31 @@
 		    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
 		    	</div>
 	    		<div class="col-md-8" id="bar-date-brush" style="height:10vh">
-	    			<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></div>
+	    		</div>
 		    </div>
 		    <div class="row">
 		    	<div class="col-md-6" id="usage-line-chart" style="height:30vh">
-		    		<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+		    		
 		    	</div>
 		    	<div class="col-md-6" id="month-chart" style="height:30vh">
-		    		<span class="reset" style="display: none;">Current filter: <span class="filter"></span>
+		    		
 		    	</div>
 			</div>
-			<div class="row" style="background-color: #B8B8B8">
+			<div class="row" style="">
 		    	<a href="#meter">
-		    		<div class="col-md-4" style="height:30vh; a:hover{background-color: grey}">
+		    		<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
 			    		<h2>Vilken mätare tillhör jag?</h2>
 			    		<p>Klicka här för att ta reda på det.</p>
 			    	</div>
 			    </a>
 		    	<a href="#environment">
-		    		<div class="col-md-4" style="height:30vh">
+		    		<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
 		    			<h2>Miljöpåverkan</h2>
 		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
 		    		</div>
 		    	</a>
 		    	<a href="#info">
-			    	<div class="col-md-4" style="height:30vh">
+			    	<div class="col-md-4" style="height:30vh; border-style:solid; color:black">
 			    		<h2>Intressant information?</h2>
 			    		<p>Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
 			    	</div>
@@ -75,10 +74,37 @@
 						<li>Udda våningsplan i höghuset tillhör mätare 228.</li>
 					</ul>
 				</div>
-				<div id="environment" class="row" style="background-color:#FFEBFF; height:70vh">
-					<h1>Miljöpåverkan</h1>
-					<p>Så här kan du minska din elförbrukning</p>
-					<p>Släck lampan!</p>
+				<div id="environment" class="row" style="height:70vh">
+					<div class="col-md-4">
+						<img src="img/treebulb.png" alt="Spara el" style="height:60vh">
+					</div> 
+					<div class="col-md-8">
+						<h1>Miljöpåverkan</h1>
+						<div class="row">	
+							<div class="col-md-6">
+								<h2> Om du...</h2>
+							</div>
+							<div class="col-md-6">
+								<h2> Så sparar du...</h2>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-md-6">
+								<p>...stänger av datorn på lunchen</p>
+							</div>
+							<div class="col-md-6">
+								<p>...20 kWh om året vilket motsvara två kilogram koldioxid</p>
+							</div>
+						</div>
+						<div class="row">	
+							<div class="col-md-6">
+								<p>...släcker efter dig i konferensrum</p>
+							</div>
+							<div class="col-md-6">
+								<p>...ganska mycket!</p>
+							</div>
+						</div>													
+					</div>
 				</div>
 				<div id="info" class="row" style="background-color:#F5FFF5; height:100vh">
 					<h1>Intressant information</h1>
