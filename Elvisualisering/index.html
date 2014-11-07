@@ -45,6 +45,9 @@
 		    		
 		    	</div>
 			</div>
+			<div class="row">
+				<div class="col-md-12" id="day-chart" style="height:30vh"></div>
+			</div> 
 			<div class="row" style="">
 		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
 		    			<a href="#meter">
@@ -323,6 +326,7 @@
    	    var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
    	    lineHourAvg.dispose();
    	    
+
    	    var usageAvgMeter = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
 
    	    function bubbleReduceAdd(p,v){
@@ -376,30 +380,30 @@
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
 
 
-   	    function monthReduceAdd(p,v) {
+   	    function sumAvgReduceAdd(p,v) {
    	    	++p.hours
    	    	if (p.meters.indexOf(v.meter) == -1){ 
    	    		p.meters[p.meters.length] = v.meter;
    	    		p.users += v.nrUsers;
    	    	};
 
-   	    	p.monthlyUse += v.usage;
-   	    	p.monthlyUseAvg = p.monthlyUse/p.users;
+   	    	p.sumUse += v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
    	    	return p;
    	    }
-   	    function monthReduceRemove(p,v) {
+   	    function sumAvgReduceRemove(p,v) {
    	    	--p.hours
    	    	if (p.meters.indexOf(v.meter) !== -1){
    	    		p.meters.splice(p.meters.indexOf(v.meter),1);
    	    		p.users -= v.nrUsers;
    	    	};
 
-   	    	p.monthlyUse -= v.usage;
-   	    	p.monthlyUseAvg = p.monthlyUse/p.users;
+   	    	p.sumUse -= v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
    	    	return p;
    	    }
-   	    function monthReduceInit() {
-   	    	return {hours:0, users:0, monthlyUse:0, monthlyUseAvg:0, meters:[]};
+   	    function sumAvgReduceInit() {
+   	    	return {hours:0, users:0, sumUse:0, sumUseAvg:0, meters:[]};
    	    }
    	    
    	    var usageSumMonth = hourDim.group(function (d){
@@ -407,7 +411,18 @@
 	        	month.setFullYear(d.getFullYear())
 	        	month.setMonth(d.getMonth())
 	        	return month;
-   	    }).reduce(monthReduceAdd, monthReduceRemove, monthReduceInit);
+   	    }).reduce(sumAvgReduceAdd, sumAvgReduceRemove, sumAvgReduceInit);
+
+
+
+   	    var usageSumDay = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduce(sumAvgReduceAdd, sumAvgReduceRemove, sumAvgReduceInit);
+
 
 /*
    	    function minMaxReduceAdd(p,v){
@@ -482,11 +497,12 @@
         		syncfilters(chart, meterChart);
         	})
 
-        var today = new Date();
-        var oneYearAgo = new Date();
+        var today = new Date(hourDim.top(1)[0].hourDate);
+        var oneYearAgo = new Date(hourDim.top(1)[0].hourDate);
         oneYearAgo.setFullYear(oneYearAgo.getFullYear()-1);
+        var oneWeekAgo = new Date(hourDim.top(1)[0].hourDate-604800000);
         
-        var monthChart = dc.barChart("#month-chart");
+       	var monthChart = dc.barChart("#month-chart");
         monthChart
         	.dimension(hourDim)
         	.group(usageSumMonth)
@@ -496,7 +512,7 @@
           	.brushOn(false)
           	.centerBar(true)
           	.valueAccessor(function (d){ 
-          		return d.value.monthlyUseAvg;})
+          		return d.value.sumUseAvg;})
         	.y(d3.scale.linear().domain([0,150]))
 
 			monthChart.renderlet(function (chart) {
@@ -511,6 +527,19 @@
 			  });
 			});
 
+        var dayChart = dc.barChart("#day-chart");
+        dayChart
+        	.dimension(hourDim)
+        	.group(usageSumDay)
+          	.x(d3.time.scale().domain([oneWeekAgo, today]))
+		    .xUnits(function (d){return 20})
+	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+          	.brushOn(false)
+          	.centerBar(true)
+          	.valueAccessor(function (d){ 
+          		return d.value.sumUseAvg;})
+          	.y(d3.scale.linear().domain([0,5]))
+          	
 
         var meterChart = dc.rowChart("#meter-chart");
 		meterChart
@@ -582,7 +611,7 @@
 	    
 	    dc.renderAll(); 
 
-	    updateTimeInterval(new Date, 2678400000);
+	    updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
 	    barDateBrush.render();
 
 
