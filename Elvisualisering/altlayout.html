@@ -24,26 +24,39 @@
 	    	<div class="row">
 	    		<div class="col-md-4" id="meter-chart" style="height:30vh">
 	    		</div>
-	    		<div class="col-md-8" id="bubble-chart" style="height:30vh">
-	    			
-	    	</div></div>
+	    		<div class="col-md-4" id="month-chart" style="height:30vh">
+	    		</div>
+	    		<div class="col-md-4" id="day-chart" style="height:30vh">
+	    	</div>
 	    
 	    	<div class="row">
-	    		<div class="col-md-4" style="height:10vh">
-	    			<button type = "button" class="btn btn-default" onclick="monthlyview()">Månadsvy</button>
-	    			<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
-		    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
+	    		<div class="col-md-4" style="height:30vh">
+	    			<h2>Miljöpåverkan</h2>
+		    		<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
+			    	<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
 		    	</div>
-	    		<div class="col-md-8" id="bar-date-brush" style="height:10vh">
+	    		<div class="col-md-8" id="bubble-chart" style="height:30vh">
 	    		</div>
 		    </div>
 		    <div class="row">
-		    	<div class="col-md-6" id="usage-line-chart" style="height:30vh">
-		    		
+		    	<div class="col-md-4"style="height:30vh">
+			    	<h2>Intressant information?</h2>
+			    	<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
+			    	<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
 		    	</div>
-		    	<div class="col-md-6" id="month-chart" style="height:30vh">
-		    		
-		    	</div>
+		    	<div class="col-md-8" style="height:30vh">
+		    		<div class="row">
+		    			<div class="col-md-4" id="" style="height:8vh">
+		    				<button type = "button" class="btn btn-default" onclick="monthlyview()">Månadsvy</button>
+		    				<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
+			    			<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
+		    			</div>
+
+		    			<div class="col-md-8" id="bar-date-brush" style="height:8vh"></div>
+		    		</div>
+		    		<div class="row">
+		    			<div class="col-md-12" id="usage-line-chart" style="height:22vh"></div>
+		    		</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12" id="day-chart" style="height:30vh"></div>
@@ -58,14 +71,10 @@
 			    		<a class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
 			    	</div>
 		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
-		    			<h2>Miljöpåverkan</h2>
-		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
-			    		<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
+		    			
 		    		</div>
 			    	<div class="col-md-4" style="height:30vh; text-align:center; color:black">
-			    		<h2>Intressant information?</h2>
-			    		<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
-			    		<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>
+
 
 			    	</div>
 			
