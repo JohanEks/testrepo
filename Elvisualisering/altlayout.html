@@ -20,37 +20,87 @@
 		    	-->
 
 	<body>
-	    <div class="container-fluid">
-	    	<div class="row">
-	    		<div class="col-md-4" id="meter-chart" style="height:30vh">
-	    		</div>
-	    		<div class="col-md-4" style="height:30vh">
-	    			<div class="row">
-	    				<div class="col-md-12" id="month-chart" style="height:25vh"></div> 
-	    			</div>
-	    			<div class="row"style="height:5vh; text-align:center">
-	    				<p>Elanvändning per person under det gångna året.</p> 
-	    			</div> 
-	    		</div>
-	    		<div class="col-md-4" style="height:30vh">
-	    			<div class="row">
-	    				<div class="col-md-12" id="day-chart" style="height:25vh"></div> 
-	    			</div>
-	    			<div class="row"style="height:5vh; text-align:center">
-	    				<p>Elanvändning per person under den gångna veckan.</p> 
+	    <div class="container-fluid" style="margin-left:5px; margin-right:5px">
+	    	<h1 style="text-align:center">Visualisering av elanvändning i Marieberg</h1>
+	    	<div class="row" style="height:30vh">
+	    		<div class="col-md-4">
+	    			<div class="panel panel-default">
+	    				<div class="panel-heading" style="height:5vh; text-align:center">
+	    					<p class="panel-title">Elanvändning per person och dygn för de olika elmätarna.</p> 
+	    				</div>
+		    			<div class="panel-body">
+		    				<div class="col-md-12" id="meter-chart" style="height:25vh"></div> 
+		    			</div>
 	    			</div>
 	    		</div>
+	    		<div class="col-md-4">
+	    			<div class="panel panel-default">
+		    			<div class ="panel-heading" style="height:5vh; text-align:center">
+		    				<p class="panel-titel">Elanvändning samt förändring per person för det valda tidsintervallet</p>
+		    			</div>
+		    			<div class="panel-body">
+		    				<div class="col-md-12"  id="bubble-chart" style="height:25vh"></div>
+			    		</div>
+			    	</div>
+	    		</div>
+
+	    		<div class="col-md-4">
+	    			<div class="panel panel-default">
+		    			<div class ="panel-heading" style="height:5vh; text-align:center">
+		    				<p class="panel-titel">Timvis elanvändning per person för det valda tidsintervallet</p>
+		    			</div>
+		    			<div class="panel-body">
+			    			<div class="col-md-12"  id="usage-line-chart" style="height:25vh"></div>
+			    		</div>
+			    	</div>
+	    		</div>
+
 	    	</div>
-	    
-	    	<div class="row">
-	    		<div class="col-md-4" style="height:30vh; text-align:center">
-	    			<h2>Miljöpåverkan</h2>
-		    		<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
-			    	<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
+		    <div class="row" style="height:10vh">
+		    	<div class="col-md-4" style="text-align:center">
+			    		    		
 		    	</div>
-	    		<div class="col-md-8" id="bubble-chart" style="height:30vh">
-	    		</div>
+		    	<div class="col-md-8">
+			    	<div class="panel panel-default">
+			    		<div class="panel-body">
+				    		<div class="row" style="height:5vh">
+				    			<div clas="col-md-12" id="bar-date-brush" style="height:5vh; width:100%"></div>
+				    		</div>
+				    		<div class="row" style="height:5vh">
+				    			<button type = "button" class="btn btn-default" style="margin-left:30px" onclick="monthlyview()">Månadsvy</button>
+				    			<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
+					    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
+				    		</div>
+				    	</div>
+					</div>
+				</div>
+	    	</div>
+	    	<div class="row" style="height:30vh">	    		
+		    	<div class="col-md-4"style="text-align:center">
+			    		    		
+		    	</div>
+		    	<div class="col-md-4"> 
+		    		<div class="panel panel-default">
+		    			<div class="panel-heading"style="height:5vh; text-align:center">
+		    				<p class="panel-title">Elanvändning per person under det gångna året.</p> 
+		    			</div> 
+		    			<div class="panel-body">
+		    				<div class="col-md-12" id="month-chart" style="height:25vh"></div> 
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="col-md-4">
+		    		<div class="panel panel-default">
+		    			<div class="panel-heading" style="height:5vh; text-align:center">
+		    				<p class="panel-title">Elanvändning per person under den gångna veckan.</p> 
+		    			</div>
+		    			<div class="panel-body">
+		    				<div class="col-md-12" id="day-chart" style="height:25vh"></div> 
+		    			</div>
+		    		</div>
+		    	</div>
 		    </div>
+		    <!--
 		    <div class="row">
 		    	<div class="col-md-4"style="height:30vh; text-align:center">
 			    	<h2>Intressant information?</h2>
@@ -71,24 +121,26 @@
 		    			<div class="col-md-12" id="usage-line-chart" style="height:22vh"></div>
 		    		</div>
 			</div>
-			<div class="row">
-				<div class="col-md-12" id="day-chart" style="height:30vh"></div>
-			</div> 
+		-->
+
 			<div class="row" style="">
-		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
-		    			<a href="#meter">
+		    		<div class="col-md-4" style="height:25vh; text-align:center; color:black">
+		    			<!--<a href="#meter">
 		    				<div class="circularMeter"></div>
-		    			</a>
+		    			</a>-->
 			    		<h2>Vilken mätare tillhör jag?</h2>
 			    		<p>Beroende på var i huset du sitter tillhör du en av de tio elmätarna.</p>
 			    		<a class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
 			    	</div>
 		    		<div class="col-md-4" style="height:30vh; text-align:center; color:black">
-		    			
+		    			<h2>Miljöpåverkan</h2>
+		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
+			    		<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
 		    		</div>
 			    	<div class="col-md-4" style="height:30vh; text-align:center; color:black">
-
-
+						<h2>Intressant information?</h2>
+				    	<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
+				    	<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
 			    	</div>
 			
 			</div>
@@ -165,15 +217,15 @@
 
 
 		function monthlyview(){
-	   		updateTimeInterval(dateDim.top(1)[0].hourDate, 2678400000)
+	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000)
 		};
 
 		function weeklyview(){
-    		updateTimeInterval(dateDim.top(1)[0].hourDate, 604800000)
+    		updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000)
 		};
 
 		function dailyview(){
-			updateTimeInterval(dateDim.top(1)[0].hourDate, 86400000)
+			updateTimeInterval(hourDim.top(1)[0].hourDate, 86400000)
 		};
 
 		function updateTimeInterval(max, diff){
@@ -293,20 +345,16 @@
 	    }
 
 
+	    
 	    var ndx = crossfilter(objectifiedData);
-	    var dateDim = ndx.dimension(function (d) {
-      		return d.dayDate;
-    	});
 
-    	var hourDim = ndx.dimension(function (d) {
+	    var hourDim = ndx.dimension(function (d) {
     		return d.hourDate;
     	});
-
 
 	    var meterDim = ndx.dimension(function (d) {
 	    	return d.meter;
 	    });
-
 
 	    var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
 
@@ -570,14 +618,11 @@
 	        	
 	        	if (d.getHours() <= 5){
 	        		dayDate.setHours(0);
-	        		//console.log("morgon",dayDate);
 	        	}
 	        	else if (d.getHours() > 5 && d.getHours() <= 17){
 	        		dayDate.setHours(12)
-	        		//console.log("dag",dayDate);
 	        	}
 	        	else {dayDate.setHours(24);
-	        		//console.log("kväll",dayDate);
 	        	}
 	        	return dayDate;
    	    }).reduce(minMaxReduceAdd, minMaxReduceRemove, minMaxReduceInit);
@@ -605,11 +650,14 @@
         	.renderHorizontalGridLines(true)
         	.yAxisPadding(100)
         	.xAxisPadding(500)
+	      	.margins({ top: 10, left: 50, right: 50, bottom: 30 })
 
 
         	.on('filtered', function(chart, filter){
         		syncfilters(chart, meterChart);
         	})
+        	
+        	bubbleChart.yAxis().tickFormat(function (v) {return v*100 + '%';})
 
         var today = new Date(hourDim.top(1)[0].hourDate);
         var oneYearAgo = new Date(hourDim.top(1)[0].hourDate);
@@ -680,7 +728,7 @@
 			.dimension(meterDim)
 			.group(meterDayAvg)
 			.valueAccessor(function (d) { return d.value.avg; })
-	      	.margins({ top: 50, left: 50, right: 50, bottom: 25 })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 30 })
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
@@ -718,7 +766,7 @@
 						}
 					})
 	      	.compose([
-		        dc.lineChart(usageLineChart)
+		        /*dc.lineChart(usageLineChart)
 		        	.group(lineHourAvg)
 		        	.valueAccessor(function (d) { return d.value.allAvg})
 		        	//.group(maxMinGroup)
@@ -732,7 +780,7 @@
 				dc.lineChart(usageLineChart)
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
-		        	.colors("red"),
+		        	.colors("red"),*/
 				dc.lineChart(usageLineChart)
 					//.group(usageAvgMeter)
 		        	//.valueAccessor(function (d) { return d.value.allAvg;})
@@ -744,9 +792,10 @@
 	    
 	    dc.renderAll(); 
 
-	    updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
-	    barDateBrush.render();
 
+	    updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
+
+	    barDateBrush.render();
 
 	    </script>
 
