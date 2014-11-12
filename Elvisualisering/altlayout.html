@@ -21,7 +21,7 @@
 
 	<body>
 	    <div class="container-fluid" style="margin-left:5px; margin-right:5px">
-	    	<h1 style="text-align:center">Visualisering av elanvändning i Marieberg</h1>
+	    	<h1 style="text-align:center">Interaktiv visualisering av elanvändning i Marieberg</h1>
 	    	<div class="row" style="height:30vh">
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
@@ -702,8 +702,7 @@
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
           	.centerBar(true)
-          	.valueAccessor(function (d){ 
-          		return d.value.sumUseAvg;})
+          	.valueAccessor(function (d){ return d.value.sumUseAvg;})
           	.y(d3.scale.linear().domain([0,5]))
  			.yAxisLabel("kWh")
  			.minHeight(10)
@@ -750,7 +749,32 @@
         	.xUnits(d3.time.days)
 
         	.yAxis().ticks(0)
+/*
+      	function chooseHourGroup(){
+      		usageLineChart.on('filtered', function(chart,filter){
+      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+      				return maxMinGroup;
+      			}
+      			else {return lineHourAvg}
+      		})
+      	}
 
+      	function chooseMeterGroup(){
+      		usageLineChart.on('filtered', function(chart,filter){
+      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+      				return maxMinGroup;
+      			}
+      			else {return usageAvgMeter}
+      		})
+      	}
+      	function chooseValue(){
+      		usageLineChart.on('filtered', function(chart,filter){
+      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+      				return maxMin;
+      			}
+      			else {return allAvg}
+      		})
+      	}*/
 
     	var usageLineChart  = dc.compositeChart("#usage-line-chart");
 
@@ -761,12 +785,80 @@
 		    .xUnits(d3.time.days)
 		    .brushOn(false) 
 		    .elasticY(true)
+
+/*
+	      	.compose([
+		        dc.lineChart(usageLineChart)
+					.dashStyle([15,6])
+					.colors("grey")
+		        	if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+		        		usageLineChart.group(maxMinGroup)
+		        		usageLineChart.valueAccessor(function (d) { return d.value.maxMin})
+		        	}
+		        	else {
+		        		usageLineChart.group(lineHourAvg)
+		        		usageLineChart.valueAccessor(function (d) { return d.value.allAvg})
+		        	},
+		        	
+		        	//.group(chooseHourGroup)
+		        	//.valueAccessor(function (d) { return d.value.chooseValue})
+					
+				dc.lineChart(usageLineChart)
+		        	.colors("red")
+		        	if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+		        		usageLineChart.group(maxMinGroup)
+		        		usageLineChart.valueAccessor(function (d) { return d.value.maxMin})
+		        	}
+		        	else {
+		        		usageLineChart.group(usageAvgMeter)
+		        		usageLineChart.valueAccessor(function (d) { return d.value.allAvg})
+		        	},
+				//	.group(chooseMeterGroup)
+		        //	.valueAccessor(function (d) { return d.value.chooseValue})
+		    ])
+
+					
+				
+	*/
+	      	
+// --------------------------------------------------------------------------------------------------------------//
+//FUNKAR MEN VILL INTE HA RENDER, TAR TID! nÄR DEN BLÅA KOMMIT FRAM SÅ TAR DEN ETT KLICK EXTRA FÖR ATT FÖRSVINNA //
+//---------------------------------------------------------------------------------------------------------------//
+
+		    .on('filtered', function(chart,filter){
+				chart.render();
+				if (chart.filter()[1]-chart.filter()[0] > 2678400000){
+					chart.compose([
+						dc.lineChart(chart)
+				        	.group(maxMinGroup)
+							.valueAccessor(function (d) { return d.value.maxMin;})
+				        	.brushOn(false)
+				    ])
+			    }
+			    else {
+			      	chart.compose([
+				        dc.lineChart(chart)
+				        	.group(lineHourAvg)
+				        	.valueAccessor(function (d) { return d.value.allAvg})
+							.dashStyle([15,6])
+							.colors("grey")
+							,
+						dc.lineChart(usageLineChart)
+							.group(usageAvgMeter)
+				        	.valueAccessor(function (d) { return d.value.allAvg;})
+				        	.colors("red")
+			      	]);
+				}
+			})
+
+
+/*	----------------------------------------------------------  URSPRINGLIGA  ---------------------------------------------------------/*
 		    .on('filtered', function(chart,filter){
 						if (chart.filter()[1]-chart.filter()[0] > 2678400000){
 						}
 					})
 	      	.compose([
-		        /*dc.lineChart(usageLineChart)
+		        dc.lineChart(usageLineChart)
 		        	.group(lineHourAvg)
 		        	.valueAccessor(function (d) { return d.value.allAvg})
 		        	//.group(maxMinGroup)
@@ -780,7 +872,7 @@
 				dc.lineChart(usageLineChart)
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
-		        	.colors("red"),*/
+		        	.colors("red"),
 				dc.lineChart(usageLineChart)
 					//.group(usageAvgMeter)
 		        	//.valueAccessor(function (d) { return d.value.allAvg;})
@@ -788,7 +880,7 @@
 					.valueAccessor(function (d) { return d.value.maxMin;})
 		        	.brushOn(false)
 	      		]);
-
+*/
 	    
 	    dc.renderAll(); 
 
