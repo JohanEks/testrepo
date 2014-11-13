@@ -142,6 +142,7 @@
 	    <script src="data.js"></script>
 	    <script type="text/javascript">
 
+	var init = function(data){
 
 		function monthlyview(){
 	   		updateTimeInterval(dateDim.top(1)[0].hourDate, 2678400000)
@@ -173,66 +174,48 @@
         	}
         }
 
-
-		var nrOfPpls205b = 256;
-		var nrOfPpls207a = 166;
-		var nrOfPpls227a = 421;
-
-		
-		var data =[[s205b, nrOfPpls205b],[s207a,nrOfPpls207a],[s227a, nrOfPpls227a]];
-		
 		var objectifiedData =[];
 		
-		var totUsers = 0;
-		for (i = 0; i<data.length; i++){
-			totUsers += data[i][1];
-		}
-		var s205bRef=[0,0,0,0,0,0,0];
-		var s207aRef=[0,0,0,0,0,0,0];
-		var s227aRef=[0,0,0,0,0,0,0];
-
-		var s205bDays=[0,0,0,0,0,0,0];
-		var s207aDays=[0,0,0,0,0,0,0];
-		var s227aDays=[0,0,0,0,0,0,0];
+		var totUsers = 0;		
+		var refs = {};
+		var days = {};
 
 		startRefPeriod1 = new Date(2014,2,1);
 		endRefPeriod1 = new Date(2014,3,30,23,59);
 		startRefPeriod2 = new Date(2014,8,1);
 		endRefPeriod2 = new Date(2014,9,31,23,59);
-		
-		for (i = 0; i<data.length; i++){	
-			for (j = 0; j < data[i][0].length; j++) {
-	        	var usageDate = new Date(data[i][0][j][0]);
+
+		data.forEach(function(meter){
+			// add/generate metadata
+			totUsers += meter.people;
+			refs[meter.id] = [0,0,0,0,0,0,0];
+			days[meter.id] = [0,0,0,0,0,0,0];
+
+			meter.data.forEach(function(dataPoint){
+				var usageDate = new Date(dataPoint[0]);
 	        	var dayDate = new Date(0)
 	        	dayDate.setFullYear(usageDate.getFullYear())
 	        	dayDate.setMonth(usageDate.getMonth())
 	        	dayDate.setDate(usageDate.getDate())
-	        	var usage = data[i][0][j][1];
-	        	var nrUsers = data[i][1];
-	        	if (i==0) {
-	        		var meter = "s205b";
-	        		if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
-	        			s205bRef[dayDate.getDay()] += usage; 
-	        			++s205bDays[dayDate.getDay()]; 
-	        		}
+	        	var usage = dataPoint[1];
+	        	var nrUsers = meter.people;
+
+
+	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || 
+	        		dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
+	        			refs[meter.id][dayDate.getDay()] += usage; 
+	        			++days[meter.id][dayDate.getDay()]; 
 	        	}
-	        	else if (i==1) {
-	        		var meter ="s207a";
-	        		if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
-	        			s207aRef[dayDate.getDay()] += usage; 
-	        			++s207aDays[dayDate.getDay()];
-	        		}
-	        	}
-	         	else {
-	         		var meter ="s227a";
-	         		if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
-	        			s227aRef[dayDate.getDay()] += usage; 
-	        			++s227aDays[dayDate.getDay()];
-	        		}
-	        	}
-	        	objectifiedData[objectifiedData.length] = {hourDate: usageDate, dayDate: dayDate, usage: usage, meter: meter, meanUse: usage/nrUsers, nrUsers: nrUsers};
-	    	}	
-	    }
+	        	objectifiedData.push({	
+        			hourDate: usageDate, 
+        			dayDate: dayDate, 
+        			usage: usage, 
+        			meter: meter.id, 
+        			meanUse: usage/nrUsers, 
+        			nrUsers: nrUsers
+	        	})
+			});
+		});
 
 
 	    var ndx = crossfilter(objectifiedData);
@@ -327,20 +310,12 @@
    	    function bubbleReduceAdd(p,v){
    	    	++p.dataPoints;
    	    	++p.nrWeekdays[v.hourDate.getDay()]; 
-   	    	if (v.meter === "s205b"){
-   	    		var refDays = s205bRef;
-   	    	} 
-   	    	else if (v.meter === "s207a"){
-   	    		var refDays = s207aRef;
-   	    	}
-   	    	else {
-   	    		var refDays = s227aRef;
-   	    	}
+   	    	
    	    	p.users = v.nrUsers;
    	    	p.usage += v.usage;
    	    	refSum = 0;
    	    	for(i=0; i < p.nrWeekdays.length; i++){
-   	    		refSum += p.nrWeekdays[i]*refDays[i]/24;
+   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/24;
    	    	}
    	    	p.change = (p.usage-refSum)/refSum;
    	    	p.meter = v.meter;
@@ -349,23 +324,12 @@
    	    function bubbleReduceRemove(p,v){
    	    	--p.dataPoints
    	    	--p.nrWeekdays[v.hourDate.getDay()]; 
-   	    	if (v.meter === "s205b"){
-   	    		var refDays = s205bRef;
-   	    		var refPoints = s205bDays;
-   	    	} 
-   	    	else if (v.meter === "s207a"){
-   	    		var refDays = s207aRef;
-   	    		var refPoints = s207aDays;
-   	    	}
-   	    	else {
-   	    		var refDays = s227aRef;
-   	    		var refPoints = s227aDays;
-   	    	}
+   	    	
    	    	p.users = v.nrUsers;
    	    	p.usage -= v.usage;
    	    	refSum = 0;
    	    	for(i=0; i < p.nrWeekdays.length; i++){
-   	    		refSum += p.nrWeekdays[i]*refDays[i]/refPoints[i];
+   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];
    	    	}
    	    	p.change = (p.usage-refSum)/refSum;
    	    	return p;
@@ -614,6 +578,11 @@
 
 	    updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
 	    barDateBrush.render();
+	}
+	// so that we later can call this with data loaded dynamically
+	// currently hardcoded in data.js
+	init(data);
+	
 
 
 	    </script>
