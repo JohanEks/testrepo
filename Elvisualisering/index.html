@@ -144,15 +144,15 @@
 
 	var init = function(data){
 
-		function monthlyview(){
+		monthlyview = function (){
 	   		updateTimeInterval(dateDim.top(1)[0].hourDate, 2678400000)
 		};
 
-		function weeklyview(){
+		weeklyview = function(){
     		updateTimeInterval(dateDim.top(1)[0].hourDate, 604800000)
 		};
 
-		function dailyview(){
+		dailyview = function (){
 			updateTimeInterval(dateDim.top(1)[0].hourDate, 86400000)
 		};
 
@@ -429,7 +429,7 @@
 
 		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a"]).range(["purple", "steelblue", "orange"]);
 
-        var bubbleChart = dc.bubbleChart("#bubble-chart");
+        bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
         	.dimension(meterDim)
         	.group(changeBubble)
@@ -456,7 +456,7 @@
         oneYearAgo.setFullYear(oneYearAgo.getFullYear()-1);
         var oneWeekAgo = new Date(hourDim.top(1)[0].hourDate-604800000);
         
-       	var monthChart = dc.barChart("#month-chart");
+       	monthChart = dc.barChart("#month-chart");
         monthChart
         	.dimension(hourDim)
         	.group(usageSumMonth)
@@ -484,7 +484,7 @@
 			  });
 			});
 
-        var dayChart = dc.barChart("#day-chart");
+        dayChart = dc.barChart("#day-chart");
         dayChart
         	.dimension(hourDim)
         	.group(usageSumDay)
@@ -498,7 +498,7 @@
           	.y(d3.scale.linear().domain([0,5]))
           	
 
-        var meterChart = dc.rowChart("#meter-chart");
+        meterChart = dc.rowChart("#meter-chart");
 		meterChart
 			.dimension(meterDim)
 			.group(meterDayAvg)
@@ -515,7 +515,7 @@
 	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
 	     	.elasticX(true)
 
-        var barDateBrush = dc.barChart("#bar-date-brush");
+        barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
         	.height(65)
@@ -527,7 +527,7 @@
         	.yAxis().ticks(0)
 
 
-    	var usageLineChart  = dc.compositeChart("#usage-line-chart");
+    	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
       	usageLineChart
 	      	.dimension(hourDim)
