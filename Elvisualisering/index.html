@@ -77,7 +77,14 @@
 	    	</div>
 	    	<div class="row" style="height:30vh">	    		
 		    	<div class="col-md-4"style="text-align:center">
-			    		    		
+			    	<div class="panel panel-default">
+		    			<div class="panel-heading"style="height:5vh; text-align:center">
+		    				<p class="panel-title">Total förädring per person sedan projektets start</p> 
+		    			</div> 
+		    			<div class="panel-body">
+		    				<div class="col-md-12" id="accum-change-chart" style="height:25vh"></div> 
+		    			</div>
+		    		</div>		
 		    	</div>
 		    	<div class="col-md-4"> 
 		    		<div class="panel panel-default">
@@ -100,28 +107,6 @@
 		    		</div>
 		    	</div>
 		    </div>
-		    <!--
-		    <div class="row">
-		    	<div class="col-md-4"style="height:30vh; text-align:center">
-			    	<h2>Intressant information?</h2>
-			    	<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
-			    	<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
-		    	</div>
-		    	<div class="col-md-8" style="height:30vh">
-		    		<div class="row">
-		    			<div class="col-md-4" id="" style="height:8vh">
-		    				<button type = "button" class="btn btn-default" onclick="monthlyview()">Månadsvy</button>
-		    				<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
-			    			<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
-		    			</div>
-
-		    			<div class="col-md-8" id="bar-date-brush" style="height:8vh"></div>
-		    		</div>
-		    		<div class="row">
-		    			<div class="col-md-12" id="usage-line-chart" style="height:22vh"></div>
-		    		</div>
-			</div>
-		-->
 
 			<div class="row" style="">
 		    		<div class="col-md-4" style="height:25vh; text-align:center; color:black">
@@ -397,6 +382,14 @@
 	   	    group.unfiltered.dispose()
 	   	    usageAvgMeter = group;   
    	    }
+
+   	    var firstDec = new Date()
+   	    firstDec.setFullYear(2014)
+   	    firstDec.setMonth(10)
+   	    firstDec.setDate(8)
+   	    firstDec.setHours(0)
+   	    firstDec.setMinutes(0)
+   	    firstDec.setSeconds(0);
    	    
    	    
 
@@ -407,11 +400,17 @@
    	    	p.users = v.nrUsers;
    	    	p.usage += v.usage;
    	    	p.meter = v.meter;
-   	    	refSum = 0;
+   	    	var refSum = 0;
+   	    	var refUsage = 0;
    	    	for(i=0; i < p.nrWeekdays.length; i++){
-   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];
+   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];  // antalet måndagstimmar i det valda intervallet * referensmåndagsanv / antalet referensmåndagsh
+   	    		refUsage = p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];
    	    	}
-   	    	p.change = (p.usage-refSum)/refSum;
+   	    	p.change = (p.usage-refSum)/refSum;	// --> (måndagsanvändningen-referensmåndagsanvändningen)/referensmåndagsanvändningen
+   	    	if (v.hourDate >= firstDec){
+   	    		p.accumChange += (v.usage-refUsage)/p.users;
+   	    	//	console.log(v.hourDate, v.meter, "Användning", v.usage, "Referensvärde", refUsage, "Accumulerad förändring", p.accumChange);
+   	    	}
    	    	return p;
    	    }
    	    function bubbleReduceRemove(p,v){
@@ -430,7 +429,7 @@
 
    	    }
    	    function bubbleReduceInit(){
-   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0, meter:""}
+   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0, meter:"", accumChange:0, refUsage:0}
 
    	    }
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
@@ -491,8 +490,8 @@
    	    		if (p.maxMin === 0){
    	    			p.maxMin = p.avgUse;
    	    		}
-   	    		else if (p.maxMin>p.avgUse){
-   	    			p.maxMin=p.avgUse;
+   	    		else if (p.maxMin > p.avgUse){
+   	    			p.maxMin = p.avgUse;
    	    		}
 
    	    	} 
@@ -515,8 +514,8 @@
    	    		if (p.maxMin === 0){
    	    			p.maxMin = p.avgUse;
    	    		}
-   	    		else if (p.maxMin>p.avgUse){
-   	    			p.maxMin=p.avgUse;
+   	    		else if (p.maxMin > p.avgUse){
+   	    			p.maxMin = p.avgUse;
    	    		}
 
    	    	} 
@@ -663,6 +662,16 @@
 	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
 	     	.elasticX(true)
 
+	    accumChangeChart = dc.rowChart("#accum-change-chart");
+	    accumChangeChart
+	    	.dimension(meterDim)
+	    	.group(changeBubble)
+	    	.valueAccessor(function (d) { return d.value.accumChange;})
+	    	.colors(colorScale)
+	    	.colorAccessor(function (d) { return d.value.meter;})
+	    	.elasticX(true)
+
+
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
@@ -724,46 +733,6 @@
 		    .xUnits(d3.time.days)
 		    .brushOn(false) 
 		    .elasticY(true)
-
-/*
-	      	.compose([
-		        dc.lineChart(usageLineChart)
-					.dashStyle([15,6])
-					.colors("grey")
-		        	if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-		        		usageLineChart.group(maxMinGroup)
-		        		usageLineChart.valueAccessor(function (d) { return d.value.maxMin})
-		        	}
-		        	else {
-		        		usageLineChart.group(lineHourAvg)
-		        		usageLineChart.valueAccessor(function (d) { return d.value.allAvg})
-		        	},
-		        	
-		        	//.group(chooseHourGroup)
-		        	//.valueAccessor(function (d) { return d.value.chooseValue})
-					
-				dc.lineChart(usageLineChart)
-		        	.colors("red")
-		        	if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-		        		usageLineChart.group(maxMinGroup)
-		        		usageLineChart.valueAccessor(function (d) { return d.value.maxMin})
-		        	}
-		        	else {
-		        		usageLineChart.group(usageAvgMeter)
-		        		usageLineChart.valueAccessor(function (d) { return d.value.allAvg})
-		        	},
-				//	.group(chooseMeterGroup)
-		        //	.valueAccessor(function (d) { return d.value.chooseValue})
-		    ])
-
-					
-				
-	*/
-	      	
-// --------------------------------------------------------------------------------------------------------------//
-//FUNKAR MEN VILL INTE HA RENDER, TAR TID! nÄR DEN BLÅA KOMMIT FRAM SÅ TAR DEN ETT KLICK EXTRA FÖR ATT FÖRSVINNA //
-//---------------------------------------------------------------------------------------------------------------//
-
 		    .on('filtered', function(chart,filter){
 		    	var timediff = (chart.filter()[1]-chart.filter()[0]);
 		    	var group = usageLineChartFiltered.group();
@@ -784,7 +753,7 @@
 	      			usageLineChartUnfiltered,
 					usageLineChartFiltered
 	      		]);
-*/
+
 	    
 	    dc.renderAll(); 
 
