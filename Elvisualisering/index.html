@@ -216,6 +216,9 @@
 	    <script src="data.js"></script>
 	    <script type="text/javascript">
 
+	var maxPointsInLineChart = 150;
+	var groupByHours = [1,2,4,8,24];
+
 	var init = function(data){
 
 		monthlyview = function (){
@@ -370,7 +373,32 @@
    	    lineHourAvg.dispose();
    	    
 
-   	    var usageAvgMeter = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+   	    // Create groups for different levels of granularity (1-hour, 6-hour etc)
+   	    var prev;
+   	    var usageAvgMeter;
+   	    for(var i = 0; i < groupByHours.length; i++){
+
+   	    	var timediff = (1000*60*60*groupByHours[i]);
+   	    	var groupFunction = function (d){   	    	
+	   	    	return new Date(d.getTime()-d.getTime() % timediff);
+	   	    };
+
+   	    	var group = hourDim.group(groupFunction).reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+
+	   	    group.maxSpan = timediff*maxPointsInLineChart
+	   	    group.prev = prev;
+	   	    if(prev){
+	   	    	prev.next = group;
+	   	    }
+	   	    prev = group;
+	   	    
+	   	    // lets create an identical group, but dispose it so it doesn't get filtered
+	   	    group.unfiltered = hourDim.group(groupFunction).reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+	   	    group.unfiltered.dispose()
+	   	    usageAvgMeter = group;   
+   	    }
+   	    
+   	    
 
    	    function bubbleReduceAdd(p,v){
    	    	++p.dataPoints;
@@ -674,6 +702,21 @@
 
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
+
+    	usageLineChartFiltered = dc.lineChart(usageLineChart)
+					.group(usageAvgMeter)
+		        	.valueAccessor(function (d) { return d.value.allAvg;})
+					//.group(maxMinGroup)
+					//.valueAccessor(function (d) { return d.value.max;})
+		        	.brushOn(false)
+		usageLineChartUnfiltered = dc.lineChart(usageLineChart)
+		        	.group(usageAvgMeter.unfiltered)
+		        	.valueAccessor(function (d) { return d.value.allAvg})
+					.dashStyle([15,6])
+					.colors("grey")
+					.brushOn(false)
+
+
       	usageLineChart
 	      	.dimension(hourDim)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
@@ -722,59 +765,24 @@
 //---------------------------------------------------------------------------------------------------------------//
 
 		    .on('filtered', function(chart,filter){
-				chart.render();
-				if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-					chart.compose([
-						dc.lineChart(chart)
-				        	.group(maxMinGroup)
-							.valueAccessor(function (d) { return d.value.maxMin;})
-				        	.brushOn(false)
-				    ])
-			    }
-			    else {
-			      	chart.compose([
-				        dc.lineChart(chart)
-				        	.group(lineHourAvg)
-				        	.valueAccessor(function (d) { return d.value.allAvg})
-							.dashStyle([15,6])
-							.colors("grey")
-							,
-						dc.lineChart(usageLineChart)
-							.group(usageAvgMeter)
-				        	.valueAccessor(function (d) { return d.value.allAvg;})
-				        	.colors("red")
-			      	]);
-				}
+		    	var timediff = (chart.filter()[1]-chart.filter()[0]);
+		    	var group = usageLineChartFiltered.group();
+		    	
+		    	while(timediff > group.maxSpan && group.next) {
+		    		group = group.next;		    		
+		    	}
+		    	while(timediff < group.maxSpan && group.prev) {
+		    		group = group.prev;		    		
+		    	}
+		    	if(group!=usageLineChartFiltered.group()){
+		    		usageLineChartFiltered.group(group)
+		    		usageLineChartUnfiltered.group(group.unfiltered)
+		    	}
+
 			})
-
-
-/*	----------------------------------------------------------  URSPRINGLIGA  ---------------------------------------------------------/*
-		    .on('filtered', function(chart,filter){
-						if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-						}
-					})
 	      	.compose([
-		        dc.lineChart(usageLineChart)
-		        	.group(lineHourAvg)
-		        	.valueAccessor(function (d) { return d.value.allAvg})
-		        	//.group(maxMinGroup)
-		        	//.valueAccessor(function (d) { return d.value.maxMin})
-					.dashStyle([15,6])
-					.colors("grey")
-					.on('filtered', function(chart,filter){
-						if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-						}
-					}),
-				dc.lineChart(usageLineChart)
-					.group(usageAvgMeter)
-		        	.valueAccessor(function (d) { return d.value.allAvg;})
-		        	.colors("red"),
-				dc.lineChart(usageLineChart)
-					//.group(usageAvgMeter)
-		        	//.valueAccessor(function (d) { return d.value.allAvg;})
-					.group(maxMinGroup)
-					.valueAccessor(function (d) { return d.value.maxMin;})
-		        	.brushOn(false)
+	      			usageLineChartUnfiltered,
+					usageLineChartFiltered
 	      		]);
 */
 	    
