@@ -50,7 +50,7 @@
 		    				<p class="panel-titel">Timvis elanvändning per person för det valda tidsintervallet</p>
 		    			</div>
 		    			<div class="panel-body">
-			    			<div class="col-md-12"  id="usage-line-chart" style="height:25vh"></div>
+			    			<div class="col-md-12"  id="usage-line-chart" style="height:25vh"><span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></div>
 			    		</div>
 			    	</div>
 	    		</div>
@@ -733,20 +733,32 @@
 		    .xUnits(d3.time.days)
 		    .brushOn(false) 
 		    .elasticY(true)
-		    .on('filtered', function(chart,filter){
-		    	var timediff = (chart.filter()[1]-chart.filter()[0]);
+		    .on('preRedraw', function(chart){
+		    	var chart = barDateBrush;
 		    	var group = usageLineChartFiltered.group();
-		    	
-		    	while(timediff > group.maxSpan && group.next) {
-		    		group = group.next;		    		
-		    	}
-		    	while(timediff < group.maxSpan && group.prev) {
-		    		group = group.prev;		    		
-		    	}
-		    	if(group!=usageLineChartFiltered.group()){
-		    		usageLineChartFiltered.group(group)
-		    		usageLineChartUnfiltered.group(group.unfiltered)
-		    	}
+		    	if (chart.filter() != null){
+			    	var timediff = (chart.filter()[1]-chart.filter()[0]);
+			    	
+			    	
+			    	while(timediff > group.maxSpan && group.next) {
+			    		group = group.next;		    		
+			    	}
+			    	while(timediff < group.maxSpan && group.prev) {
+			    		group = group.prev;		    		
+			    	}
+			    	
+			    }
+			    else {
+			    	var group = usageLineChartFiltered.group();
+			    	while(group.next){
+			    		group=group.next;
+			    	}
+			    }
+
+			    if(group!=usageLineChartFiltered.group()){
+			    		usageLineChartFiltered.group(group)
+			    		usageLineChartUnfiltered.group(group.unfiltered)
+			    	}
 
 			})
 	      	.compose([
