@@ -310,14 +310,6 @@
 
    	    var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
 
-   	    var usageAvgHour  = hourDim.group(function (d){
-   	    	var dayDate = new Date(0)
-	        	dayDate.setFullYear(d.getFullYear())
-	        	dayDate.setMonth(d.getMonth())
-	        	dayDate.setDate(d.getDate())
-	        	return dayDate;
-   	    }).reduceSum(function (d) {return d.usage/24;});
-
    	    var usageSumDate = hourDim.group(function (d){
    	    	var dayDate = new Date(0)
 	        	dayDate.setFullYear(d.getFullYear())
