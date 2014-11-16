@@ -26,7 +26,7 @@
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
 	    				<div class="panel-heading" style="height:5vh; text-align:center">
-	    					<p class="panel-title">Elanvändning per person och dygn för de olika elmätarna.</p> 
+	    					<p class="panel-title">Välj din elmätare</p> 
 	    				</div>
 		    			<div class="panel-body">
 		    				<div class="col-md-12" id="meter-chart" style="height:25vh"></div> 
@@ -36,7 +36,7 @@
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
 		    			<div class ="panel-heading" style="height:5vh; text-align:center">
-		    				<p class="panel-titel">Elanvändning samt förändring per person för det valda tidsintervallet</p>
+		    				<p class="panel-titel">Hur ligger ni till?</p>
 		    			</div>
 		    			<div class="panel-body">
 		    				<div class="col-md-12"  id="bubble-chart" style="height:25vh"></div>
@@ -47,10 +47,10 @@
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
 		    			<div class ="panel-heading" style="height:5vh; text-align:center">
-		    				<p class="panel-titel">Timvis elanvändning per person för det valda tidsintervallet</p>
+		    				<p class="panel-titel">Jämför er förbrukning med snittet</p>
 		    			</div>
 		    			<div class="panel-body">
-			    			<div class="col-md-12"  id="usage-line-chart" style="height:25vh"><span class="reset" style="display: none;">Current filter: <span class="filter"></span></span></div>
+			    			<div class="col-md-12"  id="usage-line-chart" style="height:25vh"></div>
 			    		</div>
 			    	</div>
 	    		</div>
@@ -81,7 +81,7 @@
 		    	<div class="col-md-4"style="text-align:center">
 			    	<div class="panel panel-default">
 		    			<div class="panel-heading"style="height:5vh; text-align:center">
-		    				<p class="panel-title">Total förädring per person sedan projektets start</p> 
+		    				<p class="panel-title">Topplistan</p> 
 		    			</div> 
 		    			<div class="panel-body">
 		    				<div class="col-md-12" id="accum-change-chart" style="height:25vh"></div> 
@@ -91,7 +91,7 @@
 		    	<div class="col-md-4"> 
 		    		<div class="panel panel-default">
 		    			<div class="panel-heading"style="height:5vh; text-align:center">
-		    				<p class="panel-title">Elanvändning per person under det gångna året.</p> 
+		    				<p class="panel-title">Senaste året</p> 
 		    			</div> 
 		    			<div class="panel-body">
 		    				<div class="col-md-12" id="month-chart" style="height:25vh"></div> 
@@ -101,7 +101,7 @@
 		    	<div class="col-md-4">
 		    		<div class="panel panel-default">
 		    			<div class="panel-heading" style="height:5vh; text-align:center">
-		    				<p class="panel-title">Elanvändning per person under den gångna veckan.</p> 
+		    				<p class="panel-title">Senaste veckan</p> 
 		    			</div>
 		    			<div class="panel-body">
 		    				<div class="col-md-12" id="day-chart" style="height:25vh"></div> 
@@ -572,10 +572,12 @@
         	.x(d3.scale.linear().domain([0,5]))
         	.y(d3.scale.linear().domain([0.5,-0.5]))
         	.r(d3.scale.linear().domain([0, 1000]))
+        	.yAxisLabel("Förändring")
+        	.xAxisLabel("Förbrukning per timme")
         	.renderHorizontalGridLines(true)
         	.yAxisPadding(100)
         	.xAxisPadding(500)
-	      	.margins({ top: 10, left: 50, right: 50, bottom: 30 })
+	      	.margins({ top: 10, left: 50, right: 50, bottom: 50 })
 
 
         	.on('filtered', function(chart, filter){
@@ -601,6 +603,7 @@
           	.valueAccessor(function (d){ 
           		return d.value.sumUseAvg;})
         	.y(d3.scale.linear().domain([0,150]))
+        	.yAxisLabel("kWh")
  			.minHeight(10)
 
 			monthChart.renderlet(function (chart) {
@@ -652,17 +655,17 @@
 			.dimension(meterDim)
 			.group(meterDayAvg)
 			.valueAccessor(function (d) { return d.value.avg; })
-	      	.margins({ top: 10, left: 30, right: 50, bottom: 30 })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 50 })
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
-
         	.on('filtered', function(chart, filter){
         		syncfilters(chart, bubbleChart);
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
 	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
 	     	.elasticX(true)
+
 
 	    accumChangeChart = dc.rowChart("#accum-change-chart");
 	    accumChangeChart
@@ -735,6 +738,8 @@
 		    .xUnits(d3.time.days)
 		    .brushOn(false) 
 		    .elasticY(true)
+		    .yAxisLabel("kWh per person och timme")
+		    .margins({ top: 10, left: 60, right: 50, bottom: 50 })
 		    .on('preRedraw', function(chart){
 		    	var chart = barDateBrush;
 		    	var group = usageLineChartFiltered.group();
