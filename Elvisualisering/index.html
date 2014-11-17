@@ -289,6 +289,18 @@
 		  console.log("3");
 		  ga('send', 'event', 'div', 'click', 'month-chart-div');
 		});
+
+		$('#day-chart').on('click', function() {
+		  console.log("3");
+		  ga('send', 'event', 'div', 'click', 'month-chart-div');
+		});
+
+		$('#day-chart').on('click', function() {
+		  console.log("3");
+		  ga('send', 'event', 'day-chart', 'click', 'month-chart-div');
+		});
+
+
 		monthlyview = function (){
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000)
 		};
