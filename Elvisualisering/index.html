@@ -239,54 +239,7 @@
 				    				</div>
 				    			</div>
 				    		</div>
-				    	</div>
-						<!--<div class="row">	
-							<div class="col-md-6">
-								<h2>Vad du kan göra</h2>
-							</div>
-							<div class="col-md-6">
-								<h2>Konsekvenser</h2>
-							</div>
-						</div>
-						<div class="row">	
-							<div class="col-md-6">
-								<ul>
-									<li>När du lämnar din plats för att gå till ett möte, gå på lunch eller ta en fika</li>
-									<ul>
-										<li>stäng av skärmen</li>
-										<li>sätt datorn i strömsparläge - sessionen sparas och du kan snabbt återuppta ditt arbete när du kommer tillbaka</li>
-									</ul>
-									<li>När du går hem</li>
-									<ul>
-										<li>stäng av skärmen</li>
-										<li>stäng av datorn</li>
-									</ul>
-									<li>Övrigt</li>
-									<ul>
-										<li>Använd samma kaffekopp och vattenglas under hela dagen</li>
-										<li>Släck efter dig i konferensrummet</li>
-										<li>Stäng av kaffemaskiner, skrivare och dylikt under nätter och helger</li>
-									</ul>
-									<li></li>
-									<li>En skärm som lyser under lunchen drar lika mycket el som en dator som arbetar under en timme och släpper ut lika mycket CO2e som det går åt att odla 50 g potatis!</li>
-									<ul><li>Om alla på Marieberg stänger av skärmen på lunchen minskar kontoret sin elanvändning med 75 kWh dagligen, vilket motsvarar koldioxidutsläppen från odlingen av 75 kg potatis!</li></ul>
-								</ul>
-
-							</div>
-							<div class="col-md-6">
-								<ul>
-									<li>Genom att stänga av skärmen och sätta datorn i strömsparläge i totalt två timmar under dagen, jämfört med att bara lämna den, sparar du 0,14 kWh dagligen - det är ca 5% av din elförbrukning!</li>
-									<li>Genom att stänga av datorn och skärmen när du är klar för dagen, jämfört med att sätta den i strömsparläge, sparar du 0,04 kWh per natt. På en helg sparar du 0,15 kWh.</li>
-							</div>
-						</div>
-						<div class="row">	
-							<div class="col-md-6">
-								<p>...släcker efter dig i konferensrum,</p>
-							</div>
-							<div class="col-md-6">
-								<p>...ganska mycket!</p>
-							</div>
-						</div>							-->						
+				    	</div>		
 					</div>
 				</div>
 				<div id="info" class="row" style="height:100vh">
@@ -315,11 +268,27 @@
 	    <script src="data.js"></script>
 	    <script type="text/javascript">
 
+
+
 	var maxPointsInLineChart = 150;
 	var groupByHours = [1,2,4,8,24];
 
 	var init = function(data){
 
+		$('#month-chart').on('click', function() {
+		  console.log("1");
+		  ga('send', 'event', 'graph', 'click', 'month-chart-graph');
+		});
+
+		$('#month-chart').on('click', function() {
+		  console.log("2");
+		  ga('send', 'event', 'month-chart', 'click', 'month-chart');
+		});
+
+		$('#month-chart').on('click', function() {
+		  console.log("3");
+		  ga('send', 'event', 'div', 'click', 'month-chart-div');
+		});
 		monthlyview = function (){
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000)
 		};
