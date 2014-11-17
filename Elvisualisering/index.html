@@ -74,9 +74,9 @@
 		    			</div>
 		    			<div class="panel-body" style="height:7vh">
 		    				<div class="col-md-3">
-				    			<button type = "button" class="btn btn-default" style="margin-left:30px" onclick="monthlyview()">Månadsvy</button>
-				    			<button type = "button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
-					    		<button type = "button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
+				    			<button type = "button" id ="month-button" class="btn btn-default" style="margin-left:30px" onclick="monthlyview()">Månadsvy</button>
+				    			<button type = "button" id ="week-button" class="btn btn-default" onclick="weeklyview()">Veckovy</button>
+					    		<button type = "button" id ="day-button" class="btn btn-default" onclick="dailyview()">Dygnsvy</button>
 					    	</div>
 					    	<div class="col-md-9">
 				    			<div clas="col-md-12" id="bar-date-brush" style="width:100%; height:6vh"></div>
@@ -275,30 +275,54 @@
 
 	var init = function(data){
 
-		$('#month-chart').on('click', function() {
-		  console.log("1");
-		  ga('send', 'event', 'graph', 'click', 'month-chart-graph');
-		});
+//----------Google Analytics----------------
 
 		$('#month-chart').on('click', function() {
-		  console.log("2");
-		  ga('send', 'event', 'month-chart', 'click', 'month-chart');
-		});
-
-		$('#month-chart').on('click', function() {
-		  console.log("3");
-		  ga('send', 'event', 'div', 'click', 'month-chart-div');
+			console.log("month-chart")
+			ga('send', 'event', 'graph', 'click', 'month-chart-graph');
 		});
 
 		$('#day-chart').on('click', function() {
-		  console.log("3");
-		  ga('send', 'event', 'div', 'click', 'month-chart-div');
+			console.log("day-chart")
+			ga('send', 'event', 'graph', 'click', 'day-chart-graph');
 		});
 
-		$('#day-chart').on('click', function() {
-		  console.log("3");
-		  ga('send', 'event', 'day-chart', 'click', 'month-chart-div');
+		$('#month-button').on('click', function() {
+			console.log("month-button")
+			ga('send', 'event', 'time-button', 'click', 'month-button');
 		});
+
+		$('#week-button').on('click', function() {
+			console.log("week-button")
+			ga('send', 'event', 'time-button', 'click', 'week-button');
+		});
+
+		$('#day-button').on('click', function() {
+			console.log("day-button")
+			ga('send', 'event', 'time-button', 'click', 'day-button');
+		});
+
+		$('#bar-date-brush').on('click', function() {
+			console.log("bar-date-brush")
+			ga('send', 'event', 'bar-date-brush', 'click', 'bar-date-brush');
+		});
+
+		$('#meter-chart').on('click', function() {
+			console.log("meter-chart")
+			ga('send', 'event', 'meter-chart', 'click', 'meter-chart');
+		});
+
+		$('#bubble-chart').on('click', function() {
+			console.log("bubble-chart")
+			ga('send', 'event', 'bubble-chart', 'click', 'bubble-chart');
+		});
+
+		$('#meter-chart').on('click', function() {
+			console.log("meter-chart")
+			ga('send', 'event', 'meter-chart', 'click', 'meter-chart');
+		});
+
+
 
 
 		monthlyview = function (){
