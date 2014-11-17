@@ -127,17 +127,17 @@
 		    			</a>-->
 			    		<h2>Vilken mätare tillhör jag?</h2>
 			    		<p>Beroende på var i huset du sitter tillhör du en av de tio elmätarna.</p>
-			    		<a class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
+			    		<a id="meter-link" class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
 			    	</div>
 		    		<div class="col-md-4" style="height:28vh; text-align:center; color:black">
 		    			<h2>Miljöpåverkan</h2>
 		    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
-			    		<a class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
+			    		<a id="environment-link" class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
 		    		</div>
 			    	<div class="col-md-4" style="height:28vh; text-align:center; color:black">
 						<h2>Intressant information?</h2>
 				    	<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
-				    	<a class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
+				    	<a id="info-link" class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
 			    	</div>
 			
 			</div>
@@ -317,12 +317,30 @@
 			ga('send', 'event', 'bubble-chart', 'click', 'bubble-chart');
 		});
 
-		$('#meter-chart').on('click', function() {
-			console.log("meter-chart")
-			ga('send', 'event', 'meter-chart', 'click', 'meter-chart');
+		$('#usage-line-chart').on('click', function() {
+			console.log("usage-line-chart")
+			ga('send', 'event', 'usage-line-chart', 'click', 'usage-line-chart');
 		});
 
+		$('#accum-change-chart').on('click', function() {
+			console.log("accum-change-chart")
+			ga('send', 'event', 'accum-change-chart', 'click', 'accum-change-chart');
+		});
 
+		$('#meter-link').on('click', function() {
+			console.log("meter-link")
+			ga('send', 'event', 'internal-link', 'click', 'meter-link');
+		});
+
+		$('#environment-link').on('click', function() {
+			console.log("environment-link")
+			ga('send', 'event', 'internal-link', 'click', 'environment-link');
+		});
+
+		$('#info-link').on('click', function() {
+			console.log("info-link")
+			ga('send', 'event', 'internal-link', 'click', 'info-link');
+		});
 
 
 		monthlyview = function (){
