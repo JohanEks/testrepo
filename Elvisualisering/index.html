@@ -306,12 +306,21 @@
 				console.log("meter-chart",meterChart.filters()[0])
 				ga('send', 'event', 'meter-chart', 'click', meterChart.filters()[0]);
 			}
-			else {ga('send', 'event', 'meter-chart', 'click', 'unfiltered');
-				console.log("meter-chart","unfiltered")}
+			else {
+				ga('send', 'event', 'meter-chart', 'click', 'unfiltered');
+				console.log("meter-chart","unfiltered")
+			}
 		});
 
 		$('#bubble-chart').on('click', function() {
-			ga('send', 'event', 'bubble-chart', 'click', 'bubble-chart');
+			if (bubbleChart.filters().length>0){
+				console.log("bubble-chart",bubbleChart.filters()[0])
+				ga('send', 'event', 'bubble-chart', 'click', bubbleChart.filters()[0]);
+			}
+			else {
+				ga('send', 'event', 'bubble-chart', 'click', 'unfiltered');
+				console.log("bubble-chart","unfiltered")
+			}
 		});
 
 		$('#usage-line-chart').on('click', function() {
