@@ -308,8 +308,11 @@
 		});
 
 		$('#meter-chart').on('click', function() {
-			console.log("meter-chart")
-			ga('send', 'event', 'meter-chart', 'click', 'meter-chart');
+			if (meterChart.filters().length>0){
+				console.log("meter-chart",meterChart.filters())
+				ga('send', 'event', 'meter-chart', 'click', meterChart.filters()[0]);
+			}
+			else {ga('send', 'event', 'meter-chart', 'click', 'unfiltered');}
 		});
 
 		$('#bubble-chart').on('click', function() {
@@ -329,17 +332,17 @@
 
 		$('#meter-link').on('click', function() {
 			console.log("meter-link")
-			ga('send', 'event', 'internal-link', 'click', 'meter-link');
+			ga('send', 'event', 'meter-link', 'click', 'meter-link');
 		});
 
 		$('#environment-link').on('click', function() {
 			console.log("environment-link")
-			ga('send', 'event', 'internal-link', 'click', 'environment-link');
+			ga('send', 'event', 'environment-link', 'click', 'environment-link');
 		});
 
 		$('#info-link').on('click', function() {
 			console.log("info-link")
-			ga('send', 'event', 'internal-link', 'click', 'info-link');
+			ga('send', 'event', 'info-link', 'click', 'info-link');
 		});
 
 
@@ -361,8 +364,22 @@
 			barDateBrush.filter([minDateDay, max]);
 		}
 
+		var onefilter = function(chart, otherChart){
+        	if(!chart.dontlisten1){
+    			otherChart.dontlisten1 = true;
+				var filters = chart.filters();
+				if (filters.length > 1){
+					var lastFilter = filters[filters.length-1];
+					chart.filterAll();
+					chart.filter(lastFilter);
+				}
+        		otherChart.dontlisten1 = false;
+        	}
+        }
+
         var syncfilters = function(chart, otherChart){
         	if(!chart.dontlisten){
+        		console.log("syncfilters");
     			otherChart.dontlisten = true;
     			otherChart.filterAll();
     			chart.filters().forEach(function(e){
@@ -716,6 +733,7 @@
 
 
         	.on('filtered', function(chart, filter){
+        		onefilter(chart, meterChart);
         		syncfilters(chart, meterChart);
         	})
         	
@@ -795,6 +813,7 @@
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
         	.on('filtered', function(chart, filter){
+        		onefilter(chart, bubbleChart);
         		syncfilters(chart, bubbleChart);
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
