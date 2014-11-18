@@ -278,70 +278,59 @@
 //----------Google Analytics----------------
 
 		$('#month-chart').on('click', function() {
-			console.log("month-chart")
 			ga('send', 'event', 'month-chart', 'click', 'month-chart-graph');
 		});
 
 		$('#day-chart').on('click', function() {
-			console.log("day-chart")
 			ga('send', 'event', 'day-chart', 'click', 'day-chart-graph');
 		});
 
 		$('#month-button').on('click', function() {
-			console.log("month-button")
 			ga('send', 'event', 'time-button', 'click', 'month-button');
 		});
 
 		$('#week-button').on('click', function() {
-			console.log("week-button")
 			ga('send', 'event', 'time-button', 'click', 'week-button');
 		});
 
 		$('#day-button').on('click', function() {
-			console.log("day-button")
 			ga('send', 'event', 'time-button', 'click', 'day-button');
 		});
 
 		$('#bar-date-brush').on('click', function() {
-			console.log("bar-date-brush")
 			ga('send', 'event', 'bar-date-brush', 'click', 'bar-date-brush');
 		});
 
 		$('#meter-chart').on('click', function() {
 			if (meterChart.filters().length>0){
-				console.log("meter-chart",meterChart.filters())
+				console.log("meter-chart",meterChart.filters()[0])
 				ga('send', 'event', 'meter-chart', 'click', meterChart.filters()[0]);
 			}
-			else {ga('send', 'event', 'meter-chart', 'click', 'unfiltered');}
+			else {ga('send', 'event', 'meter-chart', 'click', 'unfiltered');
+				console.log("meter-chart","unfiltered")}
 		});
 
 		$('#bubble-chart').on('click', function() {
-			console.log("bubble-chart")
 			ga('send', 'event', 'bubble-chart', 'click', 'bubble-chart');
 		});
 
 		$('#usage-line-chart').on('click', function() {
-			console.log("usage-line-chart")
 			ga('send', 'event', 'usage-line-chart', 'click', 'usage-line-chart');
 		});
 
 		$('#accum-change-chart').on('click', function() {
-			console.log("accum-change-chart")
 			ga('send', 'event', 'accum-change-chart', 'click', 'accum-change-chart');
 		});
 
 		$('#meter-link').on('click', function() {
-			console.log("meter-link")
 			ga('send', 'event', 'meter-link', 'click', 'meter-link');
 		});
 
 		$('#environment-link').on('click', function() {
-			console.log("environment-link")
 			ga('send', 'event', 'environment-link', 'click', 'environment-link');
 		});
 
 		$('#info-link').on('click', function() {
-			console.log("info-link")
 			ga('send', 'event', 'info-link', 'click', 'info-link');
 		});
 
@@ -379,7 +368,6 @@
 
         var syncfilters = function(chart, otherChart){
         	if(!chart.dontlisten){
-        		console.log("syncfilters");
     			otherChart.dontlisten = true;
     			otherChart.filterAll();
     			chart.filters().forEach(function(e){
