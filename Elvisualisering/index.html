@@ -36,7 +36,8 @@
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
 	    				<div class="panel-heading" style="height:3vh; text-align:center; vertical-align:center">
-	    					<p class="panel-title">Välj din elmätare</p> 
+	    					<p class="panel-title">Välj din elmätare
+	    					<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Information om hur man väljer sin elmätare och vad som visas i diagrammet. blabla."></span></p>
 	    				</div>
 		    			<div class="panel-body">
 		    				<div class="col-md-12" id="meter-chart" style="height:25vh"></div> 
@@ -46,7 +47,7 @@
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
 		    			<div class ="panel-heading" style="height:3vh; text-align:center; vertical-align:center">
-		    				<p class="panel-titel">Hur ligger ni till?</p>
+		    				<p class="panel-titel">Hur ligger ni till? <span class="glyphicon glyphicon-info-sign" aria-hidden="true"data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Information om hur man väljer sin elmätare och vad som visas i diagrammet. blabla."></span></p>
 		    			</div>
 		    			<div class="panel-body">
 		    				<div class="col-md-12"  id="bubble-chart" style="height:25vh"></div>
@@ -343,6 +344,11 @@
 			ga('send', 'event', 'info-link', 'click', 'info-link');
 		});
 
+//----------------------------------------------------------------------
+
+		$(function () {
+		  $('[data-toggle="popover"]').popover()
+		})
 
 		monthlyview = function (){
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000)
