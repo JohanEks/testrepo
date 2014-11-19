@@ -31,7 +31,135 @@
 
 	<body>
 	    <div class="container-fluid" style="margin-left:5px; margin-right:5px">
-	    	<h1 style="text-align:center">Interaktiv visualisering av elanvändning i Marieberg</h1>
+
+			<nav class="navbar navbar-inverse" role="navigation">
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="navbar-header">
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			<!--      <a class="navbar-brand" href="#">Brand</a>		-->
+			    </div>
+
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      	<ul class="nav navbar-nav">
+			      		<li class="dropdown">
+				            <a class="navbar-brand" id="choose-meter-dropdown" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
+				                Vilken mätare tillhör jag? <span class="caret"></span>
+				            </a>
+				    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
+					            <li class="dropdown-submenu">
+				                	<a tabindex="-1" href="#">Plan 1</a>
+				                	<ul class="dropdown-menu">
+						                <li><a tabindex="-1" href="#">Civil - s206f1</a></li>
+						                <li class="dropdown-submenu">
+						                    <a href="#">Environment</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s205b')">Vänster om vardagsrummet - s205b</a></li>
+						                    	<li><a href="#">Höger om vardagsrummet - s206f1</a></li>
+				                    		</ul>
+				                		</li>
+						                <li><a tabindex="-1" href="#">Kontorsservice - s204b2</a></li>
+						                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy - s206a2</a></li>
+				                	</ul>
+				            	</li>
+				            	<li class="dropdown-submenu">
+				                	<a tabindex="-1" href="#">Plan 2</a>
+				                	<ul class="dropdown-menu">
+						                <li class="dropdown-submenu">
+						                    <a href="#">Civil</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000 - s207a1</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s207a')">?? - s207a1</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s204a3')">Övriga - s204a3</a></li>
+				                    		</ul>
+				                		</li>
+						                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide - s205b1</a></li>
+						                <li><a tabindex="-1" href="#">Environment - s206a3</a></li>
+						                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International - s205b1</a></li>
+						                <li><a tabindex="-1" href="#">Sweco Sverige - s206a3</a></li>
+				                	</ul>
+				            	</li>
+				            	<li class="dropdown-submenu">
+				                	<a tabindex="-1" href="#">Plan 3</a>
+				                	<ul class="dropdown-menu">
+						                <li class="dropdown-submenu">
+						                    <a href="#">Civil</a>
+						                    <ul class="dropdown-menu">
+						                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet - s207a1</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
+				                    		</ul>
+				                		</li>
+						                <li class="dropdown-submenu">
+						                    <a href="#">Energuide</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset - s207a1</a></li>
+				                    		</ul>
+				                		</li>
+						                <li class="dropdown-submenu">
+						                    <a href="#">TransportSystems</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107 - s207a1</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
+				                    		</ul>
+				                		</li>
+				                	</ul>
+				            	</li>
+				            	<li class="dropdown-submenu">
+				                	<a tabindex="-1" href="#">Plan 4</a>
+				                	<ul class="dropdown-menu">
+						                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide - s207a1</a></li>
+						                <li class="dropdown-submenu">
+						                    <a href="#">Structure</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
+						                    	<li><a href="#">Resultatenhet 2500 - s107c2a2</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
+				                    		</ul>
+				                		</li>
+						                <li class="dropdown-submenu">
+						                    <a href="#">Sweco Sverige</a>
+						                    <ul class="dropdown-menu">
+						                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444 - s205b</a></li>
+						                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000 - s207a1</a></li>
+						                    	<li><a href="#">Övriga - s107c2a2</a></li>
+				                    		</ul>
+				                		</li>
+						                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems - s207a1</a></li>
+				                	</ul>
+				            	</li>
+
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 5 - s228a</a></li>
+					            <li><a href="#" onclick="applyFilter('s227a')">Plan 6 - s227a</a></li>
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 7 - s228a</a></li>
+					            <li><a href="#" onclick="applyFilter('s227a')">Plan 8 - s227a</a></li>
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 9 - s228a</a></li>
+					            <li><a href="#" onclick="applyFilter('s227a')">Plan 10 - s227a</a></li>
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 11 - s228a</a></li>
+					            <li><a href="#" onclick="applyFilter('s227a')">Plan 12 - s227a</a></li>
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 13 - s228a</a></li>
+					            <li><a href="#" onclick="applyFilter('s228a')">Plan 14 - s228a</a></li>
+				            </ul>
+				        </li>
+			      	</ul>
+			      	<ul class="nav navbar-nav navbar-center">
+			        	<li><a class="navbar-brand" href="#environment" id="environment-link">Minska enkelt din elanvändning med 10%</a></li>
+			       	</ul>
+			      	<ul class="nav navbar-nav navbar-right">
+			        	<li><a class="navbar-brand" href="#info" id="info-link">Läs mer om projektet</a></li>
+			       	</ul>
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+
 	    	<div class="row" style="height:28vh">
 	    		<div class="col-md-4">
 	    			<div class="panel panel-default">
@@ -137,158 +265,12 @@
 		    	</div>
 		    </div>
 
-			<div class="row" style="">
-	    		<div class="col-md-4" style="height:28vh; text-align:center; color:black">
-	    			<!--<a href="#meter">
-	    				<div class="circularMeter"></div>
-	    			</a>-->
-		    		<h2>Vilken mätare tillhör jag?</h2>
-					<!--
-		    		<div class="dropdown">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-						    Dropdown
-						    <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-						    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-						</ul>
-					</div>			-->
 
-				        <div class="dropdown">
-				            <a id="choose-meter-dropdown" role="button" data-toggle="dropdown" class="btn btn-primary" data-target="#" href="/page.html">
-				                Vilken mätare tillhör jag? <span class="caret"></span>
-				            </a>
-				    		<ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-					            <li class="dropdown-submenu">
-				                	<a tabindex="-1" href="#">Plan 1</a>
-				                	<ul class="dropdown-menu">
-						                <li><a tabindex="-1" href="#">Civil - s206f1</a></li>
-						                <li class="dropdown-submenu">
-						                    <a href="#">Environment</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s205b')">Vänster om vardagsrummet - s205b</a></li>
-						                    	<li><a href="#">Höger om vardagsrummet - s206f1</a></li>
-				                    		</ul>
-				                		</li>
-						                <li><a tabindex="-1" href="#">Kontorsservice - s204b2</a></li>
-						                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy - s206a2</a></li>
-				                	</ul>
-				            	</li>
-				            	<li class="dropdown-submenu">
-				                	<a tabindex="-1" href="#">Plan 2</a>
-				                	<ul class="dropdown-menu">
-						                <li class="dropdown-submenu">
-						                    <a href="#">Civil</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000 - s207a1</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s207a')">?? - s207a1</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s204a3')">Övriga - s204a3</a></li>
-				                    		</ul>
-				                		</li>
-						                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide - s205b1</a></li>
-						                <li><a tabindex="-1" href="#">Environment - s206a3</a></li>
-						                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International - s205b1</a></li>
-						                <li><a tabindex="-1" href="#">Sweco Sverige - s206a3</a></li>
-				                	</ul>
-				            	</li>
-				            	<li class="dropdown-submenu">
-				                	<a tabindex="-1" href="#">Plan 3</a>
-				                	<ul class="dropdown-menu">
-						                <li class="dropdown-submenu">
-						                    <a href="#">Civil</a>
-						                    <ul class="dropdown-menu">
-						                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet - s207a1</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
-				                    		</ul>
-				                		</li>
-						                <li class="dropdown-submenu">
-						                    <a href="#">Energuide</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset - s207a1</a></li>
-				                    		</ul>
-				                		</li>
-						                <li class="dropdown-submenu">
-						                    <a href="#">TransportSystems</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107 - s207a1</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
-				                    		</ul>
-				                		</li>
-				                	</ul>
-				            	</li>
-				            	<li class="dropdown-submenu">
-				                	<a tabindex="-1" href="#">Plan 4</a>
-				                	<ul class="dropdown-menu">
-						                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide - s207a1</a></li>
-						                <li class="dropdown-submenu">
-						                    <a href="#">Structure</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
-						                    	<li><a href="#">Resultatenhet 2500 - s107c2a2</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
-				                    		</ul>
-				                		</li>
-						                <li class="dropdown-submenu">
-						                    <a href="#">Sweco Sverige</a>
-						                    <ul class="dropdown-menu">
-						                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444 - s205b</a></li>
-						                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000 - s207a1</a></li>
-						                    	<li><a href="#">Övriga - s107c2a2</a></li>
-				                    		</ul>
-				                		</li>
-						                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems - s207a1</a></li>
-				                	</ul>
-				            	</li>
 
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 5 - s228a</a></li>
-					            <li><a href="#" onclick="applyFilter('s227a')">Plan 6 - s227a</a></li>
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 7 - s228a</a></li>
-					            <li><a href="#" onclick="applyFilter('s227a')">Plan 8 - s227a</a></li>
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 9 - s228a</a></li>
-					            <li><a href="#" onclick="applyFilter('s227a')">Plan 10 - s227a</a></li>
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 11 - s228a</a></li>
-					            <li><a href="#" onclick="applyFilter('s227a')">Plan 12 - s227a</a></li>
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 13 - s228a</a></li>
-					            <li><a href="#" onclick="applyFilter('s228a')">Plan 14 - s228a</a></li>
-				            </ul>
-				        </div>
 
-		    		<p>Beroende på var i huset du sitter tillhör du en av de tio elmätarna.</p>
-		    		<a id="meter-link" class="btn btn-primary fp-button" href="#meter" title="Program">Läs mer</a>
-		    	</div>
-
-	    		<div class="col-md-4" style="height:28vh; text-align:center; color:black">
-	    			<h2>Hur minskar jag min elanvändning?</h2>
-	    			<p>Hur mycket generar jag? Vad kan jag göra för att minska mina utsläpp?</p>
-		    		<a id="environment-link" class="btn btn-primary fp-button" href="#environment" title="Program">Läs mer</a>
-	    		</div>
-		    	<div class="col-md-4" style="height:28vh; text-align:center; color:black">
-					<h2>Vad är det här för projekt?</h2>
-			    	<p>Vi skriver ett examensarbete om visualisering av elanvändning i kontorsfastigheter. Kontakta gärna oss, vi vill veta mer om vad du tycker!</p>
-			    	<a id="info-link" class="btn btn-primary fp-button" href="#info" title="Program">Läs mer</a>		    		
-		    	</div>
-			</div>
+			
 			
 			<div id="container" style="width:70%; margin-left:auto; margin-right:auto">
-				<div id="meter" class="row" style="height:70vh">
-					<div class="col-md-8">
-						<h1>Mätare</h1>
-						<p> Här finns information om vilken mätare som din plats tillhör</p>
-						<ul>
-							<li>Jämna våningsplan i höghuset tillhör mätare 227.</li>
-							<li>Udda våningsplan i höghuset tillhör mätare 228.</li>
-						</ul>
-					</div>
-					<div class="col-md-4">
-						<img src="img/meter.jpg" alt="Spara el" style="height:60vh">
-					</div>
-				</div>
 				<div id="environment" class="row" style="height:70vh">
 					<div class="col-md-4">
 						<img src="img/treebulb.png" alt="Spara el" style="height:60vh">
@@ -448,7 +430,6 @@
 
 		$('#bubble-chart').on('click', function() {
 			if (bubbleChart.filters().length>0){
-				console.log("bubble-chart",bubbleChart.filters()[0])
 				ga('send', 'event', 'bubble-chart', 'click', bubbleChart.filters()[0]);
 			}
 			else {
@@ -477,6 +458,11 @@
 			ga('send', 'event', 'info-link', 'click', 'info-link');
 		});
 
+		/*$('#dropdown').on('click', function() {
+			console.log(bubbleChart.filters()[0]);
+			ga('send', 'event', bubbleChart.filters()[0], 'click', bubbleChart.filters()[0]);
+		});
+*/
 //----------------------------------------------------------------------
 
 		$(function () {
@@ -486,6 +472,8 @@
 		applyFilter = function (meter){
 			meterChart.filterAll();
 			meterChart.filter(meter);
+			ga('send', 'event', 'dropdown', 'click', meter);
+			console.log(meter);
 			dc.redrawAll();
 		}
 
