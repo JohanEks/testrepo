@@ -443,7 +443,13 @@
 		});
 
 		$('#accum-change-chart').on('click', function() {
-			ga('send', 'event', 'accum-change-chart', 'click', accumChangeChart.filters()[0]);
+			if (bubbleChart.filters().length>0){
+				ga('send', 'event', 'accum-change-chart', 'click', accumChangeChart.filters()[0]);
+			}
+			else {
+				ga('send', 'event', 'accum-change-chart', 'click', 'unfiltered');
+				console.log("bubble-chart","unfiltered")
+			}
 		});
 
 		$('#meter-link').on('click', function() {
