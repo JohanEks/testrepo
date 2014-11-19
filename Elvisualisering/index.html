@@ -478,7 +478,9 @@
 		applyFilter = function (meter){
 			meterChart.filterAll();
 			meterChart.filter(meter);
-			ga('send', 'event', 'dropdown', 'click', meter);
+//			bubbleChart.filter(meter);
+//			accumChangeChart.filter(meter);
+//			ga('send', 'event', 'dropdown', 'click', meter);
 			console.log(meter);
 			dc.redrawAll();
 		}
