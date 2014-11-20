@@ -735,7 +735,7 @@
    	    var projStartDate = new Date()
    	    projStartDate.setFullYear(2014)
    	    projStartDate.setMonth(10)
-   	    projStartDate.setDate(8)
+   	    projStartDate.setDate(17)
    	    projStartDate.setHours(0)
    	    projStartDate.setMinutes(0)
    	    projStartDate.setSeconds(0);
@@ -899,7 +899,7 @@
    	    }).reduce(minMaxReduceAdd, minMaxReduceRemove, minMaxReduceInit);
 
    	    function savingsReduceAdd(p,v){
-   	   	    if (v.hourDate >= projStartDate && v.hourDate < new Date(2014,10,10)){
+   	   	    if (v.hourDate >= projStartDate /*&& v.hourDate < new Date(2014,10,10)*/){
    	   	    	//++p.saveByDay[v.hourDate.getDay()];
    	   	    	p.meter=v.meter;
    	    		p.accumChange += meanHourUseByDay[v.meter][v.hourDate.getDay()] - v.usage/v.nrUsers;
@@ -1022,7 +1022,7 @@
 			.dimension(meterDim)
 			.group(meterDayAvg)
 			.valueAccessor(function (d) { return d.value.avg; })
-	    //  	.margins({ top: 10, left: 30, right: 50, bottom: 50 })
+	      	//.margins({ top: 10, left: 30, right: 50, bottom: 50 })
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
@@ -1163,7 +1163,10 @@
 		                .attr("text-anchor", "middle")
 		                .attr("x", chart.width()/2)
 		                .attr("y", chart.height())
+		                .attr("overflow","visible")
+		                .attr("margin-bottom","50px")
 		                .text(displayText);
+		                console.log("hej")
 		}
 		
 		addXAxis(meterChart, "kWh per person och dygn");
