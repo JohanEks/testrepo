@@ -163,7 +163,7 @@
 			  </div><!-- /.container-fluid -->
 			</nav>
 
-	    	<div class="row" style="height:30vh; min-height:250px">
+	    	<div class="row" style="height:30vh; min-height:250px; margin-bottom:20px">
 	    		<div class="col-xs-12 col-sm-12 col-md-4" style="height:100%">
 	    			<div class="panel panel-default" style="height:100%">
 	    				<div class="panel-heading" style="height:10%; text-align:center; padding:0">
@@ -177,16 +177,16 @@
 		    			</div>
 	    			</div>
 	    		</div>
-	    		<div class="col-xs-12 col-sm-6 col-md-4">
-	    			<div class="panel panel-default">
-		    			<div class ="panel-heading" style="height:3vh; text-align:center; padding:0">
-		    				<p class="panel-titel" style="font-size:2vh">
+	    		<div class="col-xs-12 col-sm-6 col-md-4" style="height:100%">
+	    			<div class="panel panel-default" style="height:100%">
+		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
+		    				<p class="panel-titel" style="font-size:100%">
 		    					Hur ligger ni till? 
-		    					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:1.5vh; color:grey" data-content="Genomsnittlig elanvändning samt förändring jämfört med en referensvecka för de olika mätarna under den valda tidsperioden. Referensveckan baseras på mätvärden från mars, april, maj, augusti och september. Respektive bubblas storlek representerar antalet medarbetare som hör till elmätaren. Det övre vänstra hörnet innebär en låg medelförbrukning och en minskad."></span>
+		    					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Genomsnittlig elanvändning samt förändring jämfört med en referensvecka för de olika mätarna under den valda tidsperioden. Referensveckan baseras på mätvärden från mars, april, maj, augusti och september. Respektive bubblas storlek representerar antalet medarbetare som hör till elmätaren. Det övre vänstra hörnet innebär en låg medelförbrukning och en minskad."></span>
 		    				</p>
 		    			</div>
-		    			<div class="panel-body" style="padding:0">
-		    				<div class="col-xs-12 col-sm-12 col-md-12"  id="bubble-chart" style="height:25vh;padding:0"></div>
+		    			<div class="panel-body" style="padding:0; height90%">
+		    				<div class="col-xs-12 col-sm-12 col-md-12"  id="bubble-chart" style="height:25vh; padding:0; height:90%"></div>
 			    		</div>
 			    	</div>
 	    		</div>
@@ -937,11 +937,11 @@
         	.y(d3.scale.linear().domain([0.5,-0.5]))
         	.r(d3.scale.linear().domain([0, 1000]))
         	.yAxisLabel("Förändring")
-        	.xAxisLabel("kWh per person och dygn")
+        	//.xAxisLabel("kWh per person och dygn")
         	.renderHorizontalGridLines(true)
         	.yAxisPadding(100)
         	.xAxisPadding(500)
-	      	.margins({ top: 10, left: 50, right: 50, bottom: 50 })
+	      	.margins({ top: 10, left: 50, right: 30, bottom: 40 })
 
 
         	.on('filtered', function(chart, filter){
@@ -1162,15 +1162,16 @@
 		                .attr("class", "x-axis-label")
 		                .attr("text-anchor", "middle")
 		                .attr("x", chart.width()/2)
-		                .attr("y", chart.height())
+		                .attr("y", chart.height()-2.4)
 		                .attr("overflow","visible")
 		                .attr("margin-bottom","50px")
+		                .attr("font-size","80%")
 		                .text(displayText);
-		                console.log("hej")
 		}
 		
 		addXAxis(meterChart, "kWh per person och dygn");
 		addXAxis(accumChangeChart, "kWh");
+		addXAxis(bubbleChart, "kWh per person och dygn");
 
 	    updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
 	    barDateBrush.render();
