@@ -823,41 +823,13 @@
    	    	if (p.meters.indexOf(v.meter) == -1){ 
    	    		p.meters[p.meters.length] = v.meter;
    	    		p.users += v.nrUsers;
+   	    		p.refUse += refs[v.meter][v.hourDate.getDay()];
    	    	};
 			
 
    	    	p.sumUse += v.usage;
-   	    	p.sumUseAvg = p.sumUse/p.users;
-   	    	var avg = 24*meanHourUseByDay[v.meter][v.hourDate.getDay()];
+   	    	p.sumUseAvg = p.sumUse/p.users;	
 
-	    	p.date = v.hourDate;
-
-   	    	if (p.sumUseAvg < 0.9*avg){
-   	    		p.green = p.sumUseAvg;
-   	    		p.yellow = 0;
-   	    		p.red = 0;
-   	    	}
-
-   	    	else if (p.sumUseAvg<avg && p.sumUseAvg >= 0.9*avg){
-   	    		p.green = 0.9*avg;
-   	    		p.yellow = p.sumUseAvg - 0.9*avg;
-   	    		p.red = 0;
-   	    	}
-
-   	    	else{	
-   	    		p.red = p.sumUseAvg-avg;
-   	    		p.yellow = 0.1*avg;
-   	    		p.green = 0.9*avg;
-   	    	}
-   	    	
-
-			if (v.hourDate >= new Date(2014,10,13) && v.meter == "s205b" && v.hourDate.getHours() == 23){
-   	    		console.log("Add","Green value",p.green, "Yellow value",p.yellow,"Red value", p.red, p.date)
-   	    	}
-
-   	    	if (v.hourDate >= new Date(2014,10,13) && v.hourDate < new Date(2014,10,14) && (v.meter=="s206a3" || v.meter=="s107a1")){ //v.hourDate.getHours() == 23 && 
-   	  //  		console.log("avg: ",avg, "sumUse", p.sumUse, "sumUseAvg",p.sumUseAvg,"green: ",p.green, "yellow: ", p.yellow,"red: ",p.red,"date: ",v.hourDate,"meter",v.meter)
-   	    	}
 
    	    	return p;
    	    }
@@ -866,48 +838,28 @@
    	    	if (p.meters.indexOf(v.meter) !== -1){
    	    		p.meters.splice(p.meters.indexOf(v.meter),1);
    	    		p.users -= v.nrUsers;
+   	    		p.refUse -= refs[v.meter][v.hourDate.getDay()];
    	    	};
 
    	    	p.sumUse -= v.usage;
    	    	p.sumUseAvg = p.sumUse/p.users;
-
-   	    	avg = 24*meanHourUseByDay[v.meter][v.hourDate.getDay()];
-
-   	    	p.date = v.hourDate;
-
    	    	
-	    		
-	   	    	if (p.sumUseAvg < 0.9*avg){
-	   	    		p.green = p.sumUseAvg;
-	   	    		p.yellow = 0;
-	   	    		p.red = 0;
-	   	    	}
-
-	   	    	else if (p.sumUseAvg<avg && p.sumUseAvg >= 0.9*avg){
-	   	    		p.green = 0.9*avg;
-	   	    		p.yellow = p.sumUseAvg - 0.9*avg;
-	   	    		p.red = 0;
-	   	    	}
-
-	   	    	else{	
-	   	    		p.red = p.sumUseAvg-avg;
-	   	    		p.yellow = 0.1*avg;
-	   	    		p.green = 0.9*avg;
-	   	    	}
-
-   	    	
-
-			if (v.hourDate >= new Date(2014,10,13) && v.meter == "s205b" && v.hourDate.getHours() == 23){
-   	    		console.log("Remove","Green value",p.green, "Yellow value",p.yellow,"Red value", p.red, p.date)
-   	    	}
-
-   	    	if (v.hourDate > new Date(2014,10,13) && v.hourDate.getHours() == 23 && v.meter=="s206a3"){
-   	    		//console.log("avg: ",avg, "sumUseAvg",p.sumUseAvg,"green: ",p.green, "yello: ", p.yellow,"red: ",p.red,"date: ",v.hourDate,"meter",v.meter)
-   	    	}
    	    	return p;
    	    }
    	    function dayAvgReduceInit() {
-   	    	return {hours:0, users:0, sumUse:0, sumUseAvg:0, meters:[], green:0, yellow:0, red:0, date:new Date(0)};
+   	    	var obj = {hours:0, users:0, sumUse:0, sumUseAvg:0, refUse:0, meters:[], mean: meanHourUseByDay};   	    	
+   	    	obj.getDayAvg = function(){
+   	    		return this.refUse/24/this.users;
+   	    	}
+   	    	obj.getColors = function(){
+   	    		var avg = this.getDayAvg();
+   	    		var r = {};
+   	    		r.green = Math.min(this.sumUseAvg, avg*0.9);
+   	    		r.yellow = Math.min(this.sumUseAvg-r.green, avg*0.2);
+   	    		r.red = this.sumUseAvg-r.green-r.yellow;
+   	    		return r;
+   	    	}
+   	    	return obj;
    	    }
 
    	    var usageSumDay = hourDim.group(function (d){
@@ -1085,11 +1037,7 @@
         	.dimension(hourDim)
         	.group(usageSumDay)
         	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
-        	.valueAccessor(function (d){ 
-        		if (d.value.date >= new Date(2014,10,13)){
-        			console.log("value green", d.value.green,"value yellow", d.value.yellow,"value red", d.value.red, d.value.date)
-        		}
-        		return d.value.green;})
+        	.valueAccessor(function (d){return d.value.getColors()['green'];})
         	
         	
         	.ordinalColors(["green","yellow","red"])
@@ -1117,8 +1065,12 @@
 		});
 
          	
-         	dayChart.stack(usageSumDay, function (d){return d.value.yellow;})
-        	dayChart.stack(usageSumDay, function (d){return d.value.red;})
+         	dayChart.stack(usageSumDay, function (d){
+         		return d.value.getColors()['yellow'];}
+         		)
+        	dayChart.stack(usageSumDay, function (d){
+        		return d.value.getColors()['red'];}
+        		)
 
         meterChart = dc.rowChart("#meter-chart");
 		meterChart
