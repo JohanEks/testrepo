@@ -576,6 +576,39 @@
         	}
         }
 
+        var metaData = {
+        	"s205b":{
+        		"people":256
+        	},
+        	"s207a":{
+        		"people":166
+        	},
+        	"s227a":{
+        		"people":421
+        	},
+        	"s228a":{
+        		"people":428
+        	},
+        	"s206a2":{
+        		"people":63
+        	},
+        	"s204a3":{
+        		"people":99
+        	},
+        	"s107a1":{
+        		"people":35
+        	},
+        	"s204b2":{
+        		"people":8
+        	},
+        	"s206a3":{
+        		"people":66
+        	},
+        	"s206f1":{
+        		"people":33+39
+        	}
+        }
+	
 		var objectifiedData =[];
 		
 		var totUsers = 0;		
@@ -591,7 +624,12 @@
 
 		data.forEach(function(meter){
 			// add/generate metadata
-			totUsers += meter.people;
+			//totUsers += meter.people; //old
+			console.log(meter.id)
+			//console.log(metaData);
+			console.log(metaData[meter.id])
+			console.log(metaData[meter.id].people)
+			totUsers += metaData[meter.id].people;
 			refs[meter.id] = [0,0,0,0,0,0,0]; //usage
 			days[meter.id] = [0,0,0,0,0,0,0]; //number of datapoints
 			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
@@ -604,7 +642,8 @@
 	        	dayDate.setDate(usageDate.getDate())
 
 	        	var usage = dataPoint[1];
-	        	var nrUsers = meter.people;
+	        	var nrUsers = metaData[meter.id].people
+	        	//console.log(nrUsers,meter.id)
 
 
 	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || 
@@ -624,12 +663,12 @@
 			});
 			for (var i = 0; i < meanHourUseByDay[meter.id].length; i++){
 				//console.log(meter.id, refs[meter.id][i], days[meter.id][i],meter.people)
-				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*meter.people);
+				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*metaData[meter.id].people);
 				//console.log(meanHourUseByDay[meter.id][i]);
 			}
 		});
 
-		
+		console.log(refs);
 
 
 	    
