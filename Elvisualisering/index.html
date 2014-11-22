@@ -1042,7 +1042,7 @@
           	.centerBar(true)
           	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
         	.valueAccessor(function (d){return d.value.getColors()['green'];})
-        	.ordinalColors(["green","yellow","red"])
+        	.ordinalColors(["#27ae60","#FFF380","red"])
 
         	.y(d3.scale.linear().domain([0,150]))
         	.yAxisLabel("kWh")
@@ -1079,7 +1079,7 @@
         	.valueAccessor(function (d){return d.value.getColors()['green'];})
         	
         	
-        	.ordinalColors(["green","yellow","red"])
+        	.ordinalColors(["#27ae60","#FFF380","red"])
           	.x(d3.time.scale().domain([new Date(oneWeekAgo-12*3600*1000), new Date(today-12*3600*1000)]))
 		    .xUnits(function (d){return 20})
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
