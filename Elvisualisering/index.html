@@ -580,7 +580,9 @@
 		
 		var totUsers = 0;		
 		var refs = {};
+		var refsWeekdays = {};
 		var days = {};
+		var weekdays = {};
 		var meanHourUseByDay = {};
 
 
@@ -593,7 +595,9 @@
 			// add/generate metadata
 			totUsers += meter.people;
 			refs[meter.id] = [0,0,0,0,0,0,0]; //usage
+			refsWeekdays[meter.id] = 0;
 			days[meter.id] = [0,0,0,0,0,0,0]; //number of datapoints
+			weekdays[meter.id] = 0;
 			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
 			
 			meter.data.forEach(function(dataPoint){
@@ -609,8 +613,13 @@
 
 	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || 
 	        		dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
-	        			refs[meter.id][dayDate.getDay()] += usage; 
-	        			++days[meter.id][dayDate.getDay()]; 
+	        			refs[meter.id][dayDate.getDay()] += usage;
+	        			++days[meter.id][dayDate.getDay()];
+
+	        			if(dayDate.getDay() > 0 && dayDate.getDay() < 6){
+	        				refsWeekdays[meter.id] += usage;
+	        				++weekdays[meter.id];
+	        			} 
 	        	}
 
 	        	objectifiedData.push({	
@@ -623,9 +632,7 @@
 	        	})
 			});
 			for (var i = 0; i < meanHourUseByDay[meter.id].length; i++){
-				//console.log(meter.id, refs[meter.id][i], days[meter.id][i],meter.people)
 				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*meter.people);
-				//console.log(meanHourUseByDay[meter.id][i]);
 			}
 		});
 
@@ -823,7 +830,8 @@
    	    	if (p.meters.indexOf(v.meter) == -1){ 
    	    		p.meters[p.meters.length] = v.meter;
    	    		p.users += v.nrUsers;
-   	    		p.refUse += refs[v.meter][v.hourDate.getDay()];
+   	    		p.refUse += refsWeekdays[v.meter]/5;
+   	    //		p.refUse += refs[v.meter][v.hourDate.getDay()];
    	    	};
 			
 
@@ -838,7 +846,8 @@
    	    	if (p.meters.indexOf(v.meter) !== -1){
    	    		p.meters.splice(p.meters.indexOf(v.meter),1);
    	    		p.users -= v.nrUsers;
-   	    		p.refUse -= refs[v.meter][v.hourDate.getDay()];
+   	    		p.refUse -= refsWeekdays[v.meter]/5;
+   	    		//p.refUse -= refs[v.meter][v.hourDate.getDay()];
    	    	};
 
    	    	p.sumUse -= v.usage;
