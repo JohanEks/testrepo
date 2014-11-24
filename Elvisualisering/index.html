@@ -620,6 +620,7 @@
         	}
         }
 	
+
 		var objectifiedData =[];
 		
 		var totUsers = 0;		
@@ -628,7 +629,8 @@
 		var days = {};
 		var meanHourUseByDay = {};
 		var meanMonthUse = {};
-
+		var meterDomain = [];
+		var colorRange = [];
 
 		startRefPeriod1 = new Date(2014,2,1);
 		endRefPeriod1 = new Date(2014,4,31,23,59);
@@ -638,13 +640,12 @@
 		startMonthRefPeriod = new Date(2014,1,1);
 		endMonthRefPeriod = new Date(2014,9,31,23,59);
 
+
 		data.forEach(function(meter){
 			// add/generate metadata
 			//totUsers += meter.people; //old
-			console.log(meter.id)
-			//console.log(metaData);
-			console.log(metaData[meter.id])
-			console.log(metaData[meter.id].people)
+			meterDomain.push(meter.id);
+			colorRange.push(metaData[meter.id].color);
 			totUsers += metaData[meter.id].people;
 			refs[meter.id] = [0,0,0,0,0,0,0]; //usage
 			refsWeekdays[meter.id] = 0;
@@ -694,8 +695,8 @@
 
 			}
 		});
+		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
 
-		console.log(refs);
 
 
 	    
@@ -1047,16 +1048,8 @@
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
 
-        var colorScale = [];
-        data.forEach(function(meter){
-			var domain = metaData[meter.id];
-			var color = metaData[meter.id].color;
-			
-        	colorScale[colorScale.length] = d3.scale.ordinal().domain(metaData[meter.id]).range(metaData[meter.id].color)
-			console.log(colorScale);
-        });
-//		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s206a3", "s206f1", "s107a1", "s204a3", "s204b2"]).range(["#C800C8", "#C80000", "#C8C800", "#0000C8", "#00C800", "#00C8C8", "#642A2A", "white","white", "white"]);
 
+		
 
         bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
