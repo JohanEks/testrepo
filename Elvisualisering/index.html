@@ -613,14 +613,19 @@
 		
 		var totUsers = 0;		
 		var refs = {};
+		var refsWeekdays = {};
 		var days = {};
 		var meanHourUseByDay = {};
+		var meanMonthUse = {};
 
 
 		startRefPeriod1 = new Date(2014,2,1);
 		endRefPeriod1 = new Date(2014,4,31,23,59);
 		startRefPeriod2 = new Date(2014,8,1);
 		endRefPeriod2 = new Date(2014,9,31,23,59);
+
+		startMonthRefPeriod = new Date(2014,1,1);
+		endMonthRefPeriod = new Date(2014,9,31,23,59);
 
 		data.forEach(function(meter){
 			// add/generate metadata
@@ -631,8 +636,10 @@
 			console.log(metaData[meter.id].people)
 			totUsers += metaData[meter.id].people;
 			refs[meter.id] = [0,0,0,0,0,0,0]; //usage
+			refsWeekdays[meter.id] = 0;
 			days[meter.id] = [0,0,0,0,0,0,0]; //number of datapoints
 			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
+			meanMonthUse[meter.id] = 0;
 			
 			meter.data.forEach(function(dataPoint){
 				var usageDate = new Date(dataPoint[0]);
@@ -648,8 +655,16 @@
 
 	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || 
 	        		dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
-	        			refs[meter.id][dayDate.getDay()] += usage; 
-	        			++days[meter.id][dayDate.getDay()]; 
+	        			refs[meter.id][dayDate.getDay()] += usage;
+	        			++days[meter.id][dayDate.getDay()];
+
+	        			if(dayDate.getDay() > 0 && dayDate.getDay() < 6){
+	        				refsWeekdays[meter.id] += usage;
+	        			}
+	        	}
+
+	        	if (dayDate >= startMonthRefPeriod && dayDate < endMonthRefPeriod){
+	        		meanMonthUse[meter.id] +=usage;
 	        	}
 
 	        	objectifiedData.push({	
@@ -665,6 +680,7 @@
 				//console.log(meter.id, refs[meter.id][i], days[meter.id][i],meter.people)
 				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*metaData[meter.id].people);
 				//console.log(meanHourUseByDay[meter.id][i]);
+
 			}
 		});
 
@@ -822,30 +838,44 @@
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
 
 
-   	    function sumAvgReduceAdd(p,v) {
+   	    function monthAvgReduceAdd(p,v) {
    	    	++p.hours
    	    	if (p.meters.indexOf(v.meter) == -1){ 
    	    		p.meters[p.meters.length] = v.meter;
    	    		p.users += v.nrUsers;
+   	    		p.monthAvg += meanMonthUse[v.meter]/9;
    	    	};
 
    	    	p.sumUse += v.usage;
    	    	p.sumUseAvg = p.sumUse/p.users;
    	    	return p;
    	    }
-   	    function sumAvgReduceRemove(p,v) {
+   	    function monthAvgReduceRemove(p,v) {
    	    	--p.hours
    	    	if (p.meters.indexOf(v.meter) !== -1){
    	    		p.meters.splice(p.meters.indexOf(v.meter),1);
    	    		p.users -= v.nrUsers;
+   	    		p.monthAvg -= meanMonthUse[v.meter]/9
    	    	};
 
    	    	p.sumUse -= v.usage;
    	    	p.sumUseAvg = p.sumUse/p.users;
    	    	return p;
    	    }
-   	    function sumAvgReduceInit() {
-   	    	return {hours:0, users:0, sumUse:0, sumUseAvg:0, meters:[]};
+   	    function monthAvgReduceInit() {
+   	    	var obj = {hours:0, users:0, sumUse:0, sumUseAvg:0, meters:[], monthAvg:0};   	    	
+   	    	obj.getMonthAvg = function(){
+   	    		return this.monthAvg/this.users;
+   	    	}
+   	    	obj.getColors = function(){
+   	    		var avg = this.getMonthAvg();
+   	    		var r = {};
+   	    		r.green = Math.min(this.sumUseAvg, avg*0.9);
+   	    		r.yellow = Math.min(this.sumUseAvg-r.green, avg*0.1);
+   	    		r.red = this.sumUseAvg-r.green-r.yellow;
+   	    		return r;
+   	    	}
+   	    	return obj;
    	    }
    	    
    	    var usageSumMonth = hourDim.group(function (d){
@@ -853,9 +883,55 @@
 	        	month.setFullYear(d.getFullYear())
 	        	month.setMonth(d.getMonth())
 	        	return month;
-   	    }).reduce(sumAvgReduceAdd, sumAvgReduceRemove, sumAvgReduceInit);
+   	    }).reduce(monthAvgReduceAdd, monthAvgReduceRemove, monthAvgReduceInit);
 
 
+
+   	    function dayAvgReduceAdd(p,v) {
+   	    	++p.hours
+   	    	if (p.meters.indexOf(v.meter) == -1){ 
+   	    		p.meters[p.meters.length] = v.meter;
+   	    		p.users += v.nrUsers;
+   	    		p.refUse += refsWeekdays[v.meter]/5;
+   	    //		p.refUse += refs[v.meter][v.hourDate.getDay()];
+   	    	};
+			
+
+   	    	p.sumUse += v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;	
+
+
+   	    	return p;
+   	    }
+   	    function dayAvgReduceRemove(p,v) {
+   	    	--p.hours
+   	    	if (p.meters.indexOf(v.meter) !== -1){
+   	    		p.meters.splice(p.meters.indexOf(v.meter),1);
+   	    		p.users -= v.nrUsers;
+   	    		p.refUse -= refsWeekdays[v.meter]/5;
+   	    		//p.refUse -= refs[v.meter][v.hourDate.getDay()];
+   	    	};
+
+   	    	p.sumUse -= v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
+   	    	
+   	    	return p;
+   	    }
+   	    function dayAvgReduceInit() {
+   	    	var obj = {hours:0, users:0, sumUse:0, sumUseAvg:0, refUse:0, meters:[]};   	    	
+   	    	obj.getDayAvg = function(){
+   	    		return this.refUse/24/this.users;
+   	    	}
+   	    	obj.getColors = function(){
+   	    		var avg = this.getDayAvg();
+   	    		var r = {};
+   	    		r.green = Math.min(this.sumUseAvg, avg*0.9);
+   	    		r.yellow = Math.min(this.sumUseAvg-r.green, avg*0.2);
+   	    		r.red = this.sumUseAvg-r.green-r.yellow;
+   	    		return r;
+   	    	}
+   	    	return obj;
+   	    }
 
    	    var usageSumDay = hourDim.group(function (d){
    	    	var dayDate = new Date(0)
@@ -863,7 +939,7 @@
 	        	dayDate.setMonth(d.getMonth())
 	        	dayDate.setDate(d.getDate())
 	        	return dayDate;
-   	    }).reduce(sumAvgReduceAdd, sumAvgReduceRemove, sumAvgReduceInit);
+   	    }).reduce(dayAvgReduceAdd, dayAvgReduceRemove, dayAvgReduceInit);
 
 
 
@@ -960,7 +1036,7 @@
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
 
-		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s204a3", "s107a1", "s204b2", "s206a3", "s206f1"]).range(["purple", "cyan", "orange", "green", "pink", "red", "blue", "beige","brown", "yellow"]);
+		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s204a3", "s107a1", "s204b2", "s206a3", "s206f1"]).range(["#00C8C8", "#C800C8", "#C80000", "#C8C800", "#00C800", "#0000C8", "#642A2A", "white","white", "white"]);
 
         bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
@@ -1006,8 +1082,10 @@
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
           	.centerBar(true)
-          	.valueAccessor(function (d){ 
-          		return d.value.sumUseAvg;})
+          	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
+        	.valueAccessor(function (d){return d.value.getColors()['green'];})
+        	.ordinalColors(["#27ae60","#FFF380","red"])
+
         	.y(d3.scale.linear().domain([0,150]))
         	.yAxisLabel("kWh")
  			.minHeight(10)
@@ -1027,23 +1105,36 @@
 			  });
 			});
 
+			monthChart.stack(usageSumMonth, function (d){
+         		return d.value.getColors()['yellow'];}
+         		)
+        	monthChart.stack(usageSumMonth, function (d){
+        		return d.value.getColors()['red'];}
+        		)
+
+
         dayChart = dc.barChart("#day-chart");
         dayChart
         	.dimension(hourDim)
         	.group(usageSumDay)
+        	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
+        	.valueAccessor(function (d){return d.value.getColors()['green'];})
+        	
+        	
+        	.ordinalColors(["#27ae60","#FFF380","red"])
           	.x(d3.time.scale().domain([new Date(oneWeekAgo-12*3600*1000), new Date(today-12*3600*1000)]))
 		    .xUnits(function (d){return 20})
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
           	.centerBar(true)
-          	.valueAccessor(function (d){ return d.value.sumUseAvg;})
-          	.y(d3.scale.linear().domain([0,5]))
+          	
+          	.y(d3.scale.linear().domain([0,6]))
  			.yAxisLabel("kWh")
  			.minHeight(10)
  			.xAxis().ticks(7)
 
-			dayChart.renderlet(function (chart) {
-			  chart.selectAll('rect').on("click", function (d) {
+		dayChart.renderlet(function (chart) {
+			chart.selectAll('rect').on("click", function (d) {
 			    var minDate = d.x;
 			    var maxDate = new Date(minDate);
 			    maxDate.setDate(maxDate.getDate()+1);
@@ -1051,10 +1142,16 @@
 			    chart.filterAll();
 			    chart.filter([minDate,maxDate]);
 			    syncfilters(chart,barDateBrush);
-			  });
 			});
+		});
 
-          	
+         	
+         	dayChart.stack(usageSumDay, function (d){
+         		return d.value.getColors()['yellow'];}
+         		)
+        	dayChart.stack(usageSumDay, function (d){
+        		return d.value.getColors()['red'];}
+        		)
 
         meterChart = dc.rowChart("#meter-chart");
 		meterChart
