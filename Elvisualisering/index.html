@@ -994,7 +994,7 @@
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
 
-		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s204a3", "s107a1", "s204b2", "s206a3", "s206f1"]).range(["purple", "cyan", "orange", "green", "pink", "red", "blue", "beige","brown", "yellow"]);
+		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s204a3", "s107a1", "s204b2", "s206a3", "s206f1"]).range(["#00C8C8", "#C800C8", "#C80000", "#C8C800", "#00C800", "#0000C8", "#642A2A", "white","white", "white"]);
 
         bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
