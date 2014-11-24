@@ -238,7 +238,7 @@
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="height:90%; padding:0">
-		    				<div class="col-xs-12 col-sm-12 col-md-12" id="accum-change-chart" style="height:90%; padding:0"></div> 
+		    				<div class="col-xs-12 col-sm-12 col-md-12" id="accum-change-chart" style="height:100%; padding:0"></div> 
 		    			</div>
 		    		</div>		
 		    	</div>
@@ -246,10 +246,10 @@
 		    		<div class="panel panel-default" style="height:100%">
 		    			<div class="panel-heading"style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-title" style="font-size:100%">Senaste året
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Den månatliga elanvändningen per person under det senaste året. Klicka på en stapel för att se hur förbrukningen ser ut under den månaden."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Elanvändningen per månad och person under det senaste året. Klicka på en stapel för att se hur förbrukningen ser ut under den månaden."></span>
 	    					</p>
 		    			</div> 
-		    			<div class="panel-body" style="height:90%; padding:0">
+		    			<div class="panel-body" style="height:100%; padding:0">
 		    				<div class="col-xs-12 col-sm-12 col-md-12" id="month-chart" style="height:90%; padding:0"></div> 
 		    			</div>
 		    		</div>
@@ -261,7 +261,7 @@
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Den dagliga elanvändningen per person under den senaste veckan. Klicka på en stapel för att se hur förbrukningen är fördelad under den dagen."></span>
 	    					</p>
 		    			</div>
-		    			<div class="panel-body" style="height:90%; padding:0">
+		    			<div class="panel-body" style="height:100%; padding:0">
 		    				<div class="col-xs-12 col-sm-12 col-md-12" id="day-chart" style="height:90%; padding:0"></div> 
 		    			</div>
 		    		</div>
@@ -1036,7 +1036,7 @@
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
 
-		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s204a3", "s107a1", "s204b2", "s206a3", "s206f1"]).range(["#00C8C8", "#C800C8", "#C80000", "#C8C800", "#00C800", "#0000C8", "#642A2A", "white","white", "white"]);
+		var colorScale = d3.scale.ordinal().domain(["s205b", "s207a", "s227a", "s228a", "s206a2", "s206a3", "s206f1", "s107a1", "s204a3", "s204b2"]).range(["#C800C8", "#C80000", "#C8C800", "#0000C8", "#00C800", "#00C8C8", "#642A2A", "white","white", "white"]);
 
         bubbleChart = dc.bubbleChart("#bubble-chart");
         bubbleChart
@@ -1048,14 +1048,16 @@
         	.valueAccessor(function (p) { return p.value.change;})
         	.radiusValueAccessor(function (p) { return p.value.users;})
         	.maxBubbleRelativeSize(0.1)
-        	.x(d3.scale.linear().domain([0,5]))
-        	.y(d3.scale.linear().domain([0.5,-0.5]))
-        	.r(d3.scale.linear().domain([0, 1000]))
+        	.x(d3.scale.linear().domain([0,7]))
+        	.y(d3.scale.linear().domain([0.2,-0.4]))
+        	//.elasticX(true)
+        	//.elasticY(true)
+        	.r(d3.scale.linear().domain([0, 700]))
         	.yAxisLabel("Förändring")
         	//.xAxisLabel("kWh per person och dygn")
         	.renderHorizontalGridLines(true)
-        	.yAxisPadding(100)
-        	.xAxisPadding(500)
+        	.yAxisPadding(0.03)
+        	.xAxisPadding(0.5)
 	      	.margins({ top: 10, left: 50, right: 30, bottom: 30 })
 
 
@@ -1080,15 +1082,19 @@
           	.x(d3.time.scale().domain([oneYearAgo, today]))
 		    .xUnits(function (d){return 20})
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 40 })
           	.brushOn(false)
           	.centerBar(true)
           	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
         	.valueAccessor(function (d){return d.value.getColors()['green'];})
         	.ordinalColors(["#27ae60","#FFF380","red"])
 
-        	.y(d3.scale.linear().domain([0,150]))
-        	.yAxisLabel("kWh")
+        	.y(d3.scale.linear().domain([0,200]))
+        	.elasticY(true)
+        	.yAxisLabel("kWh").renderlet(function (chart) {chart.selectAll("g.x text").attr('dx', '-17').attr('dy', '5').attr('transform', "rotate(-45)");})
  			.minHeight(10)
+ 			//.xAxis().ticks(12)
+
 
 			monthChart.renderlet(function (chart) {
 			  chart.selectAll('rect').on("click", function (d) {
@@ -1124,11 +1130,13 @@
         	.ordinalColors(["#27ae60","#FFF380","red"])
           	.x(d3.time.scale().domain([new Date(oneWeekAgo-12*3600*1000), new Date(today-12*3600*1000)]))
 		    .xUnits(function (d){return 20})
+ 			.margins({ top: 10, left: 30, right: 50, bottom: 40 })
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
           	.centerBar(true)
           	
-          	.y(d3.scale.linear().domain([0,6]))
+          	.y(d3.scale.linear().domain([0,8]))
+          	.elasticY(true)
  			.yAxisLabel("kWh")
  			.minHeight(10)
  			.xAxis().ticks(7)
@@ -1182,6 +1190,7 @@
 	    	.colorAccessor(function (d) { return d.value.meter;})
 	    	.elasticX(true)
 			.ordering(function(d){ return -d.value.accumChange})
+			.margins({ top: 10, left: 30, right: 50, bottom: 40 })
         	.on('filtered', function(chart, filter){
         		onefilter(chart, bubbleChart);
         		syncfilters(chart, bubbleChart);
@@ -1196,34 +1205,7 @@
         	.group(usageSumDate)
         	.x(d3.time.scale().domain([minDate,maxDate]))
         	.xUnits(d3.time.days)
-
         	.yAxis().ticks(0)
-/*
-      	function chooseHourGroup(){
-      		usageLineChart.on('filtered', function(chart,filter){
-      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-      				return maxMinGroup;
-      			}
-      			else {return lineHourAvg}
-      		})
-      	}
-
-      	function chooseMeterGroup(){
-      		usageLineChart.on('filtered', function(chart,filter){
-      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-      				return maxMinGroup;
-      			}
-      			else {return usageAvgMeter}
-      		})
-      	}
-      	function chooseValue(){
-      		usageLineChart.on('filtered', function(chart,filter){
-      			if (chart.filter()[1]-chart.filter()[0] > 2678400000){
-      				return maxMin;
-      			}
-      			else {return allAvg}
-      		})
-      	}*/
 
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
@@ -1231,8 +1213,6 @@
     	usageLineChartFiltered = dc.lineChart(usageLineChart)
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
-					//.group(maxMinGroup)
-					//.valueAccessor(function (d) { return d.value.max;})
 		        	.brushOn(false)
 		usageLineChartUnfiltered = dc.lineChart(usageLineChart)
 		        	.group(usageAvgMeter.unfiltered)
