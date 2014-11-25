@@ -1009,6 +1009,7 @@ console.log(colorRange);
 
    	    var savingsGroup = meterDim.group().reduce(savingsReduceAdd, savingsReduceRemove, savingsReduceInit);
    	    savingsGroup.dispose();
+   	    console.log(savingsGroup.top(50), "savingsGroup")
 
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
@@ -1206,7 +1207,7 @@ console.log(colorRange);
 
 
 
- 		console.log("toplist")
+/* 		console.log("toplist")
 		toplistTable = dc.dataTable("#top-list-table")
 		toplistTable
 			.dimension(tableDim)
@@ -1225,12 +1226,18 @@ console.log(colorRange);
 						return d3.round(d.change.accumChange,2)+" kWh";
 				}
 			])
-				/*.sortBy(function(d) {
-        		return d.value.meter;
-    			})
-			        	
-*/
-		console.log("efter")
+*/	
+		table = document.getElementById("top-list-table");
+		
+		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
+		
+		sorted = sortByChange(savingsGroup.top(7),0,7)
+		sorted.forEach(function (meter){
+			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
+			table.innerHTML += '<tr><td>'+meter.value.meter+'</td>'+'<td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>'
+		})		        	
+
+//		console.log("efter")
 
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
