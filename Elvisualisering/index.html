@@ -1274,11 +1274,17 @@
 		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
 		
 		sorted = sortByChange(savingsGroup.top(7),0,7)
+		placeInList = 1;
 		sorted.forEach(function (meter){
 			metaData[meter.value.meter].accumChange = meter.value.accumChange;
 			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
-			console.log(metaData[meter.value.meter].color);
-			table.innerHTML += '<tr><td style=background-color:'+metaData[meter.value.meter].color+'>'+'   '+'<tr><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+'%</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>'
+			if(meter.value.change<0){
+				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+			}
+			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
+			
+			table.innerHTML += '<tr><td style=background-color:'+metaData[meter.value.meter].color+'><b>'+placeInList+'</b></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
+			++placeInList;
 		})		        	
 
 
@@ -1288,7 +1294,7 @@
 			        	
 */
 
-/*
+
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
@@ -1298,7 +1304,7 @@
         	.x(d3.time.scale().domain([minDate,maxDate]))
         	.xUnits(d3.time.days)
         	.yAxis().ticks(0)
-*/
+
 
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
@@ -1318,7 +1324,7 @@
       	usageLineChart
 	      	.dimension(hourDim)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
-		    .rangeChart(barDateBrush)
+			.rangeChart(barDateBrush)
 		    .xUnits(d3.time.days)
 
 		    .brushOn(false) 
