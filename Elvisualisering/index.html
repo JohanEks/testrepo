@@ -69,10 +69,14 @@
 	    		<div class="col-xs-12 col-sm-12 col-md-6" style="height:100%">
 	    			<div class="panel panel-default" style="height:100%">
 	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
-	    					<p class="panel-title" style="font-size:100%">
+	    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 	    						Mätarspecifik information
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-	    					</p>	
+	    					</p>
+	    					<p class="panel-title hide" id="meter-heading" style="font-size:2.5vh">
+	    						<span id=""></span> mätare
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
+	    					</p>
 				        </div>
 	    				<div class="panel-body" style="padding:0; height:90%">
 				        
@@ -80,24 +84,24 @@
 				        		<div id="choose-meter">
 					        		<h4 style="margin-left:auto; margin-right:auto; text-align:center; margin-top:5vh; width:60%">Välj din elmätare och se specifika värden för elanvändningen för det område som du tillhör!</h4></br>
 			    					<div class="dropdown" style="text-align:center">
-			    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="width:40%; text-align:center">Hitta din elmätare här <span class="caret"></span>
+			    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="width:40%; text-align:center">Hitta din elmätare<span class="caret"></span>
 							            </a>
 							    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
 								            <li class="dropdown-submenu">
 							                	<a tabindex="-1" href="#">Plan 1</a>
 							                	<ul class="dropdown-menu">
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s206f1')">Civil - s206f1</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil - s206f1</a></li>
 									                <li class="dropdown-submenu">
 									                    <a href="#">Environment</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s228a')">Höghuset - s228a</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">Resultatenhet 1125 - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s206f1')">Vänster om vardagsrummet - s206f1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
+									                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 1125 - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s206f1')">Vänster om vardagsrummet - s206f1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
 							                    		</ul>
 							                		</li>
 									                <li><a tabindex="-1" href="#">Kontorsservice - s204b2</a></li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s206a2')">Strategy - s206a2</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy - s206a2</a></li>
 							                	</ul>
 							            	</li>
 							            	<li class="dropdown-submenu">
@@ -106,16 +110,16 @@
 									                <li class="dropdown-submenu">
 									                    <a href="#">Civil</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s227a')">Höghuset - s227a</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">Resultatenhet 2000 - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">?? - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s204a3')">Övriga - s204a3</a></li>
+									                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000 - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">?? - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s204a3')">Övriga - s204a3</a></li>
 							                    		</ul>
 							                		</li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s205b')">Energuide - s205b1</a></li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s206a3')">Environment - s206a3</a></li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s205b')">Sweco International - s205b1</a></li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s206a3')">Sweco Sverige - s206a3</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide - s205b1</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Environment - s206a3</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International - s205b1</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Sweco Sverige - s206a3</a></li>
 							                	</ul>
 							            	</li>
 							            	<li class="dropdown-submenu">
@@ -124,22 +128,22 @@
 									                <li class="dropdown-submenu">
 									                    <a href="#">Civil</a>
 									                    <ul class="dropdown-menu">
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">Vänster om vardagsrummet - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet - s205b</a></li>
 							                    		</ul>
 							                		</li>
 									                <li class="dropdown-submenu">
 									                    <a href="#">Energuide</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s228a')">Höghuset - s228a</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">Låghuset - s207a1</a></li>
+									                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset - s228a</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset - s207a1</a></li>
 							                    		</ul>
 							                		</li>
 									                <li class="dropdown-submenu">
 									                    <a href="#">TransportSystems</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s207a')">Resultatenhet 7107 - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s205b')">Övriga - s205b1</a></li>
+									                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107 - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
 							                    		</ul>
 							                		</li>
 							                	</ul>
@@ -147,37 +151,37 @@
 							            	<li class="dropdown-submenu">
 							                	<a tabindex="-1" href="#">Plan 4</a>
 							                	<ul class="dropdown-menu">
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s207a')">Energuide - s207a1</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide - s207a1</a></li>
 									                <li class="dropdown-submenu">
 									                    <a href="#">Structure</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s227a')">Höghuset - s227a</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s107a1')">Resultatenhet 2500 - s107c2a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s205b')">Övriga - s205b1</a></li>
+									                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset - s227a</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s107a1')">Resultatenhet 2500 - s107c2a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga - s205b1</a></li>
 							                    		</ul>
 							                		</li>
 									                <li class="dropdown-submenu">
 									                    <a href="#">Sweco Sverige</a>
 									                    <ul class="dropdown-menu">
-									                        <li><a href="#" onclick="changeView(); applyFilter('s205b')">Resultatenhet 6400/6444 - s205b</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s207a')">Resultatenhet 7000 - s207a1</a></li>
-									                    	<li><a href="#" onclick="changeView(); applyFilter('s107a1')">Övriga - s107c2a1</a></li>
+									                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444 - s205b</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000 - s207a1</a></li>
+									                    	<li><a href="#" onclick="applyFilter('s107a1')">Övriga - s107c2a1</a></li>
 							                    		</ul>
 							                		</li>
-									                <li><a tabindex="-1" href="#" onclick="changeView(); applyFilter('s207a')">TransportSystems - s207a1</a></li>
+									                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems - s207a1</a></li>
 							                	</ul>
 							            	</li>
 
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 5 - s228a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s227a')">Plan 6 - s227a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 7 - s228a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s227a')">Plan 8 - s227a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 9 - s228a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s227a')">Plan 10 - s227a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 11 - s228a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s227a')">Plan 12 - s227a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 13 - s228a</a></li>
-								            <li><a href="#" onclick="changeView(); applyFilter('s228a')">Plan 14 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 5 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s227a')">Plan 6 - s227a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 7 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s227a')">Plan 8 - s227a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 9 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s227a')">Plan 10 - s227a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 11 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s227a')">Plan 12 - s227a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 13 - s228a</a></li>
+								            <li><a href="#" onclick="applyFilter('s228a')">Plan 14 - s228a</a></li>
 			              					<li class="divider"></li>
 								            <li><a href="#meter-area">Beskrivning av mätarområdena</a></li>
 							            </ul>
@@ -203,10 +207,11 @@
 	    		</div>
 
 
-	    		<div class="col-xs-12 col-sm-6 col-md-6"style="height:100%">
+	    		<div class="col-xs-12 col-sm-12 col-md-6"style="height:100%">
 	    			<div class="panel panel-default"style="height:100%">
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
-		    				<p class="panel-titel" style="font-size:100%">Jämför er förbrukning med snittet
+		    				<p class="panel-titel" style="font-size:2.5vh">
+		    					Elanvändningen över tid
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den gråa streckade linjen visar medelanvändningen för alla mätare. För större intervaller visas genomsnittliga timvärden över en 2-, 4-, 8- eller 24-timmarsperiod."></span>
 	    					</p>
 		    			</div>
@@ -236,7 +241,7 @@
 		    	<div class="col-xs-12 col-sm-12 col-md-6"style="text-align:center; height:100%">
 			    	<div class="panel panel-default" style="height:100%">
 		    			<div class="panel-heading"style="height:10%; padding:0">
-		    				<p class="panel-title" style="font-size:100%; text-align:center">
+		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Ackumulerad förändring sedan projektets start den 1a december 2014. Användningen jämförs med en referensvecka, som baseras på mätvärden från mars, april, maj, augusti och september. En positiv stapel påvisar en besparing jämfört med referensveckan och en negativ stapel påvisar en ökad elanvändning."></span>
 	    					</p>
@@ -259,8 +264,8 @@
 		   	    <div class="col-xs-12 col-sm-12 col-md-6" style="height:100%">
 	    			<div class="panel panel-default" style="height:100%">
 	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
-	    					<p class="panel-title" style="font-size:100%">
-	    						Hur ligger ni till?
+	    					<p class="panel-title" style="font-size:2.5vh">
+	    						Daglig elanvändning
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden."></span>
 	    					</p>	
 				        </div>
@@ -541,12 +546,12 @@
 	      	});
 	    });*/
 
-	    changeView = function (){
+	  //  changeView = function (){
 
 	   		
 	   // 	$("#meter-specific-info").toggle();
 	   //     $("#choose-meter").toggle();
-	    }
+	   // }
 
 		applyFilter = function (meter){
 			meterChart.filterAll();
@@ -562,6 +567,8 @@
 			var show = meterChart.filters().length == 0;
 			$("#meter-specific-info").toggleClass('hide', show);
 	   		$("#choose-meter").toggleClass('hide', !show);
+	   		$("#meter-heading").toggleClass('hide', show);
+	   		$("#choose-meter-heading").toggleClass('hide', !show);
 	   		if(!show){
 	   			meterChart.filters()[0]
 	   		}
@@ -624,47 +631,91 @@
         	}
         }
 
-
         var metaData = {
         	"s205b":{
         		"people":256,
-        		"color": "#C800C8"
+        		"color": "#C800C8",
+        		"name": "Rosa",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
         	},
         	"s207a":{
         		"people":166,
-        		"color": "#C80000"
+        		"color": "#C80000",
+        		"name": "Röd",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
         	},
         	"s227a":{
         		"people":421,
-        		"color": "#C8C800"
+        		"color": "#C8C800",
+        		"name": "Gul",
+        		"avgUse":"",
+        		"change":"",
+        		"accumSum":"",
+        		"ecoFeedback":"",
+        		"totEcoFeedback": ""
         	},
         	"s228a":{
         		"people":428,
-        		"color": "#0000C8"
+        		"color": "#0000C8",
+        		"name": "Blå",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
         	},
         	"s206a2":{
         		"people":63,
-        		"color": "#00C800"
-        	},
+        		"color": "#00C800",
+        		"name": "Grön",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
+    /*    	},
         	"s204a3":{
         		"people":99,
         		"color": "white"
+        		"name": ""
         	},
         	"s107a1":{
         		"people":35,
         		"color": "white"
+        		"name": ""
         	},
         	"s204b2":{
         		"people":8,
         		"color": "white"
+        		"name": ""			*/
         	},
         	"s206a3":{
         		"people":66,
-        		"color": "#00C8C8"
+        		"color": "#00C8C8",
+        		"name": "Turkos",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
         	},
         	"s206f1":{
-        		"people":33+39,
-        		"color": "#642A2A"
+        		"people":33+11,
+        		"color": "#642A2A",
+        		"name": "Brun",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": ""
         	}
         }
 	
@@ -679,6 +730,7 @@
 		var meanMonthUse = {};
 		var meterDomain = [];
 		var colorRange = [];
+
 
 		startRefPeriod1 = new Date(2014,2,1);
 		endRefPeriod1 = new Date(2014,4,31,23,59);
@@ -744,9 +796,8 @@
 
 			}
 		});
+
 		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
-
-
 
 	    
 	    var ndx = crossfilter(objectifiedData);	    
@@ -797,10 +848,12 @@
    	    }
    	    
    	    var meterDayAvg = meterDim.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg);
-   	    console.log("meterDayAvg", meterDayAvg.top(19999))
 
+   	    meterDayAvg.top(200).forEach(function (meter) {
+   	    	metaData[meter.value.meter].avgUse = meter.value.avg;
 
-
+   	    })
+   	    
    	    function allReduceAddAvg(p,v) {
    	    	++p.allHours
    	    	p.users += v.nrUsers;
@@ -1262,7 +1315,7 @@
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
 
-    	usageLineChartFiltered = dc.lineChart(usageLineChart)
+    	usageLineChartFiltered = dc.barChart(usageLineChart)
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
 		        	.brushOn(false)
@@ -1277,7 +1330,7 @@
       	usageLineChart
 	      	.dimension(hourDim)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
-		    .rangeChart(barDateBrush)
+	//	    .rangeChart(barDateBrush)
 		    .xUnits(d3.time.days)
 
 		    .brushOn(false) 
@@ -1290,14 +1343,12 @@
 		    	if (chart.filter() != null){
 			    	var timediff = (chart.filter()[1]-chart.filter()[0]);
 			    	
-			    	
 			    	while(timediff > group.maxSpan && group.next) {
 			    		group = group.next;		    		
 			    	}
 			    	while(timediff < group.maxSpan && group.prev) {
 			    		group = group.prev;		    		
 			    	}
-			    	
 			    }
 			    else {
 			    	var group = usageLineChartFiltered.group();
