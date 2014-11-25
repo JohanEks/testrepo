@@ -542,8 +542,7 @@
 	    });*/
 
 	    changeView = function (){
-	   		$("#meter-specific-info").toggleClass('hide');
-	   		$("#choose-meter").toggleClass('hide');
+
 	   		
 	   // 	$("#meter-specific-info").toggle();
 	   //     $("#choose-meter").toggle();
@@ -559,23 +558,39 @@
 			dc.redrawAll();
 		}
 
+		checkMeterFilter = function  (){
+			var show = meterChart.filters().length == 0;
+			$("#meter-specific-info").toggleClass('hide', show);
+	   		$("#choose-meter").toggleClass('hide', !show);
+	   		if(!show){
+	   			meterChart.filters()[0]
+	   		}
+		}
+
 		yearlyview = function (){
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["Januari", "Måndag", "Mars", "Onsdag", "Torsdag", "Fredag", "Lördag","","","","","","","","",""][t.getMonth()]});
 			if (hourDim.bottom(1)[0] < 31536000000){
 	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
 			}
 	   		else {updateTimeInterval(hourDim.top(1)[0].hourDate, 31536000000)}
+
+	   		
 		};
 
 		monthlyview = function (){
-	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000)
+	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
+
+    		
 		};
 
 		weeklyview = function(){
     		updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000)
+    		usageLineChart.xAxis().ticks(7).tickFormat(function(t){return ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"][t.getDay()]});
 		};
 
 		dailyview = function (){
 			updateTimeInterval(hourDim.top(1)[0].hourDate, 86400000)
+			
 		};
 
 		function updateTimeInterval(max, diff){
@@ -676,6 +691,9 @@
 
 
 		data.forEach(function(meter){
+			if(!metaData[meter.id]){
+				return;
+			}
 			// add/generate metadata
 			//totUsers += meter.people; //old
 			meterDomain.push(meter.id);
@@ -1151,11 +1169,13 @@
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
         		onefilter(chart, accumChangeChart);
-        		syncfilters(chart, accumChangeChart);        		
+        		syncfilters(chart, accumChangeChart); 
+        		checkMeterFilter();       		
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
 	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
 	     	.elasticX(true)
+
 
 
 	    accumChangeChart = dc.rowChart("#accum-change-chart");
