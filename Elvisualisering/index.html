@@ -238,7 +238,16 @@
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="height:90%; padding:0">
-		    				<div class="col-xs-12 col-sm-12 col-md-12" id="accum-change-chart" style="height:100%; padding:0"></div> 
+		    				<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%; padding:0">
+		    				        <table class='table table-hover' id="top-list-table">
+								        <thead>
+								          <tr class='header'>
+								            <th>Elmätare</th>
+								            <th>Förbrukning</th>
+								          </tr>
+								        </thead>
+								      </table>
+							</div> 
 		    			</div>
 		    		</div>		
 		    	</div>
@@ -637,6 +646,7 @@
 		startRefPeriod2 = new Date(2014,8,1);
 		endRefPeriod2 = new Date(2014,9,31,23,59);
 
+	
 		startMonthRefPeriod = new Date(2014,1,1);
 		endMonthRefPeriod = new Date(2014,9,31,23,59);
 
@@ -665,7 +675,7 @@
 	        	//console.log(nrUsers,meter.id)
 
 
-	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 || 
+	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 ||  
 	        		dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
 	        			refs[meter.id][dayDate.getDay()] += usage;
 	        			++days[meter.id][dayDate.getDay()];
@@ -695,6 +705,8 @@
 
 			}
 		});
+console.log(meterDomain);
+console.log(colorRange);
 		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
 
 
@@ -1210,6 +1222,61 @@
         		onefilter(chart, meterChart);
         		syncfilters(chart, meterChart);
         	})
+
+			// dimension by item name
+			/*dim.items = xf.dimension(function (d) { return d.name; });
+			group.itemsRollup = dim.items.group().reduce(
+			  function add (p, v) {
+			    // add
+			  },
+			  function rem (p, v) {
+			    // remove
+			  },
+			  function ini () { return { count: 0, totalSales: 0, totalSold: 0 }
+			);
+
+			dim.itemsTable = {
+			  top: function (x) {
+			    return group.itemsRollup.top(x)
+			      .map(function (grp) { return item: grp.key, rollup: grp.value } } );
+			  }
+			};*/
+
+		tableDim = {
+			top: function (x) {
+				return savingsGroup.top(x)
+					.map(function (grp) { return {"meter": grp.key, "change": grp.value} })
+			}
+		};
+
+
+
+ 		console.log("toplist")
+		toplistTable = dc.dataTable("#top-list-table")
+		toplistTable
+			.dimension(tableDim)
+			.group(function(d) {return "";})
+			.size(30)
+			.sortBy(function(d) {
+		        return d.change.accumChange;
+		    })
+		    .order(d3.descending)
+			.columns([
+					function (d){
+						console.log(d);
+						return d.change.meter;
+					},
+					function (d){
+						return d3.round(d.change.accumChange,2)+" kWh";
+				}
+			])
+				/*.sortBy(function(d) {
+        		return d.value.meter;
+    			})
+			        	
+*/
+		console.log("efter")
+
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
