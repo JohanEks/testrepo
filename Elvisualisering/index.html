@@ -248,10 +248,13 @@
 		    			</div> 
 		    			<div class="panel-body" style="height:90%; padding:0">
 		    				<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%; padding:0">
-		    				    <table class='table table-hover' id="top-list-table">
-								    <thead>
-								        <tr class='header'>
+
+		    				        <table class='table table-hover' id="top-list-table">
+								        <thead>
+								          <tr class='header'>
+								          	<th>Färg</th>
 								            <th>Elmätare</th>
+								            <th>Förändring</th>
 								            <th>Förbrukning</th>
 								        </tr>
 								    </thead>
@@ -911,7 +914,7 @@
    	    projStartDate.setMinutes(0)
    	    projStartDate.setSeconds(0);
    	    
-   	    /*
+   	    
 
    	    function bubbleReduceAdd(p,v){
    	    	++p.dataPoints;
@@ -952,7 +955,7 @@
 
    	    }
    	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
-*/
+
 
    	    function monthAvgReduceAdd(p,v) {
    	    	++p.hours
@@ -1061,22 +1064,42 @@
    	    function savingsReduceAdd(p,v){
    	   	    if (v.hourDate >= projStartDate /*&& v.hourDate < new Date(2014,10,10)*/){
    	   	    	//++p.saveByDay[v.hourDate.getDay()];
+   	   	    	
+   	   	    	//Det gamla som funkar
    	   	    	p.meter=v.meter;
    	    		p.accumChange += meanHourUseByDay[v.meter][v.hourDate.getDay()] - v.usage/v.nrUsers;
-   	    		}
-   	    	return p;
+	   	    	//------
+	   	    	++p.dataPoints;
+	   	    	++p.nrWeekdays[v.hourDate.getDay()]; 
+
+	   	    	p.users = v.nrUsers;
+	   	    	p.usage += v.usage;
+	   	    	var refSum = 0;
+	   	    	var refUsage = 0;
+	   	    	for(i=0; i < p.nrWeekdays.length; i++){
+	   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];  // antalet måndagstimmar i det valda intervallet * referensmåndagsanv / antalet referensmåndagsh
+	   	    		//refUsage = p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];*/
+	   	    	}
+	   	    	
+   	    		p.change = (p.usage-refSum)/refSum;	// --> (måndagsanvändningen-referensmåndagsanvändningen)/referensmåndagsanvändningen
    	    	}
 
+
+   	    	//	console.log(v.hourDate, v.meter, "Användning", v.usage, "Referensvärde", refUsage, "Accumulerad förändring", p.accumChange);
+   	    	
+   	    	return p;
+   	    }
    	    function savingsReduceRemove(p,v){
    	    	return p;
    	    }
 
    	    function savingsReduceInit(){
-   	    	return {accumChange:0, meter:""}
+   	    	return {accumChange:0, meter:"", users:0, usage:0, nrWeekdays:[0,0,0,0,0,0,0], change:0}
    	    }
 
    	    var savingsGroup = meterDim.group().reduce(savingsReduceAdd, savingsReduceRemove, savingsReduceInit);
    	    savingsGroup.dispose();
+   	    console.log(savingsGroup.top(50), "savingsGroup")
 
         var minDate = hourDim.bottom(1)[0].hourDate;
         var maxDate = hourDim.top(1)[0].hourDate;
@@ -1175,7 +1198,7 @@
         	
         	.ordinalColors(["#27ae60","#FFF380","red"])
           	.x(d3.time.scale().domain([new Date(oneWeekAgo-12*3600*1000), new Date(today-12*3600*1000)]))
-		    .xUnits(function (d){return 20})
+		   .xUnits(function (d){return 20})
  			.margins({ top: 10, left: 30, right: 50, bottom: 40 })
 	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
           	.brushOn(false)
@@ -1279,6 +1302,7 @@
 
 
 
+/*
 		toplistTable = dc.dataTable("#top-list-table")
 		toplistTable
 			.dimension(tableDim)
@@ -1296,11 +1320,33 @@
 						return d3.round(d.change.accumChange,2)+" kWh";
 				}
 			])
+
+*/	
+		table = document.getElementById("top-list-table");
+		
+		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
+		
+		sorted = sortByChange(savingsGroup.top(7),0,7)
+		placeInList = 1;
+		sorted.forEach(function (meter){
+			metaData[meter.value.meter].accumChange = meter.value.accumChange;
+			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
+			if(meter.value.change<0){
+				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+			}
+			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
+			
+			table.innerHTML += '<tr><td style=background-color:'+metaData[meter.value.meter].color+'><b>'+placeInList+'</b></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
+			++placeInList;
+		})		        	
+
+
 				/*.sortBy(function(d) {
         		return d.value.meter;
     			})
 			        	
 */
+
 
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
@@ -1312,10 +1358,11 @@
         	.xUnits(d3.time.days)
         	.yAxis().ticks(0)
 
+
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
 
-    	usageLineChartFiltered = dc.barChart(usageLineChart)
+    	usageLineChartFiltered = dc.lineChart(usageLineChart)
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
 		        	.brushOn(false)
@@ -1330,7 +1377,8 @@
       	usageLineChart
 	      	.dimension(hourDim)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
-	//	    .rangeChart(barDateBrush)
+
+			.rangeChart(barDateBrush)
 		    .xUnits(d3.time.days)
 
 		    .brushOn(false) 
