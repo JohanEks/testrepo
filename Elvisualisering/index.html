@@ -209,7 +209,7 @@
 		    			</div>
 		    			<div class="panel-body" style="height:90%; padding:0">
 					    	<div class="row" style="height:90%">
-				    			<div class="col-xs-12 col-sm-12 col-md-12"  id="usage-line-chart" style="height:90%; width:90%"></div>
+				    			<div class="col-xs-12 col-sm-12 col-md-12"  id="usage-line-chart" style="height:90%; width:90%;margin-left:5px"></div>
 				    		</div>
 		    				<div class="row" style="height:10%">
 								<div class="col-xs-12 col-sm-4 col-md-4" style="padding:0; text-align:right">
@@ -247,6 +247,7 @@
 								          	<th style="text-align:center">#</th>
 								            <th style="text-align:center">Elmätare</th>
 								            <th style="text-align:center">Förändring</th>
+								            <th style="text-align:center"></th>
 								            <th style="text-align:center">Förbrukning</th>
 								        </tr>
 								    </thead>
@@ -573,7 +574,7 @@
 		}
 
 		yearlyview = function (){
-			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["januari", "februari", "mars", "april", "maj", "juni", "juli","augusti","september","oktober","november","december"][t.getMonth()]});
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["jan", "feb", "mar", "apr", "maj", "jun", "jul","aug","sep","okt","nov","dec"][t.getMonth()]});
 			if (hourDim.bottom(1)[0] < 31536000000){
 	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
 			}
@@ -1251,7 +1252,7 @@
 			.dimension(meterDim)
 			.group(meterDayAvg)
 			.valueAccessor(function (d) { return d.value.avg; })
-	      	//.margins({ top: 10, left: 30, right: 50, bottom: 50 })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 50 })
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
@@ -1355,12 +1356,15 @@
 			var meterData = metaData[meter.value.meter];
 			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
 			if(meter.value.change<0){
-				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+				incOrDec='minskning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
 			}
-			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
+			else {
+				incOrDec='ökning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
 			table.innerHTML += '<tr><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
 			'<td>'+meterData.name+'</td>'+
-			'<td>'+d3.round(meterData.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
+			'<td>'+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td><td>' +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
 			++placeInList;
 		})
 
@@ -1445,7 +1449,7 @@
 		    .brushOn(false) 
 		    .elasticY(true)
 		    .yAxisLabel("kWh per person och timme")
-		    .margins({ top: 10, left: 50, right: 30, bottom: 30 })
+		    .margins({ top: 10, left: 60, right: 30, bottom: 30 })
 		    .on('preRedraw', function(chart){
 		    	var chart = barDateBrush;
 		    	var group = usageLineChartFiltered.group();
@@ -1478,7 +1482,7 @@
 	      		]);
 
 	    usageLineChart.xAxis().ticks(7);
-	    usageLineChart.yAxis().ticks(7);
+	    usageLineChart.yAxis().ticks(4);
 
 	    colorLineChart = function(meter){
 		    if (meter == ""){
@@ -1501,10 +1505,10 @@
 		                .attr("class", "x-axis-label")
 		                .attr("text-anchor", "middle")
 		                .attr("x", chart.width()/2)
-		                .attr("y", chart.height()-2.4)
+		                .attr("y", chart.height()-4)
 		                .attr("overflow","visible")
-		                .attr("margin-bottom","50px")
-		                .attr("font-size","80%")
+		                .attr("margin-bottom","70px")
+		                .attr("font-size","100%")
 		                .text(displayText);
 		}
 		

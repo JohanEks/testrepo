@@ -1,5 +1,9 @@
 .dc-chart g.row text {fill: white;} /*Sets label color in the meterChart */
-
+.dc-chart g.tick text {font-size: 100%;}
+.dc-chart g.axis text {font-size: 100%;}
+.dc-chart g text {
+    font-size: 100%;
+} /*y-label text size*/
 
 .dropdown-submenu {
     position: relative;
