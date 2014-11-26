@@ -251,15 +251,17 @@
 		    			<div class="panel-body" style="height:90%; padding:0">
 		    				<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%; padding:0">
 
-		    				        <table class='table table-hover' id="top-list-table">
+		    				        <table class='table table-hover table-striped' >
 								        <thead>
 								          <tr class='header'>
-								          	<th>Färg</th>
+								          	<th>#</th>
 								            <th>Elmätare</th>
 								            <th>Förändring</th>
 								            <th>Förbrukning</th>
 								        </tr>
 								    </thead>
+								    <tbody id="top-list-table">
+								    </tbody>
 								</table>
 							</div> 
 		    			</div>
@@ -1350,7 +1352,8 @@
 		
 		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
 		
-		sorted = sortByChange(savingsGroup.top(7),0,7)
+		savingsGroupTop = savingsGroup.top(100);
+		sorted = sortByChange(savingsGroupTop,0,savingsGroupTop.length)
 		placeInList = 1;
 		sorted.forEach(function (meter){
 			metaData[meter.value.meter].accumChange = meter.value.accumChange;
@@ -1359,8 +1362,7 @@
 				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
 			}
 			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			
-			table.innerHTML += '<tr><td style=background-color:'+metaData[meter.value.meter].color+'><b>'+placeInList+'</b></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
+			table.innerHTML += '<tr><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+metaData[meter.value.meter].color+'"></span></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
 			++placeInList;
 		})		        	
 
@@ -1400,9 +1402,9 @@
 
       	usageLineChart
 	      	.dimension(hourDim)
-	      	.x(d3.time.scale().domain([minDate,maxDate]))
 
 			.rangeChart(barDateBrush)
+	      	.x(d3.time.scale().domain([minDate,maxDate]))
 		    .xUnits(d3.time.days)
 
 		    .brushOn(false) 
