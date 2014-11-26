@@ -189,7 +189,6 @@
 					        		<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
 			    				</div>
 				    			<div id="meter-specific-info" class="hide">
-				    				
 				    			</div>
 
 		    				</div>
@@ -606,6 +605,11 @@
 			barDateBrush.filter([minDateDay, max]);
 		}
 
+		resetMeterChoice = function(){
+			meterChart.filterAll();
+			meterChart.redraw();
+		}
+
 		var onefilter = function(chart, otherChart){
         	if(!chart.dontlisten1){
     			otherChart.dontlisten1 = true;
@@ -639,7 +643,7 @@
         var metaData = {
         	"s205b":{
         		"people":256,
-        		"color": "rgb(200,0,200)",
+        		"color": "rgb(255,0,255)",
         		"name": "Rosa",
         		"avgUse": "",
         		"change": "",
@@ -649,7 +653,7 @@
         	},
         	"s207a":{
         		"people":166,
-        		"color": "rgb(200,0,0)",
+        		"color": "rgb(255,0,0)",
         		"name": "Röd",
         		"avgUse": "",
         		"change": "",
@@ -659,7 +663,7 @@
         	},
         	"s227a":{
         		"people":421,
-        		"color": "rgb(200,200,0)",
+        		"color": "rgb(255,255,0)",
         		"name": "Gul",
         		"avgUse":"",
         		"change":"",
@@ -669,7 +673,7 @@
         	},
         	"s228a":{
         		"people":428,
-        		"color": "rgb(0,0,200)",
+        		"color": "rgb(0,0,255)",
         		"name": "Blå",
         		"avgUse": "",
         		"change": "",
@@ -679,7 +683,7 @@
         	},
         	"s206a2":{
         		"people":63,
-        		"color": "rgb(0,200,0)",
+        		"color": "rgb(0,255,0)",
         		"name": "Grön",
         		"avgUse": "",
         		"change": "",
@@ -704,7 +708,7 @@
         	},
         	"s206a3":{
         		"people":66,
-        		"color": "rgb(0,200,200)",
+        		"color": "rgb(0,255,255)",
         		"name": "Turkos",
         		"avgUse": "",
         		"change": "",
@@ -714,7 +718,7 @@
         	},
         	"s206f1":{
         		"people":33+11,
-        		"color": "rgb(100,42,42)",
+        		"color": "rgb(0,0,0)",
         		"name": "Brun",
         		"avgUse": "",
         		"change": "",
@@ -1388,8 +1392,8 @@
 				else { accumSumDirection = "sparat ";}
 
 				var ecoFeedbackDirection = "";
-				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "ökade användning</b> som ni haft motsvarar <b>";}
-				else { ecoFeedbackDirection = "besparing</b> som ni åstadkommit motsvarar <b>";}
+				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "ökade användning</b> som ni haft motsvarar utsläpp av <b>";}
+				else { ecoFeedbackDirection = "besparing</b> som ni åstadkommit motsvarar utsläpp av <b>";}
 
 				var lastMonth = monthArray[new Date().getMonth()-1];
 
@@ -1402,6 +1406,7 @@
 
 
 				meterSpecificInfo.innerHTML = 
+					"<div class='row' style='height:30vh'>"+
 					"<div class='panel panel-default' style='height:90%; width:80%; margin-left:auto; margin-right:auto; margin-top:5vh'>"+
 						"<div style='font-size:; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
@@ -1412,7 +1417,9 @@
 						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
 						    "</p></ul>"+
 					    "</div>"+
-					"</div>"
+					"</div></div>"+
+					"<div class='row' style='height:5vh; width:80%; margin-right:auto; margin-left:auto; margin-top:5vh; text-align:right'>"+
+					"<button type = 'button' id ='reset-button' class='btn btn-default' style='' onclick='resetMeterChoice()'>Välj en annan mätare</button></div>"
 			}	
 		}
 
