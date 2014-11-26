@@ -210,12 +210,12 @@
 
 		    				        <table class='table table-hover table-striped table-condensed'style="max-height:100%" >
 								        <thead>
-								          <tr class='header'>
+								          <tr class='header' style="font-weight:normal">
 								          	<th style="text-align:center">#</th>
 								            <th style="text-align:center">Elmätare</th>
-								            <th style="text-align:right">Förändring</th>
+								            <th style="text-align:center">Förändring</th>
+								            <th style="text-align:right">%</th>
 								            <th style="text-align:center"></th>
-								            <th style="text-align:center">Förbrukning</th>
 								        </tr>
 								    </thead>
 								    <tbody id="top-list-table">
@@ -1260,7 +1260,7 @@
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
-			.ordering(function(d){ return d.value.avg})
+			//.ordering(function(d){ return d.value.avg})
 			.label(function(d) { return metaData[d.value.meter].name; })
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
@@ -1360,15 +1360,23 @@
 			var meterData = metaData[meter.value.meter];
 			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
 			if(meter.value.change<0){
-				incOrDec='minskning  '
+				incOrDec=''//minskning  '
 				arrow = '<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+				positive='';
 			}
 			else {
-				incOrDec='ökning  '
-				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			table.innerHTML += '<tr id="row-'+meter.value.meter+'"><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
-			'<td>'+meterData.name+'</td>'+
-			'<td style="text-align:right">'+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td><td style="text-align:left">' +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
+				incOrDec=''//ökning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';
+				positive='+';}
+			table.innerHTML += ''+
+			'<tr id="row-'+meter.value.meter+'">'+
+				'<td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
+				'<td>'+meterData.name+'</td>'+
+				'<td>'+positive+'<b>'+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
+				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
+				'<td style="text-align:left">' +arrow+'</td>'+
+			'</tr>'
+;
 			++placeInList;
 		})
 
