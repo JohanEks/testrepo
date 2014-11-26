@@ -1362,7 +1362,7 @@
 			else {
 				incOrDec='ökning  '
 				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			table.innerHTML += '<tr class="row-'+meter.value.meter+'"><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
+			table.innerHTML += '<tr id="row-'+meter.value.meter+'"><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
 			'<td>'+meterData.name+'</td>'+
 			'<td style="text-align:right">'+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td><td style="text-align:left">' +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
 			++placeInList;
