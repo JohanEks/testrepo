@@ -73,10 +73,8 @@
 	    						Mätarspecifik information
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
 	    					</p>
-	    					<p class="panel-title hide" id="meter-heading" style="font-size:2.5vh">
-	    						<span id=""></span> mätare
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-	    					</p>
+	    					<div id="meter-specific-heading">
+	    					</div>
 				        </div>
 	    				<div class="panel-body" style="padding:0; height:90%">
 				        
@@ -84,7 +82,7 @@
 				        		<div id="choose-meter">
 			    					<div style="width:40%; margin-right:auto; margin-left:auto; margin-top:8vh">
 				    					<div class="dropdown" style="text-align:center">
-				    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="">Hitta din elmätare<span class="caret"></span>
+				    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="">Hitta din elmätare <span class="caret"></span>
 								            </a>
 								    		<ul class="dropdown-menu multi-level" style="" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
 									            <li class="dropdown-submenu">
@@ -191,15 +189,7 @@
 					        		<h4 style="margin-top:1vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
 			    				</div>
 				    			<div id="meter-specific-info" class="hide">
-				    				<div class="panel-body" style="padding:0; height:90%">
-				    					<ul><h4>
-				    						<li>Den senaste veckan har ni i genomsnitt gjort av med <span id="use-per-person"></span> kWh per person och dygn.</li></br>
-				    						<li>Ni har <span></span> (minskat/ökat) förbrukningen med <span></span>% sedan projektet startade, jämfört med förbrukningen i november.</li></br>
-				    						<li>Sedan projektet startade har ni <span></span>(sparat/ökat er förbrukning med) <span></span>kWh, jämfört med november.</li></br>
-				    						<li>Den <span></span>(besparing som ni åstadkommit/ökade användning som ni haft) motsvarar <span></span> kg koldioxid.</li></br>
-				    						<li>För hela mätarområdet blir det <span></span> kg koldioxid.</li>
-				    					</h4></ul>
-				    				</div>
+				    				
 				    			</div>
 
 		    				</div>
@@ -563,7 +553,8 @@
 		applyFilter = function (meter){
 			meterChart.filterAll();
 			meterChart.filter(meter);
-			document.getElementById("use-per-person").innerHTML=d3.round(meterDayAvg.top(1)[0].value.avg,2);
+			//document.getElementById("use-per-person").innerHTML=d3.round(meterDayAvg.top(1)[0].value.avg,2);
+			console.log("applyFilter")
 //			bubbleChart.filter(meter);
 //			accumChangeChart.filter(meter);
 //			ga('send', 'event', 'dropdown', 'click', meter);
@@ -625,6 +616,11 @@
 				}
         		otherChart.dontlisten1 = false;
         	}
+
+			generateMeterSpecificInfo(chart.filters());
+
+			colorLineChart(chart.filters());
+
         }
 
         var syncfilters = function(chart, otherChart){
@@ -642,7 +638,7 @@
         var metaData = {
         	"s205b":{
         		"people":256,
-        		"color": "#C800C8",
+        		"color": "rgb(200,0,200)",
         		"name": "Rosa",
         		"avgUse": "",
         		"change": "",
@@ -652,7 +648,7 @@
         	},
         	"s207a":{
         		"people":166,
-        		"color": "#C80000",
+        		"color": "rgb(200,0,0)",
         		"name": "Röd",
         		"avgUse": "",
         		"change": "",
@@ -662,7 +658,7 @@
         	},
         	"s227a":{
         		"people":421,
-        		"color": "#C8C800",
+        		"color": "rgb(200,200,0)",
         		"name": "Gul",
         		"avgUse":"",
         		"change":"",
@@ -672,7 +668,7 @@
         	},
         	"s228a":{
         		"people":428,
-        		"color": "#0000C8",
+        		"color": "rgb(0,0,200)",
         		"name": "Blå",
         		"avgUse": "",
         		"change": "",
@@ -682,7 +678,7 @@
         	},
         	"s206a2":{
         		"people":63,
-        		"color": "#00C800",
+        		"color": "rgb(0,200,0)",
         		"name": "Grön",
         		"avgUse": "",
         		"change": "",
@@ -707,7 +703,7 @@
         	},
         	"s206a3":{
         		"people":66,
-        		"color": "#00C8C8",
+        		"color": "rgb(0,200,200)",
         		"name": "Turkos",
         		"avgUse": "",
         		"change": "",
@@ -717,7 +713,7 @@
         	},
         	"s206f1":{
         		"people":33+11,
-        		"color": "#642A2A",
+        		"color": "rgb(100,42,42)",
         		"name": "Brun",
         		"avgUse": "",
         		"change": "",
@@ -1266,7 +1262,7 @@
         	//	syncfilters(chart, bubbleChart);
         		onefilter(chart, accumChangeChart);
         		syncfilters(chart, accumChangeChart); 
-        		checkMeterFilter();       		
+        		checkMeterFilter();
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
 	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
@@ -1366,7 +1362,42 @@
 			'<td>'+meterData.name+'</td>'+
 			'<td>'+d3.round(meterData.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
 			++placeInList;
-		})		        	
+		})
+
+		
+
+		meterSpecificInfo = document.getElementById("meter-specific-info");
+		meterSpecificHeading = document.getElementById("meter-specific-heading");
+
+
+		generateMeterSpecificInfo = function (meter){
+			var meterSpecificData = metaData[meter];
+			if (meter == ""){}
+			else{
+				meterSpecificHeading.innerHTML = 
+					'<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh; background-color:rgba('+meterSpecificData.color+',0.5)">'+
+						meterSpecificData.name + ' mätare '+
+						'<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>'+
+					'</p>'
+
+
+				meterSpecificInfo.innerHTML = 
+					"<div class='panel-body' style='padding:0; height:90%'>"+
+					    "<ul><h4>"+
+					    	"<li>Den senaste veckan har ni i genomsnitt gjort av med "+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn.</li></br>"+
+					    	"<li>Ni har <span></span> (minskat/ökat) förbrukningen med " + d3.round(meterSpecificData.change,2) + " % sedan projektet startade, jämfört med förbrukningen i november.</li></br>"+
+					    	"<li>Sedan projektet startade har ni <span></span>(sparat/ökat er förbrukning med) " + d3.round(meterSpecificData.accumSum,2) + " kWh, jämfört med november.</li></br>"+
+					    	"<li>Den <span></span>(besparing som ni åstadkommit/ökade användning som ni haft) motsvarar " + d3.round(meterSpecificData.ecoFeedback,2) + " kg koldioxid.</li></br>"+
+					    	"<li>För hela mätarområdet blir det " + d3.round(meterSpecificData.totEcoFeedback,2) + " kg koldioxid.</li>"+
+					    "</h4></ul>"+
+					"</div>"
+			}	
+		}
+
+
+		
+
+				        	
 
 
 				/*.sortBy(function(d) {
@@ -1394,6 +1425,8 @@
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
 		        	.brushOn(false)
+		        	.colors("grey")
+
 		usageLineChartUnfiltered = dc.lineChart(usageLineChart)
 		        	.group(usageAvgMeter.unfiltered)
 		        	.valueAccessor(function (d) { return d.value.allAvg})
@@ -1446,6 +1479,17 @@
 
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(7);
+
+	    colorLineChart = function(meter){
+		    if (meter == ""){
+		    	console.log("inget filter")
+		    	usageLineChartFiltered.colors("grey")
+		    }
+		    else{
+		    	usageLineChartFiltered.colors(metaData[meter].color)
+		    	console.log("filter", metaData[meter].color)
+		    }
+		}
 
 	    dc.renderAll(); 
 
