@@ -1328,7 +1328,8 @@
 		
 		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
 		
-		sorted = sortByChange(savingsGroup.top(7),0,7)
+		savingsGroupTop = savingsGroup.top(100);
+		sorted = sortByChange(savingsGroupTop,0,savingsGroupTop.length)
 		placeInList = 1;
 		sorted.forEach(function (meter){
 			metaData[meter.value.meter].accumChange = meter.value.accumChange;
@@ -1337,8 +1338,7 @@
 				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
 			}
 			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			console.log(table.innerHTML)
-			table.innerHTML += '<tr><td style=background-color:'+metaData[meter.value.meter].color+'><b style=color:white>'+placeInList+'</b></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
+			table.innerHTML += '<tr><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+metaData[meter.value.meter].color+'"></span></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
 			++placeInList;
 		})		        	
 
