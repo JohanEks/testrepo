@@ -254,10 +254,10 @@
 		    				        <table class='table table-hover table-striped' >
 								        <thead>
 								          <tr class='header'>
-								          	<th>#</th>
-								            <th>Elmätare</th>
-								            <th>Förändring</th>
-								            <th>Förbrukning</th>
+								          	<th style="text-align:center">#</th>
+								            <th style="text-align:center">Elmätare</th>
+								            <th style="text-align:center">Förändring</th>
+								            <th style="text-align:center">Förbrukning</th>
 								        </tr>
 								    </thead>
 								    <tbody id="top-list-table">
@@ -1110,9 +1110,7 @@
 
    	    	var nordicElMix = 0.1; // 0,1 kg CO2e/kWh
    	    	metaData[meter.value.meter].ecoFeedback = meter.value.accumChange*nordicElMix;
-   	    	metaData[meter.value.meter].totEcoFeedback = meter.value.accumChange*nordicElMix*metaData[meter.value.people];
-   	    	console.log(meter.value.meter, meter.value.accumChange*nordicElMix, "ecoFeedback")
-   	    	console.log(meter.value.meter, meter.value.accumChange*nordicElMix*metaData[meter.value.people], "totEcoFeedback")
+   	    	metaData[meter.value.meter].totEcoFeedback = meter.value.accumChange*nordicElMix*metaData[meter.value.meter].people;
    	    })
 
 
