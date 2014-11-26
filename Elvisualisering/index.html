@@ -582,7 +582,7 @@
 		}
 
 		yearlyview = function (){
-			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["Januari", "Måndag", "Mars", "Onsdag", "Torsdag", "Fredag", "Lördag","","","","","","","","",""][t.getMonth()]});
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["januari", "februari", "mars", "april", "maj", "juni", "juli","augusti","september","oktober","november","december"][t.getMonth()]});
 			if (hourDim.bottom(1)[0] < 31536000000){
 	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
 			}
@@ -592,6 +592,7 @@
 		};
 
 		monthlyview = function (){
+			usageLineChart.xAxis().ticks(7).tickFormat(function(t){console.log(t);return t.getDate()+'/'+(t.getMonth()+1)});
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
 
     		
