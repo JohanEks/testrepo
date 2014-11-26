@@ -573,7 +573,7 @@
 		}
 
 		yearlyview = function (){
-			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["Januari", "Måndag", "Mars", "Onsdag", "Torsdag", "Fredag", "Lördag","","","","","","","","",""][t.getMonth()]});
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["januari", "februari", "mars", "april", "maj", "juni", "juli","augusti","september","oktober","november","december"][t.getMonth()]});
 			if (hourDim.bottom(1)[0] < 31536000000){
 	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
 			}
@@ -583,6 +583,7 @@
 		};
 
 		monthlyview = function (){
+			usageLineChart.xAxis().ticks(7).tickFormat(function(t){console.log(t);return t.getDate()+'/'+(t.getMonth()+1)});
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
 
     		
@@ -1255,6 +1256,7 @@
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
 			.ordering(function(d){ return d.value.avg})
+			.label(function(d) { return metaData[d.value.meter].name; })
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
@@ -1350,13 +1352,15 @@
 		sorted = sortByChange(savingsGroupTop,0,savingsGroupTop.length)
 		placeInList = 1;
 		sorted.forEach(function (meter){
-			metaData[meter.value.meter].accumChange = meter.value.accumChange;
+			var meterData = metaData[meter.value.meter];
 			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
 			if(meter.value.change<0){
 				arrow = 'minskning  '+'<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
 			}
 			else {arrow = 'ökning  '+'<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			table.innerHTML += '<tr><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+metaData[meter.value.meter].color+'"></span></td><td>'+meter.value.meter+'</td><td>'+d3.round(meter.value.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meter.value.accumChange,2)+' kWh</td></tr>';
+			table.innerHTML += '<tr><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
+			'<td>'+meterData.name+'</td>'+
+			'<td>'+d3.round(meterData.change*100,2)+"% " +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
 			++placeInList;
 		})
 
@@ -1508,8 +1512,9 @@
 		addXAxis(accumChangeChart, "kWh");
 	//	addXAxis(bubbleChart, "kWh per person och dygn");
 
-	    updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
-	    barDateBrush.render();
+	    //updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
+	    //barDateBrush.render();
+	    weeklyview();
 	}
 	// so that we later can call this with data loaded dynamically
 	// currently hardcoded in data.js
