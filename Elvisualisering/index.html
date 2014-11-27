@@ -655,7 +655,8 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1; Environment höger om vrdagsrummet</li><li>Vån 2; Energuide samt Sweco International</li><li>Vån 3; Transportsystems <i>exklusive</i> resultatenhet 7101</li><li>Vån 4; Structure <i>exklusive</i> höghuset samt resultatenhet 2500</li>"
         	},
         	"s207a":{
         		"people":166,
@@ -665,7 +666,8 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1; Environment resultatenhet 1125</li><li>Vån 2; Civil resultatenhet 2000 samt Civil ??</li><li>Vån 3; Energuide låghuset, Civil vänster om vardagsrummet samt TransportSystems resultatenhet 7107</li><li>Vån 4; Energuide, TransportSystems samt Sweco Sverige resultatenhet 7000</li>"
         	},
         	"s227a":{
         		"people":421,
@@ -675,7 +677,8 @@
         		"change":"",
         		"accumSum":"",
         		"ecoFeedback":"",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 2, 4, 6, 8, 10 och 12 i höghuset</li>"
         	},
         	"s228a":{
         		"people":428,
@@ -685,7 +688,8 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1, 3, 5, 7, 9, 11, 13 och 14 i höghuset</li>"
         	},
         	"s206a2":{
         		"people":63,
@@ -695,22 +699,41 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1, 3, 5, 7, 9, 11, 13 och 14 i höghuset</li>"
     /*    	},
         	"s204a3":{
         		"people":99,
         		"color": "white"
-        		"name": ""
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 2; Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt ??</li>"
         	},
         	"s107a1":{
         		"people":35,
         		"color": "white"
-        		"name": ""
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 4; Structure resultatenhet 2500, Sweco Sverige <i>exklusive</i> resultatenheterna 6400, 6444 och 7000</li>"
         	},
         	"s204b2":{
         		"people":8,
         		"color": "white"
-        		"name": ""			*/
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1, 3, 5, 7, 9, 11, 13 och 14 i höghuset</li>"		*/
         	},
         	"s206a3":{
         		"people":66,
@@ -720,7 +743,8 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 2; Sweco Sverige</li>"
         	},
         	"s206f1":{
         		"people":33+11,
@@ -730,10 +754,10 @@
         		"change": "",
         		"accumSum": "",
         		"ecoFeedback": "",
-        		"totEcoFeedback": ""
+        		"totEcoFeedback": "",
+        		"meterArea": "<li>Vån 1; Civil, Environment vänster om vardagsrummet</li>"
         	}
         }
-	
 
 		var objectifiedData =[];
 		
@@ -1420,25 +1444,32 @@
 */
 
 				meterSpecificInfo.innerHTML = 
-				//	"<div class='row' style='height:30vh'>"+
-					"<div class='panel panel-default' style='height:90%; width:80%; margin-left:auto; margin-right:auto; margin-top:5vh'>"+
-						"<div style='font-size:; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+
+					"<div class='panel panel-default' style='height:8vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
+						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+						    "<ul><p>"+
+						    	"Ditt mätarområde - " + meterSpecificData.name + " mätare:"+
+						    	meterSpecificData.meterArea +
+						    "</p></ul>"+
+					    "</div>"+
+					"</div>"+
+
+										"<div class='panel panel-default' style='height:20vh; width:80%; margin-left:auto; margin-right:auto; margin-top:3vh'>"+
+						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
 						    	"<li>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
 						    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> sedan projektet startade, jämfört med förbrukningen i " + lastMonth + ".</li></br>"+
 						    	"<li>Sedan projektet startade har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li></br>"+
 						    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
-						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
+						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
+						    	"<li><a href=#environment style='color:black'><u>Läs mer om hur du kan <b>minska din miljöpåverkan</b></u>.</li></a>"
 						    "</p></ul>"+
 					    "</div>"+
-					"</div></div>"//+
-					//"<div class='row' style='height:5vh; width:80%; margin-right:auto; margin-left:auto; margin-top:5vh; text-align:right'>"+
-					//"<button type = 'button' id ='reset-button' class='btn btn-default' style='' onclick='resetMeterChoice()'>Välj en annan mätare</button></div>"
+					"</div>"
 			}	
 		}
-
-
 		
+
 
 				        	
 
