@@ -1598,25 +1598,26 @@
 	    weeklyview();
 	    lastClick = new Date();
 	    player = function(){
-	    	var rightNow= new Date();
-	    	if(window.location.hash.substring(1)=="player" && lastClick-rightNow > 60000
-	    	
-	    	i=0;
-	    	setInterval(function (){
-	    	
-	    		console.log(meterDomain[i])
-	    		if (i<meterDomain.length-1){
-	    			applyFilter(meterDomain[i]);
-	    			i++
-	    		}
-	    		else{ 
-	    			i=0;
-	    			dc.filterAll()
-	    			usageLineChart.redraw();
-	    			console.log("clear");
-	    		}
-	    	},3000);
-	    }
+		    i=0;
+		    setInterval(function (){
+		    	var rightNow = new Date();
+			    console.log(rightNow-lastClick)
+			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > 60000){
+					console.log(meterDomain[i])
+				   	if (i<meterDomain.length-1){
+				   		applyFilter(meterDomain[i]);
+				   		i++
+				   	}
+				   	else{ 
+				   		i=0;
+				   		dc.filterAll()
+				   		usageLineChart.redraw();
+				   		console.log("clear");
+			    	}
+			    }
+			},3000);
+	    };
+	    
 		
 
 		player();
