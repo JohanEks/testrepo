@@ -91,7 +91,7 @@
 								            </a>
 								    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
 									            <li class="dropdown-submenu">
-								                	<a tabindex="-1" >Plan 1</a>
+								                	<a tabindex="-1" href="#">Plan 1</a>
 								                	<ul class="dropdown-menu">
 										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil - s206f1</a></li>
 										                <li class="dropdown-submenu">
@@ -536,6 +536,22 @@
 		$(function () {
 		  $('[data-toggle="popover"]').popover()
 		})
+
+		$( ".dropdown-submenu" ).click(function(event) {
+    		// stop bootstrap.js to hide the parents
+		    event.stopPropagation();
+		    // hide the open children
+		    $( this ).find(".dropdown-submenu").removeClass('open');
+		    // add 'open' class to all parents with class 'dropdown-submenu'
+		    $( this ).parents(".dropdown-submenu").addClass('open');
+		    // this is also open (or was)
+		    $( this ).toggleClass('open');
+		});
+
+		// this event fires when the dropdown hiden.
+	    $('.dropdown').on('hidden.bs.dropdown', function () {
+	        $( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+	    });
 
 /*	    $(document).ready(function(){
 	      	$("#choose-meter-dropdown").click(function(){
