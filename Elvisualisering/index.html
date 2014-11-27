@@ -68,12 +68,17 @@
  
 	    		<div class="col-xs-12 col-sm-12 col-md-6" style="height:100%">
 	    			<div class="panel panel-default" style="height:100%">
-	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
+	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 	    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 	    						Mätarspecifik information
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
 	    					</p>
 	    					<div id="meter-specific-heading">
+	    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
+	    							Mätarspecifik information
+	    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
+									<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.2vh' href="#" onclick='resetMeterChoice()'>Välj en annan mätare</a>
+								</p>
 	    					</div>
 				        </div>
 	    				<div class="panel-body" style="padding:0; height:90%">
@@ -210,12 +215,12 @@
 
 		    				        <table class='table table-hover table-striped table-condensed'style="max-height:100%" >
 								        <thead>
-								          <tr class='header'>
+								          <tr class='header' style="font-weight:normal">
 								          	<th style="text-align:center">#</th>
 								            <th style="text-align:center">Elmätare</th>
-								            <th style="text-align:right">Förändring</th>
+								            <th style="text-align:center">Förändring</th>
+								            <th style="text-align:right">%</th>
 								            <th style="text-align:center"></th>
-								            <th style="text-align:center">Förbrukning</th>
 								        </tr>
 								    </thead>
 								    <tbody id="top-list-table">
@@ -1261,7 +1266,7 @@
 
 	      	.colors(colorScale)
 	      	.colorAccessor(function (d) { return d.value.meter;})
-			.ordering(function(d){ return d.value.avg})
+			//.ordering(function(d){ return d.value.avg})
 			.label(function(d) { return metaData[d.value.meter].name; })
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
@@ -1361,22 +1366,30 @@
 			var meterData = metaData[meter.value.meter];
 			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
 			if(meter.value.change<0){
-				incOrDec='minskning  '
+				incOrDec=''//minskning  '
 				arrow = '<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+				positive='';
 			}
 			else {
-				incOrDec='ökning  '
-				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';}
-			table.innerHTML += '<tr id="row-'+meter.value.meter+'"><td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
-			'<td>'+meterData.name+'</td>'+
-			'<td style="text-align:right">'+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td><td style="text-align:left">' +arrow+'</td><td>'+d3.round(meterData.accumSum,2)+' kWh</td></tr>';
+				incOrDec=''//ökning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';
+				positive='+';}
+			table.innerHTML += ''+
+			'<tr id="row-'+meter.value.meter+'">'+
+				'<td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
+				'<td>'+meterData.name+'</td>'+
+				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
+				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
+				'<td style="text-align:left">' +arrow+'</td>'+
+			'</tr>'
+;
 			++placeInList;
 		})
 
 		
 
 		meterSpecificInfo = document.getElementById("meter-specific-info");
-		meterSpecificHeading = document.getElementById("meter-specific-heading");
+	//	meterSpecificHeading = document.getElementById("meter-specific-heading");
 
 
 		generateMeterSpecificInfo = function (meter){
@@ -1399,15 +1412,15 @@
 				var lastMonth = monthArray[new Date().getMonth()-1];
 
 
-				meterSpecificHeading.innerHTML = 
+		/*		meterSpecificHeading.innerHTML = 
 					'<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">'+
 						meterSpecificData.name + ' mätare '+
 						'<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>'+
 					'</p>'
-
+*/
 
 				meterSpecificInfo.innerHTML = 
-					"<div class='row' style='height:30vh'>"+
+				//	"<div class='row' style='height:30vh'>"+
 					"<div class='panel panel-default' style='height:90%; width:80%; margin-left:auto; margin-right:auto; margin-top:5vh'>"+
 						"<div style='font-size:; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
@@ -1418,9 +1431,9 @@
 						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
 						    "</p></ul>"+
 					    "</div>"+
-					"</div></div>"+
-					"<div class='row' style='height:5vh; width:80%; margin-right:auto; margin-left:auto; margin-top:5vh; text-align:right'>"+
-					"<button type = 'button' id ='reset-button' class='btn btn-default' style='' onclick='resetMeterChoice()'>Välj en annan mätare</button></div>"
+					"</div></div>"//+
+					//"<div class='row' style='height:5vh; width:80%; margin-right:auto; margin-left:auto; margin-top:5vh; text-align:right'>"+
+					//"<button type = 'button' id ='reset-button' class='btn btn-default' style='' onclick='resetMeterChoice()'>Välj en annan mätare</button></div>"
 			}	
 		}
 
