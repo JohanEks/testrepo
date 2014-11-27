@@ -91,7 +91,7 @@
 								            </a>
 								    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
 									            <li class="dropdown-submenu">
-								                	<a tabindex="-1" href="">Plan 1</a>
+								                	<a tabindex="-1" href="#">Plan 1</a>
 								                	<ul class="dropdown-menu">
 										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil</a></li>
 										                <li class="dropdown-submenu">
@@ -226,7 +226,7 @@
 								          <tr class='header' style="font-weight:normal">
 								          	<th style="text-align:center">#</th>
 								            <th style="text-align:center">Elmätare</th>
-								            <th style="text-align:center">Förändring</th>
+								            <th style="text-align:center">Förändring per person</th>
 								            <th style="text-align:right">%</th>
 								            <th style="text-align:center"></th>
 								        </tr>
@@ -545,6 +545,22 @@
 		  $('[data-toggle="popover"]').popover()
 		})
 
+		$( ".dropdown-submenu" ).click(function(event) {
+    		// stop bootstrap.js to hide the parents
+		    event.stopPropagation();
+		    // hide the open children
+		    $( this ).find(".dropdown-submenu").removeClass('open');
+		    // add 'open' class to all parents with class 'dropdown-submenu'
+		    $( this ).parents(".dropdown-submenu").addClass('open');
+		    // this is also open (or was)
+		    $( this ).toggleClass('open');
+		});
+
+		// this event fires when the dropdown hiden.
+	    $('.dropdown').on('hidden.bs.dropdown', function () {
+	        $( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+	    });
+
 /*	    $(document).ready(function(){
 	      	$("#choose-meter-dropdown").click(function(){
 	        	$("#meter-specific-info").toggle();
@@ -801,15 +817,25 @@
 		var meterDomain = [];
 		var colorRange = [];
 
-
+		
+		startRefPeriod1 = new Date(2014,9,1);
+		endRefPeriod1 = new Date(2014,10,0,23,59);
+		
+		//Real ref period
+		//startRefPeriod1 = new Date(2014,10,1);
+		//endRefPeriod1 = new Date(2014,11,0,23,59);
+		
+		//Old junk
+		/*
 		startRefPeriod1 = new Date(2014,2,1);
 		endRefPeriod1 = new Date(2014,4,31,23,59);
 		startRefPeriod2 = new Date(2014,8,1);
 		endRefPeriod2 = new Date(2014,9,31,23,59);
-
+		*/
 	
 		startMonthRefPeriod = new Date(2014,1,1);
 		endMonthRefPeriod = new Date(2014,9,31,23,59);
+		
 
 
 		data.forEach(function(meter){
@@ -826,7 +852,7 @@
 			days[meter.id] = [0,0,0,0,0,0,0]; //number of datapoints
 			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
 			meanMonthUse[meter.id] = 0;
-			
+
 			meter.data.forEach(function(dataPoint){
 				var usageDate = new Date(dataPoint[0]);
 	        	var dayDate = new Date(0)
@@ -838,8 +864,7 @@
 	        	var nrUsers = metaData[meter.id].people
 
 
-	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1 ||  
-	        		dayDate >= startRefPeriod2 && dayDate < endRefPeriod2){
+	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1){
 	        			refs[meter.id][dayDate.getDay()] += usage;
 	        			++days[meter.id][dayDate.getDay()];
 
@@ -1623,11 +1648,56 @@
 	    //updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
 	    //barDateBrush.render();
 	    weeklyview();
-	}
+	    lastClick = new Date();
+
+	    playerDelay = 30000;
+
+	    player = function(){
+		    i=0;
+		    setInterval(function (){
+		    	var rightNow = new Date();
+			    console.log(rightNow-lastClick)
+
+			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > playerDelay){
+					console.log(meterDomain[i])
+				   	if (i<meterDomain.length-1){
+				   		applyFilter(meterDomain[i]);
+				   		i++
+				   	}
+				   	else{ 
+				   		i=0;
+				   		meterChart.filterAll()
+				   		dc.redrawAll();
+				   		console.log("clear");
+			    	}
+			    }
+			},3000);
+	    };
+	    
+		
+
+		player();
+		//window.setInterval(player,120000)
+		
+		$('body').on('click',function(){
+				if (playerDelay < new Date() - lastClick){
+
+					meterChart.filterAll();
+					dc.redrawAll();
+					console.log(lastClick)
+				}
+				lastClick = new Date();
+			}
+		);
+	
+	
+
+	};	
+
 	// so that we later can call this with data loaded dynamically
 	// currently hardcoded in data.js
 	init(data);
-
+	//player();
 	    </script>
 
 	</body>
