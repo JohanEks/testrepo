@@ -1513,17 +1513,8 @@
 					'</p>'
 */
 
-				meterSpecificInfo.innerHTML = 
-
-					"<div class='panel panel-default' style='height:8vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
-						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
-						    "<ul><p>"+
-						    	"Ditt mätarområde - " + meterSpecificData.name + " mätare:"+
-						    	meterSpecificData.meterArea +
-						    "</p></ul>"+
-					    "</div>"+
-					"</div>"+
-					"<div class='panel panel-default' style='height:25vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
+					
+					div1="<div class='panel panel-default' style='height:25vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
 						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
 						    	"<b>" + meterSpecificData.name + " mätare:</b>" +
@@ -1532,10 +1523,21 @@
 						    	"<li>Sedan projektet startade har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li></br>"+
 						    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
 						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
-						    	"<li><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</li></a>"
+						    	"<li><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
 						    "</p></ul>"+
 					    "</div>"+
-					"</div>"
+					"</div>";
+
+					div2="<div class='panel panel-default' style='height:8vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
+						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+						    "<ul><p>"+
+						    	"Ditt mätarområde - " + meterSpecificData.name + " mätare:"+
+						    	meterSpecificData.meterArea +
+						    "</p></ul>"+
+					    "</div>"+
+					"</div>";
+
+				meterSpecificInfo.innerHTML = div1+div2;
 			}	
 		}
 		
