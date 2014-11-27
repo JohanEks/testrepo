@@ -1652,13 +1652,22 @@
 
 	    playerDelay = 30000;
 
-	    player = function(){
+	    function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		        results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+
+		//console.log(getParameterByName("player"));
+
+	   	player = function(){
 		    i=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
 			    console.log(rightNow-lastClick)
 
-			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > playerDelay){
+			    if(getParameterByName("player") && rightNow - lastClick > playerDelay){
 					console.log(meterDomain[i])
 				   	if (i<meterDomain.length-1){
 				   		applyFilter(meterDomain[i]);
