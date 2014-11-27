@@ -650,6 +650,17 @@
 			usageLineChart.redraw();
 		}
 
+		
+	    colorLineChart = function(meter){
+		    if (meter == ""){
+		    	usageLineChartFiltered.colors("grey")
+		    }
+		    else{
+		    	usageLineChartFiltered.colors(metaData[meter].color)
+		    }
+		}
+
+/*
 		var onefilter = function(chart, otherChart){
         	if(!chart.dontlisten1){
     			otherChart.dontlisten1 = true;
@@ -668,6 +679,8 @@
 
         }
 
+        */
+/*
         var syncfilters = function(chart, otherChart){
         	if(!chart.dontlisten){
     			otherChart.dontlisten = true;
@@ -679,7 +692,7 @@
         		otherChart.dontlisten = false;
         	}
         }
-
+*/
         var metaData = {
         	"s205b":{
         		"people":256,
@@ -1338,8 +1351,22 @@
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
-        		onefilter(chart, accumChangeChart);
-        		syncfilters(chart, accumChangeChart);
+
+				var filters = chart.filters();
+				if (filters.length > 1){
+					var lastFilter = filters[filters.length-1];
+					chart.filterAll();
+					chart.filter(lastFilter);
+				}
+        	
+
+				generateMeterSpecificInfo(chart.filters());
+
+				colorLineChart(chart.filters());
+
+
+        	//	onefilter(chart, accumChangeChart);
+        	//	syncfilters(chart, accumChangeChart);
         		checkMeterFilter();
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
@@ -1361,8 +1388,8 @@
         	.on('filtered', function(chart, filter){
         //		onefilter(chart, bubbleChart);
         //		syncfilters(chart, bubbleChart);
-        		onefilter(chart, meterChart);
-        		syncfilters(chart, meterChart);
+        //		onefilter(chart, meterChart);
+        //		syncfilters(chart, meterChart);
         	})
 
 			// dimension by item name
@@ -1596,15 +1623,6 @@
 
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
-
-	    colorLineChart = function(meter){
-		    if (meter == ""){
-		    	usageLineChartFiltered.colors("grey")
-		    }
-		    else{
-		    	usageLineChartFiltered.colors(metaData[meter].color)
-		    }
-		}
 
 	    dc.renderAll(); 
 
