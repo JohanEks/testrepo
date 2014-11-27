@@ -1372,7 +1372,7 @@
 			'<tr id="row-'+meter.value.meter+'">'+
 				'<td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
 				'<td>'+meterData.name+'</td>'+
-				'<td>'+positive+'<b>'+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
+				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
 				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
 				'<td style="text-align:left">' +arrow+'</td>'+
 			'</tr>'
