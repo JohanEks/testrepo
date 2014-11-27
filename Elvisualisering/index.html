@@ -1628,8 +1628,8 @@
 				   	}
 				   	else{ 
 				   		i=0;
-				   		dc.filterAll()
-				   		usageLineChart.redraw();
+				   		meterChart.filterAll()
+				   		dc.redrawAll();
 				   		console.log("clear");
 			    	}
 			    }
@@ -1643,8 +1643,8 @@
 		
 		$('body').on('click',function(){
 				if (playerDelay < new Date() - lastClick){
-					dc.filterAll();
-					usageLineChart.redraw();
+					meterChart.filterAll();
+					dc.redrawAll();
 					console.log(lastClick)
 				}
 				lastClick = new Date();
