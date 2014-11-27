@@ -613,6 +613,7 @@
 		resetMeterChoice = function(){
 			meterChart.filterAll();
 			meterChart.redraw();
+			usageLineChart.redraw();
 		}
 
 		var onefilter = function(chart, otherChart){
@@ -1271,7 +1272,7 @@
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
         		onefilter(chart, accumChangeChart);
-        		syncfilters(chart, accumChangeChart); 
+        		syncfilters(chart, accumChangeChart);
         		checkMeterFilter();
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
