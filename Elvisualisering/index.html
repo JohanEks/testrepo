@@ -77,7 +77,7 @@
 	    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 	    							Mätarspecifik information
 	    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-									<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.2vh' href="#" onclick='resetMeterChoice()'>Välj en annan mätare</a>
+									<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
 								</p>
 	    					</div>
 				        </div>
@@ -85,11 +85,11 @@
 				        
 				        	<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%">
 				        		<div id="choose-meter">
-			    					<div style="width:40%; margin-right:auto; margin-left:auto; margin-top:8vh">
+			    					<div style="width:60%; margin-right:auto; margin-left:auto; margin-top:8vh">
 				    					<div class="dropdown" style="text-align:center">
-				    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3vh">Hitta din elmätare <span class="caret"></span>
+				    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span>
 								            </a>
-								    		<ul class="dropdown-menu multi-level" style="" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
+								    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
 									            <li class="dropdown-submenu">
 								                	<a tabindex="-1" href="#">Plan 1</a>
 								                	<ul class="dropdown-menu">
@@ -1453,16 +1453,16 @@
 						    "</p></ul>"+
 					    "</div>"+
 					"</div>"+
-
-										"<div class='panel panel-default' style='height:20vh; width:80%; margin-left:auto; margin-right:auto; margin-top:3vh'>"+
+					"<div class='panel panel-default' style='height:25vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
 						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
+						    	"<b>" + meterSpecificData.name + " mätare:</b>" +
 						    	"<li>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
 						    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> sedan projektet startade, jämfört med förbrukningen i " + lastMonth + ".</li></br>"+
 						    	"<li>Sedan projektet startade har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li></br>"+
 						    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
 						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
-						    	"<li><a href=#environment style='color:black'><u>Läs mer om hur du kan <b>minska din miljöpåverkan</b></u>.</li></a>"
+						    	"<li><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</li></a>"
 						    "</p></ul>"+
 					    "</div>"+
 					"</div>"

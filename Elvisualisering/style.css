@@ -7,7 +7,13 @@
 
 .dropdown-submenu {
     position: relative;
+    font-size: 2.5vh;
 }
+
+.dropdown-menu {
+    font-size: 2.5vh;
+}
+
 tr{
     font-size: 2.3vh;
 }
@@ -58,7 +64,6 @@ th{
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
 }
-
 
 .container-fluid {
   margin-right: auto;
