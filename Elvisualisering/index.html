@@ -1613,12 +1613,14 @@
 	    //barDateBrush.render();
 	    weeklyview();
 	    lastClick = new Date();
+	    playerDelay = 30000;
+
 	    player = function(){
 		    i=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
 			    console.log(rightNow-lastClick)
-			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > 60000){
+			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > playerDelay){
 					console.log(meterDomain[i])
 				   	if (i<meterDomain.length-1){
 				   		applyFilter(meterDomain[i]);
@@ -1640,9 +1642,15 @@
 		//window.setInterval(player,120000)
 		
 		$('body').on('click',function(){
-			lastClick = new Date;
-			console.log(lastClick)}
-			)
+				if (playerDelay < new Date() - lastClick){
+					dc.filterAll();
+					usageLineChart.redraw();
+					console.log(lastClick)
+				}
+				lastClick = new Date();
+			}
+		)
+		
 		};
 
 	// so that we later can call this with data loaded dynamically
