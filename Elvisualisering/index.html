@@ -32,38 +32,6 @@
 	<body>
 
 	    <div class="container-fluid" style="margin-top:5vh">
-<!--
-			<nav class="navbar navbar-inverse" role="navigation">
-			  <div class="container-fluid" style="width:70%; margin-left:auto; margin-right:auto">
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			    </div>
-
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      	<ul class="nav navbar-nav">
-			        	<li><a class="navbar-brand" style="text-color:white" href="" onclick="yearlyview()" id="yearly-view">Senaste året</a></li>
-			       	</ul>
-			      	<ul class="nav navbar-nav" style="text-color:white">
-			        	<li><a class="navbar-brand" href="" onclick="monthlyview()" id="monthly-view">Senaste månaden</a></li>
-			       	</ul>
-			      	<ul class="nav navbar-nav" style="text-color:white">
-			        	<li><a class="navbar-brand" href="" onclick="weeklyview()" id="weekly-view">Senaste veckan</a></li>
-			       	</ul>
-			      	<ul class="nav navbar-nav" style="text-color:white">
-			        	<li><a class="navbar-brand" href="#environment" id="environment-link">Minska din elanvändning med 10%</a></li>
-			       	</ul>
-			      	<ul class="nav navbar-nav navbar-right">
-			        	<li><a class="navbar-brand" href="#info" id="info-link">Läs mer om projektet</a></li>
-			       	</ul>
-			    </div>
-			  </div>
-			</nav>
--->
 	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
  
 	    		<div class="col-xs-12 col-sm-12 col-md-6" style="height:100%">
@@ -115,7 +83,7 @@
 										                    <ul class="dropdown-menu">
 										                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
 										                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">??</a></li>
+										                    	<li><a href="#" onclick="applyFilter('s207a')">Geoteknik</a></li>
 										                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
 								                    		</ul>
 								                		</li>
@@ -404,7 +372,7 @@
 										<li>s207a1</li>
 										<ul>
 											<li>Vån 1; Environment resultatenhet 1125</li>
-											<li>Vån 2; Civil resultatenhet 2000 samt Civil ??</li>
+											<li>Vån 2; Civil resultatenhet 2000 samt Civil geoteknik</li>
 											<li>Vån 3; Energuide låghuset, Civil vänster om vardagsrummet samt TransportSystems resultatenhet 7107</li>
 											<li>Vån 4; Energuide, TransportSystems samt Sweco Sverige resultatenhet 7000</li>
 										</ul>
@@ -418,7 +386,7 @@
 										<li>s206a3</li>
 										<ul><li>Vån 2; Sweco Sverige</li></ul>
 										<li>s204a3</li>
-										<ul><li>Vån 2; Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt ??</li></ul>
+										<ul><li>Vån 2; Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt geoteknik</li></ul>
 										<li>s107c2a1</li>
 										<ul><li>Vån 4; Structure resultatenhet 2500, Sweco Sverige <i>exklusive</i> resultatenheterna 6400, 6444 och 7000</li></ul>
 									</ul>
@@ -460,6 +428,7 @@
 	var groupByHours = [1,2,4,8,24];
 
 	var init = function(data){
+
 
 //----------Google Analytics----------------
 /*
@@ -611,21 +580,21 @@
 		}
 
 		yearlyview = function (){
-			usageLineChart.xAxis().ticks(12).tickFormat(function(t){console.log(t);return ["jan", "feb", "mar", "apr", "maj", "jun", "jul","aug","sep","okt","nov","dec"][t.getMonth()]});
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){ return ["jan", "feb", "mar", "apr", "maj", "jun", "jul","aug","sep","okt","nov","dec"][t.getMonth()]});
 
 			if (hourDim.bottom(1)[0] < 31536000000){
 	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
 			}
 	   		else {updateTimeInterval(hourDim.top(1)[0].hourDate, 31536000000)}
-
 	   		
 		};
 
+
 		monthlyview = function (){
+			
 			usageLineChart.xAxis().ticks(7).tickFormat(function(t){ return t.getDate()+'/'+(t.getMonth()+1)});
 	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
 
-    		
 		};
 
 		weeklyview = function(){
@@ -650,6 +619,17 @@
 			usageLineChart.redraw();
 		}
 
+		
+	    colorLineChart = function(meter){
+		    if (meter == ""){
+		    	usageLineChartFiltered.colors("grey")
+		    }
+		    else{
+		    	usageLineChartFiltered.colors(metaData[meter].color)
+		    }
+		}
+
+/*
 		var onefilter = function(chart, otherChart){
         	if(!chart.dontlisten1){
     			otherChart.dontlisten1 = true;
@@ -668,6 +648,8 @@
 
         }
 
+        */
+/*
         var syncfilters = function(chart, otherChart){
         	if(!chart.dontlisten){
     			otherChart.dontlisten = true;
@@ -679,7 +661,7 @@
         		otherChart.dontlisten = false;
         	}
         }
-
+*/
         var metaData = {
         	"s205b":{
         		"people":256,
@@ -701,7 +683,7 @@
         		"accumSum": "",
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
-        		"meterArea": "<li>Vån 1; Environment resultatenhet 1125</li><li>Vån 2; Civil resultatenhet 2000 samt Civil ??</li><li>Vån 3; Energuide låghuset, Civil vänster om vardagsrummet samt TransportSystems resultatenhet 7107</li><li>Vån 4; Energuide, TransportSystems samt Sweco Sverige resultatenhet 7000</li>"
+        		"meterArea": "<li>Vån 1; Environment resultatenhet 1125</li><li>Vån 2; Civil resultatenhet 2000 samt Civil geoteknik</li><li>Vån 3; Energuide låghuset, Civil vänster om vardagsrummet samt TransportSystems resultatenhet 7107</li><li>Vån 4; Energuide, TransportSystems samt Sweco Sverige resultatenhet 7000</li>"
         	},
         	"s227a":{
         		"people":421,
@@ -745,7 +727,7 @@
         		"accumSum": "",
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
-        		"meterArea": "<li>Vån 2; Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt ??</li>"
+        		"meterArea": "<li>Vån 2; Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt geoteknik</li>"
         	},
         	"s107a1":{
         		"people":35,
@@ -822,7 +804,6 @@
 	
 		startMonthRefPeriod = new Date(2014,1,1);
 		endMonthRefPeriod = new Date(2014,9,31,23,59);
-		
 
 
 		data.forEach(function(meter){
@@ -879,6 +860,8 @@
 			}
 		});
 
+
+
 		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
 
 	    
@@ -896,6 +879,7 @@
 	    var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
 
    	    var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
+
 
    	    var usageSumDate = hourDim.group(function (d){
    	    	var dayDate = new Date(0)
@@ -955,6 +939,7 @@
    	    }
 
 
+		
    	    var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
    	    lineHourAvg.dispose();
    	    
@@ -993,7 +978,7 @@
    	    projStartDate.setSeconds(0);
    	    
    	    
-
+/*
    	    function bubbleReduceAdd(p,v){
    	    	++p.dataPoints;
    	    	++p.nrWeekdays[v.hourDate.getDay()]; 
@@ -1032,8 +1017,8 @@
    	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0, meter:""}
 
    	    }
-   	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);
-
+   	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);		*/
+/*
 
    	    function monthAvgReduceAdd(p,v) {
    	    	++p.hours
@@ -1082,7 +1067,9 @@
 	        	return month;
    	    }).reduce(monthAvgReduceAdd, monthAvgReduceRemove, monthAvgReduceInit);
 
+*/
 
+/*
 
    	    function dayAvgReduceAdd(p,v) {
    	    	++p.hours
@@ -1130,6 +1117,8 @@
    	    	return obj;
    	    }
 
+
+
    	    var usageSumDay = hourDim.group(function (d){
    	    	var dayDate = new Date(0)
 	        	dayDate.setFullYear(d.getFullYear())
@@ -1138,7 +1127,7 @@
 	        	return dayDate;
    	    }).reduce(dayAvgReduceAdd, dayAvgReduceRemove, dayAvgReduceInit);
 
-
+*/
    	    function savingsReduceAdd(p,v){
    	   	    if (v.hourDate >= projStartDate /*&& v.hourDate < new Date(2014,10,10)*/){
    	   	    	//++p.saveByDay[v.hourDate.getDay()];
@@ -1232,11 +1221,12 @@
         	
         	bubbleChart.yAxis().tickFormat(function (v) {return v*100 + '%';})
 */
+/*
         var today = new Date(hourDim.top(1)[0].hourDate);
         var oneYearAgo = new Date(hourDim.top(1)[0].hourDate);
         oneYearAgo.setFullYear(oneYearAgo.getFullYear()-1);
         var oneWeekAgo = new Date(hourDim.top(1)[0].hourDate-604800000);
-        
+  */      
 /*       	monthChart = dc.barChart("#month-chart");
         monthChart
         	.dimension(hourDim)
@@ -1338,8 +1328,22 @@
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
-        		onefilter(chart, accumChangeChart);
-        		syncfilters(chart, accumChangeChart);
+
+				var filters = chart.filters();
+				if (filters.length > 1){
+					var lastFilter = filters[filters.length-1];
+					chart.filterAll();
+					chart.filter(lastFilter);
+				}
+        	
+
+				generateMeterSpecificInfo(chart.filters());
+
+				colorLineChart(chart.filters());
+
+
+        	//	onefilter(chart, accumChangeChart);
+        	//	syncfilters(chart, accumChangeChart);
         		checkMeterFilter();
         	})
 	   //   	.x(d3.scale.linear().domain([0,0.25]))
@@ -1347,7 +1351,7 @@
 	     	.elasticX(true)
 
 
-
+/*
 	    accumChangeChart = dc.rowChart("#accum-change-chart");
 	    accumChangeChart
 	    	.dimension(meterDim)
@@ -1361,10 +1365,10 @@
         	.on('filtered', function(chart, filter){
         //		onefilter(chart, bubbleChart);
         //		syncfilters(chart, bubbleChart);
-        		onefilter(chart, meterChart);
-        		syncfilters(chart, meterChart);
+        //		onefilter(chart, meterChart);
+        //		syncfilters(chart, meterChart);
         	})
-
+*/
 			// dimension by item name
 			/*dim.items = xf.dimension(function (d) { return d.name; });
 			group.itemsRollup = dim.items.group().reduce(
@@ -1486,29 +1490,31 @@
 					'</p>'
 */
 
-				meterSpecificInfo.innerHTML = 
+					
+					div1="<div class='panel panel-default' style='width:90%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
+						"<div style='font-size:1.5vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+						    "<ul><p>"+
+						    	"<b>" + meterSpecificData.name + " mätare:</b>" +
+						    	"<li>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
+						    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> sedan projektet startade, jämfört med förbrukningen i " + lastMonth + ".</li>"+
+						    	"<li>Sedan projektet startade har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li>"+
+						    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
+						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
+						    	"<li><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
+						    "</p></ul>"+
+					    "</div>"+
+					"</div>";
 
-					"<div class='panel panel-default' style='height:8vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
-						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+					div2="<div class='panel panel-default' style=' width:90%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
+						"<div style='font-size:1.5vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 						    "<ul><p>"+
 						    	"Ditt mätarområde - " + meterSpecificData.name + " mätare:"+
 						    	meterSpecificData.meterArea +
 						    "</p></ul>"+
 					    "</div>"+
-					"</div>"+
-					"<div class='panel panel-default' style='height:25vh; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh'>"+
-						"<div style='font-size:1vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
-						    "<ul><p>"+
-						    	"<b>" + meterSpecificData.name + " mätare:</b>" +
-						    	"<li>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
-						    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> sedan projektet startade, jämfört med förbrukningen i " + lastMonth + ".</li></br>"+
-						    	"<li>Sedan projektet startade har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li></br>"+
-						    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
-						    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li></br>"+
-						    	"<li><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</li></a>"
-						    "</p></ul>"+
-					    "</div>"+
-					"</div>"
+					"</div>";
+
+				meterSpecificInfo.innerHTML = div1+div2;
 			}	
 		}
 		
@@ -1523,7 +1529,6 @@
 			        	
 */
 
-
         barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
@@ -1533,6 +1538,7 @@
         	.x(d3.time.scale().domain([minDate,maxDate]))
         	.xUnits(d3.time.days)
         	.yAxis().ticks(0)
+
 
 
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
@@ -1597,15 +1603,6 @@
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
 
-	    colorLineChart = function(meter){
-		    if (meter == ""){
-		    	usageLineChartFiltered.colors("grey")
-		    }
-		    else{
-		    	usageLineChartFiltered.colors(metaData[meter].color)
-		    }
-		}
-
 	    dc.renderAll(); 
 
 
@@ -1624,22 +1621,22 @@
 		}
 		
 		addXAxis(meterChart, "kWh per person och dygn");
-		addXAxis(accumChangeChart, "kWh");
+	//	addXAxis(accumChangeChart, "kWh");
 	//	addXAxis(bubbleChart, "kWh per person och dygn");
 
 	    //updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
 	    //barDateBrush.render();
 	    weeklyview();
 	    lastClick = new Date();
+
 	    playerDelay = 30000;
 
 	    player = function(){
 		    i=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
-			    console.log(rightNow-lastClick)
+
 			    if(window.location.hash.substring(1)=="player" && rightNow - lastClick > playerDelay){
-					console.log(meterDomain[i])
 				   	if (i<meterDomain.length-1){
 				   		applyFilter(meterDomain[i]);
 				   		i++
@@ -1648,7 +1645,6 @@
 				   		i=0;
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
-				   		console.log("clear");
 			    	}
 			    }
 			},3000);
@@ -1661,18 +1657,19 @@
 		
 		$('body').on('click',function(){
 				if (playerDelay < new Date() - lastClick){
+
 					meterChart.filterAll();
 					dc.redrawAll();
-					console.log(lastClick)
 				}
 				lastClick = new Date();
 			}
-		)
-		
-		};
+		);
+	
+	};	
 
 	// so that we later can call this with data loaded dynamically
 	// currently hardcoded in data.js
+
 	init(data);
 	//player();
 	    </script>
