@@ -42,152 +42,165 @@
 
 		<div id = "info-view" class="">
 
-	    <div class="container-fluid" style="margin-top:5vh">
+	    <div class="container-fluid" style="margin-top:5vh; margin-bottom:5vh">
 	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
  
-	    		<div class="col-xs-12 col-sm-12 col-md-6" style="height:100%">
-	    			<div class="panel panel-default" style="height:100%">
-	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
-	    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
-	    						Mätarspecifik information
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-	    					</p>
-	    					<div id="meter-specific-heading">
-	    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
-	    							Mätarspecifik information
-	    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-									<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
-								</p>
-	    					</div>
-				        </div>
-	    				<div class="panel-body" style="padding:0; height:90%">
-				        
-				        	<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%">
-				        		<div id="choose-meter">
-			    					<div style="width:60%; margin-right:auto; margin-left:auto; margin-top:8vh">
-				    					<div class="dropdown" style="text-align:center">
-				    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span>
-								            </a>
-								    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
-									            <li class="dropdown-submenu">
-								                	<a tabindex="-1" href="#">Plan 1</a>
-								                	<ul class="dropdown-menu">
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil</a></li>
-										                <li class="dropdown-submenu">
-										                    <a href="#">Environment</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 1125</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s206f1')">Vänster om vardagsrummet</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
-								                    		</ul>
-								                		</li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Kontorsservice</a></li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy</a></li>
-								                	</ul>
-								            	</li>
-								            	<li class="dropdown-submenu">
-								                	<a tabindex="-1" href="#">Plan 2</a>
-								                	<ul class="dropdown-menu">
-										                <li class="dropdown-submenu">
-										                    <a href="#">Civil</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Geoteknik</a></li>
-										                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
-								                    		</ul>
-								                		</li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide</a></li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Environment</a></li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International</a></li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Sweco Sverige</a></li>
-								                	</ul>
-								            	</li>
-								            	<li class="dropdown-submenu">
-								                	<a tabindex="-1" href="#">Plan 3</a>
-								                	<ul class="dropdown-menu">
-										                <li class="dropdown-submenu">
-										                    <a href="#">Civil</a>
-										                    <ul class="dropdown-menu">
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
-								                    		</ul>
-								                		</li>
-										                <li class="dropdown-submenu">
-										                    <a href="#">Energuide</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset</a></li>
-								                    		</ul>
-								                		</li>
-										                <li class="dropdown-submenu">
-										                    <a href="#">TransportSystems</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
-								                    		</ul>
-								                		</li>
-								                	</ul>
-								            	</li>
-								            	<li class="dropdown-submenu">
-								                	<a tabindex="-1" href="#">Plan 4</a>
-								                	<ul class="dropdown-menu">
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide</a></li>
-										                <li class="dropdown-submenu">
-										                    <a href="#">Structure</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
-										                    	<li><a href="#" onclick="applyFilter('ref')">Resultatenhet 2500</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
-								                    		</ul>
-								                		</li>
-										                <li class="dropdown-submenu">
-										                    <a href="#">Sweco Sverige</a>
-										                    <ul class="dropdown-menu">
-										                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444</a></li>
-										                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000</a></li>
-										                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
-								                    		</ul>
-								                		</li>
-										                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems</a></li>
-								                	</ul>
-								            	</li>
+	    		<div id="meter-specific-view" class="hide">
+	    			<div class="col-xs-12 col-sm-12 col-md-6" style="height:45vh">
+		    			<div class="panel panel-default" style="height:100%">
+		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
+		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
+		    						Mätarspecifik information
+		    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
+		    					</p>
+		    					<div id="meter-specific-heading">
+		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
+		    							Mätarspecifik information
+		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
+										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
+									</p>
+		    					</div>
+					        </div>
+		    				<div class="panel-body" style="padding:0; height:90%">
+					        
+					        	<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%">
+					        		<div id="choose-meter">
+				    					<div style="width:60%; margin-right:auto; margin-left:auto; margin-top:8vh">
+					    					<div class="dropdown" style="text-align:center">
+					    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span>
+									            </a>
+									    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
+										            <li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 1</a>
+									                	<ul class="dropdown-menu">
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil</a></li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Environment</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 1125</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s206f1')">Vänster om vardagsrummet</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Kontorsservice</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy</a></li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 2</a>
+									                	<ul class="dropdown-menu">
+											                <li class="dropdown-submenu">
+											                    <a href="#">Civil</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Geoteknik</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Environment</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Sweco Sverige</a></li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 3</a>
+									                	<ul class="dropdown-menu">
+											                <li class="dropdown-submenu">
+											                    <a href="#">Civil</a>
+											                    <ul class="dropdown-menu">
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Energuide</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">TransportSystems</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 4</a>
+									                	<ul class="dropdown-menu">
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide</a></li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Structure</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Resultatenhet 2500</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Sweco Sverige</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems</a></li>
+									                	</ul>
+									            	</li>
 
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 5</a></li>
-									            <li><a href="#" onclick="applyFilter('s227a')">Plan 6</a></li>
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 7</a></li>
-									            <li><a href="#" onclick="applyFilter('s227a')">Plan 8</a></li>
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 9</a></li>
-									            <li><a href="#" onclick="applyFilter('s227a')">Plan 10</a></li>
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 11</a></li>
-									            <li><a href="#" onclick="applyFilter('s227a')">Plan 12</a></li>
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 13</a></li>
-									            <li><a href="#" onclick="applyFilter('s228a')">Plan 14</a></li>
-				              		<!--			<li class="divider"></li>
-									            <li><a href="#meter-area">Beskrivning av mätarområdena</a></li>			-->
-								            </ul>
-				    					    				
-				    					</div>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 5</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 6</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 7</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 8</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 9</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 10</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 11</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 12</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 13</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 14</a></li>
+					              		<!--			<li class="divider"></li>
+										            <li><a href="#meter-area">Beskrivning av mätarområdena</a></li>			-->
+									            </ul>
+					    					    				
+					    					</div>
+					    				</div>
+						        		<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
 				    				</div>
-					        		<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
-			    				</div>
-				    			<div id="meter-specific-info" class="hide">
-				    			</div>
-				    			<div id="reference-meter" class="hide">
-				    				<div style="width:60%; margin-left:auto; margin-right:auto">
-						        		<h4 style="font-size: 2vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för din elmätare. Vi beklagar detta.</h4>
-						        		<div class = "text-center">
-											<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:1.5vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
+					    			<div id="meter-specific-info" class="hide">
+					    			</div>
+					    			<div id="reference-meter" class="hide">
+					    				<div style="width:60%; margin-left:auto; margin-right:auto">
+							        		<h4 style="font-size: 2vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för din elmätare. Vi beklagar detta.</h4>
+							        		<div class = "text-center">
+												<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:1.5vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
+											</div>
 										</div>
-									</div>
-				    			</div>
+					    			</div>
 
-		    				</div>
-			    		</div>
+			    				</div>
+				    		</div>
 
-	    			</div>
+		    			</div>
+		    		</div>
 	    		</div>
+
+	    		<div id = "player-view" class="">
+		    		<div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;height:100%"> <!-- -->
+				    	<div class="panel panel-default" style="height:45vh">
+			    			<div class="panel-body" style="<height:90%;padding:0">
+
+								<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hidePlayerView()'>Börja utforska din elanvändning! </button>
+							</div>
+						</div>
+					</div>
+				</div>
 
 		    	<div class="col-xs-12 col-sm-12 col-md-6"style="text-align:center;height:100%"> <!-- -->
 		    		<div style="border:3px solid; border-radius:1vh; border-color:grey; height:100%; width:100%"><!-- -->
@@ -565,6 +578,11 @@
 
 		hideStartView = function (){
 			$("#start-view").toggleClass('hide', true);
+		}
+
+		hidePlayerView = function (){
+			$("#player-view").toggleClass('hide', true);
+			$("#meter-specific-view").toggleClass('hide', false);
 		}
 
 		applyFilter = function (meter){
@@ -1652,7 +1670,7 @@
 	    weeklyview();
 	    lastClick = new Date();
 
-	    playerDelay = 30000;
+	    playerDelay = 2000;
 
 	    function getParameterByName(name) {
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -1701,7 +1719,7 @@
 		
 		$('body').on('click',function(){
 				if (playerDelay < new Date() - lastClick){
-
+					hidePlayerView();
 					meterChart.filterAll();
 					dc.redrawAll();
 				}
