@@ -36,7 +36,7 @@
 				<h1 style="font-size:5vh">Elanvändningen i Marieberg</h1></br>
 				<h2><i>Hur mycket el använder du på jobbet?</i></h2></br>
 				<h4 style="line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. På sidan kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Under december månad finns även en touchskärm med informationen i vardagsrummet. Sidan uppdateras varje timme och jämför förbrukningen för december med motsvarande period i november.</h4>
-				<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'>Utforska din elanvändning! </button>
+				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'>Utforska din elanvändning! </button></a>
 			</div>
 		</div>
 
@@ -196,7 +196,7 @@
 				    	<div class="panel panel-default" style="height:45vh">
 			    			<div class="panel-body" style="<height:90%;padding:0">
 
-								<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:15vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hidePlayerView()'>Börja utforska din elanvändning! </button>
+								<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:15vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hidePlayerView()'>Klicka för att utforska din elanvändning! </button>
 							</div>
 						</div>
 					</div>
@@ -578,6 +578,7 @@
 
 		hideStartView = function (){
 			$("#start-view").toggleClass('hide', true);
+			window.scrollTo(0, 0);
 		}
 
 		hidePlayerView = function (){
