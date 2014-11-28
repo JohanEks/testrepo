@@ -1661,6 +1661,20 @@
 			},3000);
 	    };
 	    
+	    //Right-click blocker
+	    (function () {
+  			var blockContextMenu, myElement;
+  			console.log("första stället")
+
+		  blockContextMenu = function (evt) {
+		    evt.preventDefault();
+		    console.log("andra stället")
+		  };
+
+		  myElement = document.querySelector('body');
+		  myElement.addEventListener('contextmenu', blockContextMenu);
+		})();
+	    
 		
 
 		player();
