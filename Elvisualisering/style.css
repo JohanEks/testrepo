@@ -74,3 +74,7 @@ th{
 .hide {
     display: none;
 }
+
+.dist {
+    padding-top: 0.5vh;
+}
