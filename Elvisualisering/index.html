@@ -510,6 +510,8 @@
 */
 //----------------------------------------------------------------------
 
+		before = new Date();
+
 		$(function () {
 		  $('[data-toggle="popover"]').popover()
 		})
@@ -609,8 +611,9 @@
 
 		function updateTimeInterval(max, diff){
 			var minDateDay = new Date(max-diff);
-			barDateBrush.filterAll()
-			barDateBrush.filter([minDateDay, max]);
+			//barDateBrush.filterAll()
+			//barDateBrush.filter([minDateDay, max]);
+			usageLineChart.focus([minDateDay,max]);
 		}
 
 		resetMeterChoice = function(){
@@ -774,6 +777,9 @@
         		"meterArea": "<li>Vån 1; Civil, Environment vänster om vardagsrummet</li>"
         	}
         }
+        
+        console.log(new Date()-before);
+		before= new Date();
 
 		var objectifiedData =[];
 		
@@ -860,7 +866,8 @@
 			}
 		});
 
-
+		console.log("loading data",new Date()-before);
+		before = new Date();
 
 		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
 
@@ -871,17 +878,20 @@
     		return d.hourDate;
     	});
 
-	    var meterDim = ndx.dimension(function (d) {
+	    meterDim = ndx.dimension(function (d) {
 	    	return d.meter;
 	    });
 
+	    console.log("creating filters",new Date()-before);
+		before = new Date();
+		
+	    //Not used
+	    //var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
 
-	    var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
-
-   	    var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
+   	    //var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
 
 
-   	    var usageSumDate = hourDim.group(function (d){
+/*   	    var usageSumDate = hourDim.group(function (d){
    	    	var dayDate = new Date(0)
 	        	dayDate.setFullYear(d.getFullYear())
 	        	dayDate.setMonth(d.getMonth())
@@ -890,8 +900,9 @@
    	    }).reduceSum(function (d) {return d.usage;});
 
    	    usageSumDate.dispose();
+*/
 
-   	    var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
+   	    //var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
 
 
 
@@ -919,6 +930,9 @@
    	    	metaData[meter.value.meter].avgUse = meter.value.avg;
    	    })
    	    
+   	    console.log("after meterDatAvg",new Date()-before);
+		before = new Date();
+		
    	    function allReduceAddAvg(p,v) {
    	    	++p.allHours
    	    	p.users += v.nrUsers;
@@ -938,10 +952,13 @@
    	    	return {allHours:0, users:0, allElUse:0, allAvg:0};
    	    }
 
-
+   	    console.log("should be 0",new Date()-before);
+		before = new Date();
 		
-   	    var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
-   	    lineHourAvg.dispose();
+
+		//Unused
+   	    //var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+   	    //lineHourAvg.dispose();
    	    
 
    	    // Create groups for different levels of granularity (1-hour, 6-hour etc)
@@ -969,6 +986,9 @@
 	   	    usageAvgMeter = group;   
    	    }
 
+   	    console.log("after creating the different groups for linechart",new Date()-before);
+		before = new Date();
+		
    	    var projStartDate = new Date()
    	    projStartDate.setFullYear(2014)
    	    projStartDate.setMonth(10)
@@ -1128,6 +1148,9 @@
    	    }).reduce(dayAvgReduceAdd, dayAvgReduceRemove, dayAvgReduceInit);
 
 */
+   	    console.log("before savings group",new Date()-before);
+		before = new Date();
+		
    	    function savingsReduceAdd(p,v){
    	   	    if (v.hourDate >= projStartDate /*&& v.hourDate < new Date(2014,10,10)*/){
    	   	    	//++p.saveByDay[v.hourDate.getDay()];
@@ -1167,7 +1190,10 @@
    	    var savingsGroup = meterDim.group().reduce(savingsReduceAdd, savingsReduceRemove, savingsReduceInit);
    	    savingsGroup.dispose();
 
-
+   	    console.log("after savingsGroup",new Date()-before);
+		before = new Date();
+		
+		
    	    savingsGroup.top(200).forEach(function (meter) {
    	    	metaData[meter.value.meter].change = meter.value.change;
    	    	metaData[meter.value.meter].accumSum = meter.value.accumChange;
@@ -1335,8 +1361,15 @@
 					chart.filterAll();
 					chart.filter(lastFilter);
 				}
-        	
-
+				/*
+				if(filters.length>0){
+					console.log("add legend")
+        			usageLineChart.legend(dc.legend().x(400).y(10).itemHeight(13).gap(5));
+        		}
+        		else{
+        			console.log("remove legend")
+        			usageLineChart.legend(dc.legend().x(0).y(-10).itemHeight(0).gap(0));
+        		} */
 				generateMeterSpecificInfo(chart.filters());
 
 				colorLineChart(chart.filters());
@@ -1387,14 +1420,19 @@
 			      .map(function (grp) { return item: grp.key, rollup: grp.value } } );
 			  }
 			};*/
-
-		tableDim = {
+		console.log('before tableDim',new Date()-before);
+		before = new Date();
+		
+		/*tableDim = {
 			top: function (x) {
 				return savingsGroup.top(x)
 					.map(function (grp) { return {"meter": grp.key, "change": grp.value} })
 			}
 		};
-
+		*/
+		
+		console.log("after tableDim",new Date()-before);
+		before = new Date();
 		
 		//
 
@@ -1533,7 +1571,7 @@
 			        	
 */
 
-        barDateBrush = dc.barChart("#bar-date-brush");
+/*        barDateBrush = dc.barChart("#bar-date-brush");
         barDateBrush
         	.elasticX(false)
         	.minHeight(10)
@@ -1542,19 +1580,19 @@
         	.x(d3.time.scale().domain([minDate,maxDate]))
         	.xUnits(d3.time.days)
         	.yAxis().ticks(0)
-
+*/
 
 
     	usageLineChart  = dc.compositeChart("#usage-line-chart");
 
 
-    	usageLineChartFiltered = dc.lineChart(usageLineChart)
+    	usageLineChartFiltered = dc.lineChart(usageLineChart,'Din mätare')
 					.group(usageAvgMeter)
 		        	.valueAccessor(function (d) { return d.value.allAvg;})
 		        	.brushOn(false)
 		        	.colors("grey")
 
-		usageLineChartUnfiltered = dc.lineChart(usageLineChart)
+		usageLineChartUnfiltered = dc.lineChart(usageLineChart,'Genomsnitt i huset')
 		        	.group(usageAvgMeter.unfiltered)
 		        	.valueAccessor(function (d) { return d.value.allAvg})
 					.dashStyle([15,6])
@@ -1565,7 +1603,7 @@
       	usageLineChart
 	      	.dimension(hourDim)
 
-			.rangeChart(barDateBrush)
+			//.rangeChart(barDateBrush)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
 		    .xUnits(d3.time.days)
 
@@ -1574,7 +1612,7 @@
 		    .yAxisLabel("kWh per person och timme")
 		    .margins({ top: 10, left: 60, right: 30, bottom: 30 })
 		    .on('preRedraw', function(chart){
-		    	var chart = barDateBrush;
+		    	//var chart = barDateBrush;
 		    	var group = usageLineChartFiltered.group();
 		    	if (chart.filter() != null){
 			    	var timediff = (chart.filter()[1]-chart.filter()[0]);
@@ -1599,7 +1637,8 @@
 			    	}
 
 			})
-	      	.compose([
+
+			.compose([
 	      			usageLineChartUnfiltered,
 					usageLineChartFiltered
 	      		]);
@@ -1607,7 +1646,7 @@
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
 
-	    dc.renderAll(); 
+	    dc.renderAll();
 
 
 		function addXAxis(chart, displayText)
@@ -1664,11 +1703,9 @@
 	    //Right-click blocker
 	    (function () {
   			var blockContextMenu, myElement;
-  			console.log("första stället")
 
 		  blockContextMenu = function (evt) {
 		    evt.preventDefault();
-		    console.log("andra stället")
 		  };
 
 		  myElement = document.querySelector('body');
@@ -1689,6 +1726,9 @@
 				lastClick = new Date();
 			}
 		);
+		console.log("end before init(data)",new Date()-before);
+		before = new Date();
+		
 	
 	};	
 
