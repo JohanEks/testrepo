@@ -30,6 +30,17 @@
 		    	-->
 
 	<body>
+		<div id = "start-view">
+
+	    	<div class="container-fluid" style="margin-top:5vh; max-width:900px; text-align:center">
+				<h1 style="font-size:5vh">Elanvändningen i Marieberg</h1></br>
+				<h2><i>Hur mycket el använder du på jobbet?</i></h2></br>
+				<h4 style="line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. På sidan kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Under december månad finns även en touchskärm med informationen i vardagsrummet. Sidan uppdateras varje timme och jämför förbrukningen för december med motsvarande period i november.</h4>
+				<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:3vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'>Utforska din elanvändning! </button>
+			</div>
+		</div>
+
+		<div id = "info-view" class="">
 
 	    <div class="container-fluid" style="margin-top:5vh">
 	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
@@ -179,6 +190,7 @@
 	    		</div>
 
 		    	<div class="col-xs-12 col-sm-12 col-md-6"style="text-align:center;height:100%"> <!-- -->
+		    		<div style="border:3px solid; border-radius:1vh; border-color:grey; height:100%; width:100%"><!-- -->
 			    	<div class="panel panel-default" style="height:100%">
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
@@ -186,7 +198,7 @@
 	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:70%; color:grey" data-content="Ackumulerad förändring sedan projektets start den 1a december 2014. Användningen jämförs med en referensvecka, som baseras på mätvärden från mars, april, maj, augusti och september. En positiv stapel påvisar en besparing jämfört med referensveckan och en negativ stapel påvisar en ökad elanvändning."></span>
 	    					</p>
 		    			</div> 
-		    			<div class="panel-body" style="<height:90%;padding:0"><!-- -->
+		    			<div class="panel-body" style="<height:90%;padding:0">
 		    				<div class="col-xs-12 col-sm-12 col-md-12" style="height:100%; padding:0">
 
 		    				        <table class='table table-hover table-striped table-condensed'style="max-height:100%" >
@@ -202,7 +214,8 @@
 								    <tbody id="top-list-table">
 								    </tbody>
 								</table>
-							</div> 
+							</div>
+							</div>
 		    			</div>
 		    		</div>
 		    	</div>
@@ -408,6 +421,8 @@
 				</div>
 		</div>
 
+		</div>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	    <!--<script src="../../dist/js/bootstrap.min.js"></script>
 	    <script src="../../assets/js/docs.min.js"></script>
@@ -547,6 +562,10 @@
 	   // 	$("#meter-specific-info").toggle();
 	   //     $("#choose-meter").toggle();
 	   // }
+
+		hideStartView = function (){
+			$("#start-view").toggleClass('hide', true);
+		}
 
 		applyFilter = function (meter){
 			if (meter == "ref"){
@@ -688,7 +707,7 @@
         	},
         	"s227a":{
         		"people":421,
-        		"color": "rgb(250,250,0)",
+        		"color": "rgb(245,245,0)",
         		"name": "Gul",
         		"avgUse":"",
         		"change":"",
