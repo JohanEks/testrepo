@@ -78,3 +78,12 @@ th{
 .dist {
     padding-top: 0.5vh;
 }
+
+#start-view {
+    position:fixed;
+    top:0;
+    height:100%;
+    width:100%;
+    z-index:1000000;
+    background-color: white;
+}
