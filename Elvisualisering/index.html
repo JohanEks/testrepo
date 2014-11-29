@@ -45,7 +45,7 @@
 	    <div class="container-fluid" style="margin-top:5vh; margin-bottom:5vh">
 	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
  
-	    		<div id="meter-specific-view" class="hide">
+	    		<div id="meter-specific-view" class="">
 	    			<div class="col-xs-12 col-sm-12 col-md-6" style="height:45vh">
 		    			<div class="panel panel-default" style="height:100%">
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
@@ -191,7 +191,7 @@
 		    		</div>
 	    		</div>
 
-	    		<div id = "player-view" class="">
+	    		<div id = "player-view" class="hide">
 		    		<div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;height:100%"> <!-- -->
 				    	<div class="panel panel-default" style="height:45vh">
 			    			<div class="panel-body" style="<height:90%;padding:0">
@@ -534,6 +534,11 @@
 		hidePlayerView = function (){
 			$("#player-view").toggleClass('hide', true);
 			$("#meter-specific-view").toggleClass('hide', false);
+		}
+
+		showPlayerView = function (){
+			$("#player-view").toggleClass('hide', false);
+			$("#meter-specific-view").toggleClass('hide', true);
 		}
 
 		applyFilter = function (meter){
@@ -1675,21 +1680,44 @@
 
 	    player = function(){
 		    i=0;
+		    looper=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
 		    	console.log("playerTimer")
 			    if(rightNow - lastClick > playerDelay){
-				   	if (i<meterDomain.length-1){
+		    		$("#start-view").toggleClass('hide', true);
+		    		showPlayerView();
+				   	if (looper<meterDomain.length-4){
 				   		applyFilter(meterDomain[i]);
 				   		i++
+				   		looper++
+				   		console.log("första 3 mätarna",i, looper)
 				   	}
-				   	else{ 
-				   		i=0;
+				   	else if (looper < meterDomain.length){ 
+				   		$("#start-view").toggleClass('hide', false);
+			    		looper++
+				   		console.log("visa startskärmen",i, looper)
+			    	}
+			    	else if (looper<meterDomain.length+4){
+			    		$("#start-view").toggleClass('hide', true);
+				   		applyFilter(meterDomain[i]);
+				   		i++
+				   		looper++
+				   		console.log("sista 4 mätarna",i,looper)
+				   	}
+				   	else if (looper < meterDomain.length+7){ 
+				   		$("#start-view").toggleClass('hide', false);
+				   		looper++
+				   		console.log("visa startskärmen",i,looper)
+			    	}
+			    	else {
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
+			    		looper=0
+			    		i=0;
 			    	}
 			    }
-			},3000);
+			},5000);
 	    };
 	    
 	    //Right-click blocker
@@ -1718,6 +1746,7 @@
 				meterChart.filterAll();
 				dc.redrawAll();
 				console.log("playerOn click")
+				$("#start-view").toggleClass('hide', false);
 			}
 			lastClick = new Date();
 		});
