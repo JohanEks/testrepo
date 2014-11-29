@@ -1661,7 +1661,7 @@
 	    weeklyview();
 	    lastClick = new Date();
 
-	    playerDelay = 2000;
+	    playerDelay = 20000;
 
 	    function getParameterByName(name) {
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -1670,12 +1670,15 @@
 		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 		}
 		
+	    playerOn = getParameterByName("player");
+	    console.log("playerOn", playerOn);
+
 	    player = function(){
 		    i=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
-
-			    if(getParameterByName("player") && rightNow - lastClick > playerDelay){
+		    	console.log("playerTimer")
+			    if(rightNow - lastClick > playerDelay){
 				   	if (i<meterDomain.length-1){
 				   		applyFilter(meterDomain[i]);
 				   		i++
@@ -1701,24 +1704,27 @@
 		  myElement.addEventListener('contextmenu', blockContextMenu);
 		})();
 	    
-		
+		if (playerOn){
+			console.log("playerOn check")
+			player();	
+		}
 
-		player();
+		
 		//window.setInterval(player,120000)
 		
 		$('body').on('click',function(){
-				if (playerDelay < new Date() - lastClick && getParameterByName("player")){
-					hidePlayerView();
-					meterChart.filterAll();
-					dc.redrawAll();
-				}
-				lastClick = new Date();
+			if (playerOn && playerDelay < new Date() - lastClick ){
+				hidePlayerView();
+				meterChart.filterAll();
+				dc.redrawAll();
+				console.log("playerOn click")
 			}
-		);
+			lastClick = new Date();
+		});
+		
 		console.log("end before init(data)",new Date()-before);
 		before = new Date();
-		
-	
+			
 	};	
 
 	// so that we later can call this with data loaded dynamically
