@@ -1540,9 +1540,12 @@
 					    "</div>"+
 					"</div>";
 
+					startCol ='<div class="col-xs-6 col-sm-6 col-md-6">'
+					endCol = "</div>"
+
 				meterSpecificInfo.innerHTML = 
 					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
-					"<p style='font-size:1.8vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare:</p>" + div1+div2 + "</div>";
+					"<p style='font-size:1.8vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare:</p>" + div1 + div2 + "</div>";
 			}	
 		}
 		
@@ -1704,7 +1707,7 @@
 		//window.setInterval(player,120000)
 		
 		$('body').on('click',function(){
-				if (playerDelay < new Date() - lastClick){
+				if (playerDelay < new Date() - lastClick && getParameterByName("player")){
 					hidePlayerView();
 					meterChart.filterAll();
 					dc.redrawAll();
