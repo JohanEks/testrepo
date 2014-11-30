@@ -1737,7 +1737,9 @@
 				meterChart.filterAll();
 				dc.redrawAll();
 				console.log("playerOn click")
-				$("#start-view").toggleClass('hide', false);
+				if ("#star-view").hasClass('hide'){
+					$("#start-view").toggleClass('hide', false);
+				}
 				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
 			}
 			lastClick = new Date();
