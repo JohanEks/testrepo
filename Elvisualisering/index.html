@@ -1730,11 +1730,11 @@
 		    looper=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
-		    	console.log("playerTimer")
 			    if(rightNow - lastClick > playerDelay){
-		    		$("#start-view").toggleClass('hide', true);
 		    		showPlayerView();
 				   	if (looper<meterDomain.length-4){
+				   		$("#start-view").toggleClass('hide', true);
+				   		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[i]);
 				   		i++
 				   		looper++
@@ -1742,11 +1742,13 @@
 				   	}
 				   	else if (looper < meterDomain.length){ 
 				   		$("#start-view").toggleClass('hide', false);
+				   		console.log($("#start-view").hasClass('hide'))
 			    		looper++
 				   		console.log("visa startskärmen",i, looper)
 			    	}
 			    	else if (looper<meterDomain.length+4){
 			    		$("#start-view").toggleClass('hide', true);
+			    		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[i]);
 				   		i++
 				   		looper++
@@ -1754,10 +1756,12 @@
 				   	}
 				   	else if (looper < meterDomain.length+7){ 
 				   		$("#start-view").toggleClass('hide', false);
+				   		console.log($("#start-view").hasClass('hide'))
 				   		looper++
 				   		console.log("visa startskärmen",i,looper)
 			    	}
 			    	else {
+			    		console.log($("#start-view").hasClass('hide'))
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
 			    		looper=0
@@ -1793,9 +1797,12 @@
 				meterChart.filterAll();
 				dc.redrawAll();
 				console.log("playerOn click")
-				if ("#star-view").hasClass('hide'){
-					$("#start-view").toggleClass('hide', false);
+				
+				if (!$("#start-view").hasClass('hide')){
+					console.log("start-view")
+					$("#start-view").toggleClass('hide', true);
 				}
+				else{$("#start-view").toggleClass('hide', false);}
 				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
 			}
 			lastClick = new Date();
