@@ -567,11 +567,14 @@
 		}
 
 		showPlayerView = function (){
+			window.scrollTo(0, 0);
 			$("#player-view").toggleClass('hide', false);
 			$("#meter-specific-view").toggleClass('hide', true);
-			document.getElementById('close-eco-feedback').click();
-			document.getElementById('close-consequences').click();
-			window.scrollTo(0, 0);
+			$('#eco-feedback-modal').modal('hide');
+			$('#consequences-modal').modal('hide');
+			//document.getElementById('close-eco-feedback').click();
+			//document.getElementById('close-consequences').click();
+			
 		}
 
 		applyFilter = function (meter){
@@ -1728,7 +1731,7 @@
 	    console.log("playerOn", playerOn);
 
 	    player = function(){
-		    i=0;
+		    var i=0;
 		    looper=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
@@ -1794,19 +1797,26 @@
 
 		
 		$('body').on('click',function(){
+			console.log("looper", looper)
 			if (playerOn && playerDelay < new Date() - lastClick ){
 				hidePlayerView();
 				meterChart.filterAll();
 				dc.redrawAll();
 				console.log("playerOn click")
 				
-				if (!$("#start-view").hasClass('hide')){
-					console.log("start-view")
+				if (looper<meterDomain.length-4){
+					$("#start-view").toggleClass('hide', false);
+				}
+				else if (looper < meterDomain.length){					
 					$("#start-view").toggleClass('hide', true);
 				}
-				else{$("#start-view").toggleClass('hide', false);}
-				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				else if (looper < meterDomain.length+7){
+					$("#start-view").toggleClass('hide', false);
+				}
+				else{$("#start-view").toggleClass('hide', true);}
+
 			}
+				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
 			lastClick = new Date();
 		});
 		
