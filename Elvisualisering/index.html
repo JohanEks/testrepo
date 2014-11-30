@@ -56,7 +56,7 @@
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
 		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
-										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:1.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
+										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
 									</p>
 		    					</div>
 					        </div>
@@ -1561,32 +1561,45 @@
 */
 
 					
-					div1="<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
-						"<div style='font-size:1.4vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
-						    "<ul>"+
-						    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
-						    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen i " + lastMonth + ".</li>"+
-						    	"<li class='dist'>Under " + thisMonth + " har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li>"+
-						    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
-						    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
-						    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
-						    "</ul>"+
-					    "</div>"+
-					"</div>";
-
-
-					div2="<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
-						"<div style='font-size:1.4vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
-						    "<p class='dist' style='font-size:1.4vh; margin-left:10px; margin-bottom:0'>Ditt mätarområde - " + meterSpecificData.name + " mätare:</p>"+
-						    "<ul>"+
-						    	meterSpecificData.meterArea +
-						    "</ul>"+
-					    "</div>"+
-					"</div>";
-
 				meterSpecificInfo.innerHTML = 
 					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
-					"<p style='font-size:1.8vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare:</p>" + div1+div2 + "</div>";
+						"<p style='font-size:1.8vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare:</p>" +
+						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
+							"<div style='font-size:1.4vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+							    "<ul>"+
+							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
+							    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen i " + lastMonth + ".</li>"+
+							    	"<li class='dist'>Under " + thisMonth + " har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li>"+
+							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
+							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
+							    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
+
+							    	'<li class="dist"><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="color:black">Se vilka som ingår i ditt mätarområde</a>'+
+				   						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+											'<div class="modal-dialog" style="text-align:left">'+
+										    	'<div class="modal-content">'+
+												    '<div class="modal-header">'+
+												        '<button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+												        '<h4 class="modal-title">Ditt mätarområde</h4>'+
+												    '</div>'+
+												    '<div class="modal-body">'+
+												    	"<ul>"+
+												        	meterSpecificData.meterArea +
+												        "</ul>"+
+												    '</div>'+
+												    '<div class="modal-footer">'+
+												        '<button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>'+
+												    '</div>'+
+										    	'</div>'+
+											 '</div>'+
+										'</div>'+
+									'</li>'+
+
+							    "</ul>"+
+						    "</div>"+
+						"</div>"+
+					"</div>";
+
 			}	
 		}
 		
