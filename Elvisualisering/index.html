@@ -569,6 +569,9 @@
 		showPlayerView = function (){
 			$("#player-view").toggleClass('hide', false);
 			$("#meter-specific-view").toggleClass('hide', true);
+			document.getElementById('close-eco-feedback').click();
+			document.getElementById('close-consequences').click();
+			window.scrollTo(0, 0);
 		}
 
 		applyFilter = function (meter){
