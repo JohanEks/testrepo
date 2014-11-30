@@ -434,7 +434,7 @@
 		$('#meter-chart').on('click', function() {
 			if (meterChart.filters().length>0){
 				console.log("meter-chart",meterChart.filters()[0])
-				ga('send', 'event', 'meter-chart', 'click', meterChart.filters()[0]+ 'playerOn: '+playerOn);
+				ga('send', 'event', 'meter-chart', 'click', metaData[meterChart.filters()[0]].name + ', playerOn: '+playerOn);
 			}
 			else {
 				ga('send', 'event', 'meter-chart', 'click', 'unfiltered, playerOn: '+playerOn);
@@ -533,7 +533,7 @@
 	//			accumChangeChart.filter(meter);
 				dc.redrawAll();
 			}
-			ga('send', 'event', 'dropdown', 'click', meter+' playerOn: '+playerOn);
+			ga('send', 'event', 'dropdown', 'click', metaData[meter].name+', playerOn: '+playerOn);
 		}
 
 		checkMeterFilter = function  (){
