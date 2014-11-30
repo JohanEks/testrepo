@@ -419,13 +419,6 @@
 
 //----------Google Analytics----------------
 /*
-		$('#month-chart').on('click', function() {
-			ga('send', 'event', 'month-chart', 'click', 'month-chart-graph');
-		});
-
-		$('#day-chart').on('click', function() {
-			ga('send', 'event', 'day-chart', 'click', 'day-chart-graph');
-		});
 
 		$('#month-button').on('click', function() {
 			ga('send', 'event', 'time-button', 'click', 'month-button');
@@ -433,14 +426,6 @@
 
 		$('#week-button').on('click', function() {
 			ga('send', 'event', 'time-button', 'click', 'week-button');
-		});
-
-		$('#day-button').on('click', function() {
-			ga('send', 'event', 'time-button', 'click', 'day-button');
-		});
-
-		$('#bar-date-brush').on('click', function() {
-			ga('send', 'event', 'bar-date-brush', 'click', 'bar-date-brush');
 		});
 
 		$('#meter-chart').on('click', function() {
@@ -454,32 +439,8 @@
 			}
 		});
 
-		$('#bubble-chart').on('click', function() {
-			if (bubbleChart.filters().length>0){
-				ga('send', 'event', 'bubble-chart', 'click', bubbleChart.filters()[0]);
-			}
-			else {
-				ga('send', 'event', 'bubble-chart', 'click', 'unfiltered');
-				console.log("bubble-chart","unfiltered")
-			}
-		});
-
 		$('#usage-line-chart').on('click', function() {
 			ga('send', 'event', 'usage-line-chart', 'click', 'usage-line-chart');
-		});
-
-		$('#accum-change-chart').on('click', function() {
-			if (bubbleChart.filters().length>0){
-				ga('send', 'event', 'accum-change-chart', 'click', accumChangeChart.filters()[0]);
-			}
-			else {
-				ga('send', 'event', 'accum-change-chart', 'click', 'unfiltered');
-				console.log("bubble-chart","unfiltered")
-			}
-		});
-
-		$('#meter-link').on('click', function() {
-			ga('send', 'event', 'meter-link', 'click', 'meter-link');
 		});
 
 		$('#environment-link').on('click', function() {
@@ -491,8 +452,8 @@
 		});
 */
 		/*$('#dropdown').on('click', function() {
-			console.log(bubbleChart.filters()[0]);
-			ga('send', 'event', bubbleChart.filters()[0], 'click', bubbleChart.filters()[0]);
+			console.log(meterChart.filters()[0]);
+			ga('send', 'event', 'dropdown', 'click', meterChart.filters()[0]);
 		});
 */
 //----------------------------------------------------------------------
@@ -1354,6 +1315,12 @@
 	      	.colorAccessor(function (d) { return d.value.meter;})
 			//.ordering(function(d){ return d.value.avg})
 			.label(function(d) { return metaData[d.value.meter].name; })
+			.title(function(d) {
+			    return metaData[d.value.meter].name
+			        + ' mätares förbrukning per dygn: '
+			        + d3.round(d.value.avg,2)
+			        +'kWh'
+			})		
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
         	//	syncfilters(chart, bubbleChart);
@@ -1589,17 +1556,24 @@
 
 
     	usageLineChartFiltered = dc.lineChart(usageLineChart,'Din mätare')
-					.group(usageAvgMeter)
-		        	.valueAccessor(function (d) { return d.value.allAvg;})
-		        	.brushOn(false)
-		        	.colors("grey")
+			.group(usageAvgMeter)
+        	.valueAccessor(function (d) { return d.value.allAvg;})
+        	.brushOn(false)
+        	.colors("grey")
+        	/*.title(function(d) {
+			    return d3.round(d.value.allAvg)
+			        +'kWh'
+			})*/
+
 
 		usageLineChartUnfiltered = dc.lineChart(usageLineChart,'Genomsnitt i huset')
-		        	.group(usageAvgMeter.unfiltered)
-		        	.valueAccessor(function (d) { return d.value.allAvg})
-					.dashStyle([15,6])
-					.colors("grey")
-					.brushOn(false)
+        	.group(usageAvgMeter.unfiltered)
+        	.valueAccessor(function (d) { return d.value.allAvg})
+			.dashStyle([15,6])
+			.colors("grey")
+			.brushOn(false)
+			
+				
 
 
       	usageLineChart
@@ -1613,6 +1587,12 @@
 		    .elasticY(true)
 		    .yAxisLabel("kWh per person och timme")
 		    .margins({ top: 10, left: 60, right: 30, bottom: 30 })
+		    .title(function(d) {
+			    return d3.round(d.value.allAvg,2)
+			        +' kWh'
+			})
+
+
 		    .on('preRedraw', function(chart){
 		    	//var chart = barDateBrush;
 		    	var group = usageLineChartFiltered.group();
