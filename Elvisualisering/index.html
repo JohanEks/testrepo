@@ -1826,23 +1826,25 @@
 	    usageLineChart.yAxis().ticks(4);
 
 	    dc.renderAll();
-
-/*	    function legendOptions(chart)
+/*
+	    function legendOptions(chart)
 		{
-		    chart.svg().select('g.dc-legend').selectAll('g.dc-legend-item')
+		    chart.svg().select('g.dc-legend').select('g.dc-legend-item').append('text').attr("font-size","300px")//  forEach(function (legend){ 
 		                //.append("g")
 		                //.attr("class", "dc-legend")
 		                //.append("g")
 		                //.attr("class", "dc-legend-item")
-		                .append("text")
-		                .attr("font-size","300px")
-		                .text("blbla")
+		                //console.log(legend)
+		                //legend.append("text")
+		                //.attr("font-size","300px")
+		                //.text("blbla")
 		                //.text(displayText);
+		            //})
 		}
 
 		legendOptions(usageLineChart);
-
 */
+
 		function addXAxis(chart, displayText)
 		{
 		    chart.svg()
