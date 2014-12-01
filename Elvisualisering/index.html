@@ -50,13 +50,10 @@
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 		    						Mätarspecifik information
-		    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
 		    					</p>
 		    					<div id="meter-specific-heading">
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
-		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
-										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
 									</p>
 		    					</div>
 					        </div>
@@ -572,8 +569,11 @@
 			window.scrollTo(0, 0);
 			$("#player-view").toggleClass('hide', false);
 			$("#meter-specific-view").toggleClass('hide', true);
+
 			$('#eco-feedback-modal').modal('hide');
 			$('#consequences-modal').modal('hide');
+			$('#meter-area-modal').modal('hide');
+
 			//document.getElementById('close-eco-feedback').click();
 			//document.getElementById('close-consequences').click();
 			
@@ -749,7 +749,7 @@
         		"accumSum": "",
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
-        		"meterArea": "<li class='dist'><li>Vån 1; Strategy</li></li>"
+        		"meterArea": "<li class='dist'>Vån 1; Strategy</li>"
     /*    	},
         	"s204a3":{
         		"people":99,
@@ -1559,7 +1559,7 @@
 
 				var highValueExplanation = "";
 				if (meterSpecificData.name == "Svart"){
-					highValueExplanation = "<i>Det höga värdet tror vi beror på att Geolabbet drar mer el än en vanlig kontorsplats.</i>"
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att geolabbet drar mer el än en vanlig kontorsplats.</i>"
 				}
 				else if (meterSpecificData.name == "Röd"){
 					highValueExplanation = "<i>Det höga värdet tror vi beror på att lamporna i vardagsrummet hör till denna mätare.</i>"
@@ -1578,7 +1578,9 @@
 					
 				meterSpecificInfo.innerHTML = 
 					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
-						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare</p>" +
+						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare" +
+							"<a id ='reset-button' style='float:right; text-align:right; color:black; font-size:2vh; margin-top:1vh; margin-bottom:0' href='#' onclick='resetMeterChoice()'>Välj en annan mätare</a>" + 
+						"</p>" +
 						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
 							"<div style='font-size:1.9vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
@@ -1587,11 +1589,11 @@
 							    	"<li class='dist'>Under " + thisMonth + " har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li>"+
 							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
 							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
-							    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
+							    	"<li class='dist'><a href=#environment style=''>Läs mer</a> om hur du kan <b>minska din miljöpåverkan</b>.</li>"+
 							    "</ul>"+
 						    "</div>"+
 						"</div>"+
-						'</br><a href="#" class="dist" data-toggle="modal" data-target="#meter-area-modal" style="color:black"><u>Se vilka som ingår i ditt mätarområde</u></a>'+
+						'</br><a href="#" class="dist" data-toggle="modal" data-target="#meter-area-modal" style="color:black">Se vilka som ingår i ditt mätarområde</a>'+
    						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 							'<div class="modal-dialog" style="text-align:left">'+
 						    	'<div class="modal-content">'+
