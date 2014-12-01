@@ -50,13 +50,19 @@
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 		    						Mätarspecifik information
+<<<<<<< HEAD
 		    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Välj din elmätare och se information om er förbrukning."></span>
+=======
+>>>>>>> origin/master
 		    					</p>
 		    					<div id="meter-specific-heading">
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
+<<<<<<< HEAD
 		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
 										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
+=======
+>>>>>>> origin/master
 									</p>
 		    					</div>
 					        </div>
@@ -442,9 +448,9 @@
 			
 					<div class="col-xs-12 col-sm-12 col-md-6">
 
-						<h1>Intresserad av att veta mer?</h1>
-						<p>Det här projektet är en del av ett examensarbete om visualisering av elförbrukning i kontorsfastigheter.</p>
-						<p>Kontakta gärna oss om du har några synpunkter eller funderingar kring sidan eller om du har ytterligare förslag på hur det går att minska elförbrukningen.</p>
+						<p style="font-size:2.5vh"><b>Intresserad av att veta mer?</p></b>
+						<p>Det här projektet är en del av ett examensarbete om visualisering av elförbrukning i kontorsfastigheter. Kontakta gärna oss om du har några synpunkter eller funderingar kring sidan eller om du har ytterligare förslag på hur det går att minska elförbrukningen.</p>
+
 						<p>Återigen, släck lampan!</p>
 					</div>
 				</div>
@@ -574,8 +580,11 @@
 			window.scrollTo(0, 0);
 			$("#player-view").toggleClass('hide', false);
 			$("#meter-specific-view").toggleClass('hide', true);
+
 			$('#eco-feedback-modal').modal('hide');
 			$('#consequences-modal').modal('hide');
+			$('#meter-area-modal').modal('hide');
+
 			//document.getElementById('close-eco-feedback').click();
 			//document.getElementById('close-consequences').click();
 			
@@ -751,7 +760,7 @@
         		"accumSum": "",
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
-        		"meterArea": "<li class='dist'><li>Vån 1; Strategy</li></li>"
+        		"meterArea": "<li class='dist'>Vån 1; Strategy</li>"
     /*    	},
         	"s204a3":{
         		"people":99,
@@ -1561,7 +1570,7 @@
 
 				var highValueExplanation = "";
 				if (meterSpecificData.name == "Svart"){
-					highValueExplanation = "<i>Det höga värdet tror vi beror på att Geolabbet drar mer el än en vanlig kontorsplats.</i>"
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att geolabbet drar mer el än en vanlig kontorsplats.</i>"
 				}
 				else if (meterSpecificData.name == "Röd"){
 					highValueExplanation = "<i>Det höga värdet tror vi beror på att lamporna i vardagsrummet hör till denna mätare.</i>"
@@ -1580,19 +1589,21 @@
 					
 				meterSpecificInfo.innerHTML = 
 					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
-						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare</p>" +
+						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare" +
+							"<button id ='reset-button' class='btn btn-success' style='float:right; text-align:right; font-size:1.5vh; margin-top:0; margin-bottom:0' href='#' onclick='resetMeterChoice()'>Välj en annan mätare</button>" +
+						"</p>" +
 						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
-							"<div style='font-size:1.9vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+							"<div style='font-size:1.7vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
 							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
 							    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ", det är en <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b> per person.</li>"+
 							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li>"+
 							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
-							    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
+							    	"<li class='dist'><a href=#environment style=''>Läs mer</a> om hur du kan <b>minska din miljöpåverkan</b>.</li>"+
 							    "</ul>"+
 						    "</div>"+
 						"</div>"+
-						'</br><a href="#" class="dist" data-toggle="modal" data-target="#meter-area-modal" style="color:black"><u>Se vilka som ingår i ditt mätarområde</u></a>'+
+						'</br><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="font-size:1.5vh">Se vilka som ingår i ditt mätarområde</a>'+
    						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 							'<div class="modal-dialog" style="text-align:left">'+
 						    	'<div class="modal-content">'+
@@ -1601,7 +1612,7 @@
 								        '<h4 class="modal-title">Ditt mätarområde - ' + meterSpecificData.name + ' mätare</h4>'+
 								    '</div>'+
 								    '<div class="modal-body">'+
-								    	"<ul>"+
+								    	"<ul style='font-size:1.5vh'>"+
 								        	meterSpecificData.meterArea +
 								        "</ul>"+
 								    '</div>'+
@@ -1611,7 +1622,7 @@
 						    	'</div>'+
 							 '</div>'+
 						'</div>'+
-						'</br><p style="font-size:1.5vh">' + highValueExplanation + '</p>' +
+						'</br><p style="font-size:1.2vh">' + highValueExplanation + '</p>' +
 					"</div>";
 
 			}	
