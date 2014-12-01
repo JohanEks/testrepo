@@ -1816,10 +1816,14 @@
 					console.log("hello")			
 					$("#start-view").toggleClass('hide', false);
 				}
-				else if (looper < meterDomain.length+7){
+				else if (looper < meterDomain.length+4){		
+					console.log("hello")			
 					$("#start-view").toggleClass('hide', true);
 				}
-				else{$("#start-view").toggleClass('hide', false);}
+				else if (looper < meterDomain.length+7){
+					$("#start-view").toggleClass('hide', false);
+				}
+				else{$("#start-view").toggleClass('hide', true);}
 
 				meterIndex = 0;
 				looper = 0;
