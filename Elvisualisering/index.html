@@ -1751,54 +1751,83 @@
 		}
 		
 	    playerOn = getParameterByName("player");
-	    console.log("playerOn", playerOn);
 
 	    player = function(){
-		    var i=0;
-		    looper=0;
+		    meterIndex = 0;
+		    looper = 0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
 				   	if (looper<meterDomain.length-4){
-				   		$("#start-view").toggleClass('hide', true);
+				   		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
-				   		applyFilter(meterDomain[i]);
-				   		i++
-				   		looper++
-				   		console.log("första 3 mätarna",i, looper)
+				   		console.log("visa startskärmen",meterIndex, looper)
+			    		looper++
 				   	}
 				   	else if (looper < meterDomain.length){ 
-				   		$("#start-view").toggleClass('hide', false);
+				   		$("#start-view").toggleClass('hide', true);
 				   		console.log($("#start-view").hasClass('hide'))
-			    		looper++
-				   		console.log("visa startskärmen",i, looper)
+				   		applyFilter(meterDomain[meterIndex]);
+				   		console.log("första 3 mätarna",meterIndex, looper)
+				   		meterIndex++
+				   		looper++
 			    	}
 			    	else if (looper<meterDomain.length+4){
-			    		$("#start-view").toggleClass('hide', true);
-			    		console.log($("#start-view").hasClass('hide'))
-				   		applyFilter(meterDomain[i]);
-				   		i++
+			    		$("#start-view").toggleClass('hide', false);
+				   		console.log($("#start-view").hasClass('hide'))
+				   		console.log("visa startskärmen",meterIndex,looper)
 				   		looper++
-				   		console.log("sista 4 mätarna",i,looper)
 				   	}
 				   	else if (looper < meterDomain.length+7){ 
-				   		$("#start-view").toggleClass('hide', false);
-				   		console.log($("#start-view").hasClass('hide'))
-				   		looper++
-				   		console.log("visa startskärmen",i,looper)
-			    	}
-			    	else {
+			    		$("#start-view").toggleClass('hide', true);
 			    		console.log($("#start-view").hasClass('hide'))
+				   		applyFilter(meterDomain[meterIndex]);
+				   		console.log("sista 4 mätarna",meterIndex,looper)
+				   		meterIndex++
+				   		looper++
+				   	}
+			    	else {
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
 			    		looper=0
-			    		i=0;
+			    		meterIndex=0;
 			    	}
 			    }
 			},5000);
 	    };
 	    
+		if (playerOn){
+			console.log("playerOn check")
+			player();	
+		}
+		
+		$('body').on('click',function(){
+			if (playerOn && playerDelay < new Date() - lastClick ){
+				hidePlayerView();
+				meterChart.filterAll();
+				dc.redrawAll();
+				console.log("playerOn click")
+				
+				if (looper<meterDomain.length-4){
+					$("#start-view").toggleClass('hide', true);
+				}
+				else if (looper < meterDomain.length){		
+					console.log("hello")			
+					$("#start-view").toggleClass('hide', false);
+				}
+				else if (looper < meterDomain.length+7){
+					$("#start-view").toggleClass('hide', true);
+				}
+				else{$("#start-view").toggleClass('hide', false);}
+
+				meterIndex = 0;
+				looper = 0;
+			}
+				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+			lastClick = new Date();
+		});
+
 	    //Right-click blocker
 	    (function () {
   			var blockContextMenu, myElement;
@@ -1810,38 +1839,7 @@
 		  myElement = document.querySelector('body');
 		  myElement.addEventListener('contextmenu', blockContextMenu);
 		})();
-	    
-		if (playerOn){
-			console.log("playerOn check")
-			player();	
-		}
 
-		
-
-		
-		$('body').on('click',function(){
-			if (playerOn && playerDelay < new Date() - lastClick ){
-				hidePlayerView();
-				meterChart.filterAll();
-				dc.redrawAll();
-				console.log("playerOn click")
-				
-				if (looper<meterDomain.length-4){
-					$("#start-view").toggleClass('hide', false);
-				}
-				else if (looper < meterDomain.length){					
-					$("#start-view").toggleClass('hide', true);
-				}
-				else if (looper < meterDomain.length+7){
-					$("#start-view").toggleClass('hide', false);
-				}
-				else{$("#start-view").toggleClass('hide', true);}
-
-			}
-				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
-			lastClick = new Date();
-		});
-		
 		console.log("end before init(data)",new Date()-before);
 		before = new Date();
 			
