@@ -55,7 +55,7 @@
 		    					<div id="meter-specific-heading">
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
-		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>
+		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
 										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
 									</p>
 		    					</div>
@@ -207,7 +207,9 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Topplista över elmätare som har lyckats minska sin elförbrukning mest jämfört med föregående månad. Förändring per person visar den samlade förändringen nuvarande månad."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Topplista som rangordnar elmätarområdena efter hur mycket eö sp, amv'nts imder muvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+
+	    						<!-- Topplista över elmätare som har lyckats minska sin elförbrukning mest jämfört med föregående månad. Förändring per person visar den samlade förändringen nuvarande månad."></span>			-->
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="<height:90%;padding:0">
@@ -256,7 +258,7 @@
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-titel" style="font-size:2.5vh">
 		    					Elanvändningen över tid
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den gråa streckade linjen visar hela kontorets medelanvändning per person."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den gråa streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
 	    					</p>
 		    			</div>
 		    			<div class="panel-body" style="height:90%; padding:0">
@@ -567,11 +569,14 @@
 		}
 
 		showPlayerView = function (){
+			window.scrollTo(0, 0);
 			$("#player-view").toggleClass('hide', false);
 			$("#meter-specific-view").toggleClass('hide', true);
-			document.getElementById('close-eco-feedback').click();
-			document.getElementById('close-consequences').click();
-			window.scrollTo(0, 0);
+			$('#eco-feedback-modal').modal('hide');
+			$('#consequences-modal').modal('hide');
+			//document.getElementById('close-eco-feedback').click();
+			//document.getElementById('close-consequences').click();
+			
 		}
 
 		applyFilter = function (meter){
@@ -1563,9 +1568,9 @@
 					
 				meterSpecificInfo.innerHTML = 
 					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
-						"<p style='font-size:1.8vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare:</p>" +
+						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare</p>" +
 						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
-							"<div style='font-size:1.4vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+							"<div style='font-size:1.9vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
 							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
 							    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen i " + lastMonth + ".</li>"+
@@ -1741,7 +1746,7 @@
 	    console.log("playerOn", playerOn);
 
 	    player = function(){
-		    i=0;
+		    var i=0;
 		    looper=0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
@@ -1813,13 +1818,19 @@
 				dc.redrawAll();
 				console.log("playerOn click")
 				
-				if (!$("#start-view").hasClass('hide')){
-					console.log("start-view")
+				if (looper<meterDomain.length-4){
+					$("#start-view").toggleClass('hide', false);
+				}
+				else if (looper < meterDomain.length){					
 					$("#start-view").toggleClass('hide', true);
 				}
-				else{$("#start-view").toggleClass('hide', false);}
-				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				else if (looper < meterDomain.length+7){
+					$("#start-view").toggleClass('hide', false);
+				}
+				else{$("#start-view").toggleClass('hide', true);}
+
 			}
+				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
 			lastClick = new Date();
 		});
 		
