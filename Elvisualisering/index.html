@@ -32,16 +32,16 @@
 		<div id = "start-view">
 
 	    	<div class="container-fluid" style="margin-top:5vh; width:60%; min-width:900px; text-align:center">
-				<h1 style="font-size:5vh; margin-top:3vh"><i><b>Hur mycket el använder du på jobbet?</b></i></h1></br>
-				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete på Position.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras varje timme och jämför förbrukningen för december med motsvarande period i november.</h4>
+				<h1 style="font-size:5vh; margin-top:3vh"><b>Hur mycket el använder du på jobbet?</b></h1></br>
+				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete på Sweco Position.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras varje timme och jämför förbrukningen för december 2014 med motsvarande period i november.</h4>
 				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:6.5vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'></br>Utforska din elanvändning!</br></br> </button></a>
 			</div>
 		</div>
 
 		<div id="meter-choice-page">
-			<div class="container-fluid" style="margin-top:25vh; width:60%; min-width:900px; text-align:center">
+			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:900px; text-align:center">
 				<div class="dropdown" style="text-align:center">
-					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span></a>
+					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:6vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span></a>
 
 					<ul class="dropdown-menu multi-level" id="clone-dropdown" role="menu" aria-labelledby="dropdownMenu">
 			            <li class="dropdown-submenu">
@@ -142,7 +142,7 @@
 		            </ul>
 
 				</div>
-				<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
+				<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
 			</div>
 		</div>
 
@@ -281,9 +281,10 @@
 					    			</div>
 					    			<div id="reference-meter" class="hide">
 					    				<div style="width:60%; margin-left:auto; margin-right:auto">
-							        		<h4 style="font-size: 2vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för din elmätare. Vi beklagar detta.</h4>
+							        		<h4 style="font-size: 2vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för din mätare. Vi beklagar detta</h4></br>
+							        		<p style="text-align:center">Eftersom projektet är en del av ett examensarbete måste vissa akademiska aspekter uppfyllas. Den elmätare som du tillhör har blivit vald till referensmätare, för att undersöka om förbrukningsförändringen skiljer sig åt om man har tillgång till visualiseringen av sin elanvändning eller ej.</p>  
 							        		<div class = "text-center">
-												<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:1.5vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
+												<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:2vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
 											</div>
 										</div>
 					    			</div>
@@ -312,9 +313,7 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplista som rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
-
-	    						<!-- Topplista över elmätare som har lyckats minska sin elförbrukning mest jämfört med föregående månad. Förändring per person visar den samlade förändringen nuvarande månad."></span>			-->
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="<height:90%;padding:0">
@@ -323,7 +322,7 @@
 		    				        <table class='table table-hover table-striped table-condensed'style="max-height:100%" >
 								        <thead>
 								          <tr class='header' style="font-weight:normal">
-								          	<th style="text-align:center">#</th>
+								          	<th style="text-align:center">Placering</th>
 								            <th style="text-align:center">Elmätare</th>
 								            <th style="text-align:center">Förändring per person</th>
 								            <th style="text-align:right">%</th>
@@ -398,7 +397,10 @@
 				<div id="environment" class="row">
 					<div class="panel panel-success" style="height:100%; margin-top:2vh">
 			    		<div class="panel-heading"style="height:5vh; text-align:center; vertical-align:center">
-			    			<div class="panel-title" style="font-size:2.5vh"><b>Minska din elanvändning med 5 %</b></div> 
+			    			<div class="panel-title" style="font-size:2.5vh">
+			    				<b>Minska din elanvändning med 5 %</b>
+			    				<a href="#" onclick="scrollToTop()" style="float:right; text-align:right; font-size:1.2vh; margin-right:25px">Till toppen av sidan</a>
+			    			</div> 
 			    		</div> 
 			    		<div class="panel-body" style="font-size:1.6vh">
 			    			<div class="row">
@@ -442,12 +444,12 @@
 						   			</ul></br>
 						   		</div>
 					  			<ul>
-					  				<p style="margin:0"><i>Julbonus! </i><b style="color:#468847">Släck lampan</b> efter dig i konferensrummet.</p>
+					  				<p style="margin:0">Slutligen, tänk på att <b style="color:#468847">släcka lampan</b> efter dig i konferensrummet.</p>
 					    			<p><i> - Ett konferensrum som lyser 2 timmar i onödan mån-fre drar 0,3 kWh i veckan</p></i>
 					    		</ul>
 					   		</div>
 			    			<div class="row" style="text-align:right; margin-right:25px">
-			   					<a href="#" data-toggle="modal" data-target="#eco-feedback-modal" style="color:black">Så här har vi räknat</a>
+			   					<a href="#" data-toggle="modal" data-target="#eco-feedback-modal">Så här har vi räknat</a>
 		   						<div class="modal fade" id="eco-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog" style="text-align:left">
 								    	<div class="modal-content">
@@ -477,7 +479,9 @@
 				<div id="concequences" class="row" style="margin-top:2vh">
 		    		<div class="panel panel-success" style="height:100%">
 			    		<div class="panel-heading" style="height:5vh; text-align:center; vertical-align:center">
-			    			<div class="panel-title" style="font-size:2.5vh"><b>Konsekvenser</b>
+			    			<div class="panel-title" style="font-size:2.5vh">
+			    				<b>Konsekvenser</b>
+			    				<a href="#" onclick="scrollToTop()" style="float:right; text-align:right; font-size:1.2vh; margin-right:25px">Till toppen av sidan</a>
 			    			</div> 
 			    		</div> 
 			    		<div class="panel-body" style="font-size:1.6vh">
@@ -491,8 +495,8 @@
 			    					<li class="dist">göra 19 tur- och returresor med flyg mellan Stockholm och Rom, eller </li>
 			    					<li class="dist">odla 75 ton potatis!</b></li>
 			    				</ul>
-			    				<div style="text-align:right; margin-right:25px">
-			    					<a href="#" data-toggle="modal" data-target="#consequences-modal" style="color:black">Så här har vi räknat</a>
+			    				<div style="float:right; text-align:right; margin-right:25px">
+			    					<a href="#" data-toggle="modal" data-target="#consequences-modal">Så här har vi räknat</a>
 			    				</div>
 		   						<div class="modal fade" id="consequences-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog" style="text-align:left">
@@ -927,8 +931,8 @@
 		var colorRange = [];
 
 		
-		startRefPeriod1 = new Date(2014,9,1);
-		endRefPeriod1 = new Date(2014,10,0,23,59);
+		startRefPeriod1 = new Date(2014,10,1);
+		endRefPeriod1 = new Date(2014,11,0,23,59);
 		
 		//Real ref period
 		//startRefPeriod1 = new Date(2014,10,1);
@@ -1625,8 +1629,8 @@
 				positive='+';}
 			table.innerHTML += ''+
 			'<tr id="row-'+meter.value.meter+'">'+
-				'<td><b>'+placeInList+' </b><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span></td>'+
-				'<td>'+meterData.name+'</td>'+
+				'<td><b>'+placeInList+'</b></td>'+
+				'<td style="text-align:left; padding-left:50px"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
 				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
 				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
 				'<td style="text-align:left">' +arrow+'</td>'+
@@ -1655,8 +1659,8 @@
 				else { accumSumDirection = "minskning med ";}
 
 				var ecoFeedbackDirection = "";
-				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "ökade användning</b> som ni haft motsvarar utsläpp av <b>";}
-				else { ecoFeedbackDirection = "besparing</b> som ni åstadkommit motsvarar utsläpp av <b>";}
+				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "<b>Den ökade användningen</b> motsvarar utsläpp av <b>";}
+				else { ecoFeedbackDirection = "Besparingen</b> motsvarar utsläpp av <b>";}
 
 				var lastMonth = monthArray[new Date().getMonth()-1];
 				var thisMonth = monthArray[new Date().getMonth()];
@@ -1688,9 +1692,9 @@
 						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
 							"<div style='font-size:1.7vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
-							    	"<li>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
+							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
 							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ". Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
-							    	"<li>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li></br>"+
+							    	"<li>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li></br>"+
 							    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid. <a href=#concequences>Läs mer om den <b>minskade miljöpåverkan</b> som en besparing av 5 % kan leda till</a>.</li>"+
 							    "</ul>"+
 						    "</div>"+
