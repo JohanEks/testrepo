@@ -613,10 +613,22 @@
 		  $('[data-toggle="popover"]').popover()
 		})
 
+		$( ".dropdown-submenu" ).mouseover(function(event) {
+		    if ('$( ".dropdown" ).find(".dropdown-submenu")' != this ){
+		    	$( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+		    }
+		});
+		
+
 		$( ".dropdown-submenu" ).click(function(event) {
     		// stop bootstrap.js to hide the parents
 		    event.stopPropagation();
 		    // hide the open children
+		    
+		    if ('$( ".dropdown" ).find(".dropdown-submenu")' != this ){
+		    	$( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+		    }
+
 		    $( this ).find(".dropdown-submenu").removeClass('open');
 		    // add 'open' class to all parents with class 'dropdown-submenu'
 		    $( this ).parents(".dropdown-submenu").addClass('open');
