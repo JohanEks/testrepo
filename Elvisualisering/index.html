@@ -207,7 +207,7 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Topplista som rangordnar elmätarområdena efter hur mycket eö sp, amv'nts imder muvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Topplista som rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
 
 	    						<!-- Topplista över elmätare som har lyckats minska sin elförbrukning mest jämfört med föregående månad. Förändring per person visar den samlade förändringen nuvarande månad."></span>			-->
 	    					</p>
@@ -258,7 +258,7 @@
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-titel" style="font-size:2.5vh">
 		    					Elanvändningen över tid
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den gråa streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
 	    					</p>
 		    			</div>
 		    			<div class="panel-body" style="height:90%; padding:0">
@@ -355,7 +355,7 @@
 							   		</div>
 						  			<ul>
 						  				<p style="margin:0"><i>Julbonus! </i><b style="color:#468847">Släck lampan</b> efter dig i konferensrummet.</p>
-						    			<p><i> - Ett konferensrum som lyser 2 timmar i onödan mån-fre drar 0,3 kWh per vecka</p></i>
+						    			<p><i> - Ett konferensrum som lyser 2 timmar i onödan mån-fre drar 0,3 kWh i veckan</p></i>
 						    		</ul>
 						   		</div>
 				    			<div class="row" style="text-align:right; margin-right:25px">
@@ -1557,6 +1557,16 @@
 				var lastMonth = monthArray[new Date().getMonth()-1];
 				var thisMonth = monthArray[new Date().getMonth()];
 
+				var highValueExplanation = "";
+				if (meterSpecificData.name == "Svart"){
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att Geolabbet drar mer el än en vanlig kontorsplats.</i>"
+				}
+				else if (meterSpecificData.name == "Röd"){
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att lamporna i vardagsrummet hör till denna mätare.</i>"
+				}
+
+
+
 
 		/*		meterSpecificHeading.innerHTML = 
 					'<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">'+
@@ -1578,31 +1588,29 @@
 							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
 							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
 							    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
-
-							    	'<li class="dist"><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="color:black"><u>Se vilka som ingår i ditt mätarområde</u></a>'+
-				   						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-											'<div class="modal-dialog" style="text-align:left">'+
-										    	'<div class="modal-content">'+
-												    '<div class="modal-header">'+
-												        '<button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
-												        '<h4 class="modal-title">Ditt mätarområde - ' + meterSpecificData.name + '</h4>'+
-												    '</div>'+
-												    '<div class="modal-body">'+
-												    	"<ul>"+
-												        	meterSpecificData.meterArea +
-												        "</ul>"+
-												    '</div>'+
-												    '<div class="modal-footer">'+
-												        '<button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>'+
-												    '</div>'+
-										    	'</div>'+
-											 '</div>'+
-										'</div>'+
-									'</li>'+
-
 							    "</ul>"+
 						    "</div>"+
 						"</div>"+
+						'</br><a href="#" class="dist" data-toggle="modal" data-target="#meter-area-modal" style="color:black"><u>Se vilka som ingår i ditt mätarområde</u></a>'+
+   						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+							'<div class="modal-dialog" style="text-align:left">'+
+						    	'<div class="modal-content">'+
+								    '<div class="modal-header">'+
+								        '<button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+								        '<h4 class="modal-title">Ditt mätarområde - ' + meterSpecificData.name + ' mätare</h4>'+
+								    '</div>'+
+								    '<div class="modal-body">'+
+								    	"<ul>"+
+								        	meterSpecificData.meterArea +
+								        "</ul>"+
+								    '</div>'+
+								    '<div class="modal-footer">'+
+								        '<button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>'+
+								    '</div>'+
+						    	'</div>'+
+							 '</div>'+
+						'</div>'+
+						'</br><p style="font-size:1.5vh">' + highValueExplanation + '</p>' +
 					"</div>";
 
 			}	
