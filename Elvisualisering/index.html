@@ -1576,13 +1576,13 @@
 							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
 							    	"<li class='dist'><a href=#environment style='color:black'><u><i>Läs mer om hur du kan <b>minska din miljöpåverkan</b></i></u>.</a></li>"+
 
-							    	'<li class="dist"><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="color:black">Se vilka som ingår i ditt mätarområde</a>'+
+							    	'<li class="dist"><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="color:black"><u>Se vilka som ingår i ditt mätarområde</u></a>'+
 				   						'<div class="modal fade" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 											'<div class="modal-dialog" style="text-align:left">'+
 										    	'<div class="modal-content">'+
 												    '<div class="modal-header">'+
 												        '<button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
-												        '<h4 class="modal-title">Ditt mätarområde</h4>'+
+												        '<h4 class="modal-title">Ditt mätarområde - ' + meterSpecificData.name + '</h4>'+
 												    '</div>'+
 												    '<div class="modal-body">'+
 												    	"<ul>"+
