@@ -157,10 +157,13 @@
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 		    						Mätarspecifik information
+		    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Välj din elmätare och se information om er förbrukning."></span>
 		    					</p>
 		    					<div id="meter-specific-heading">
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
+		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
+										<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>
 									</p>
 		    					</div>
 					        </div>
@@ -309,7 +312,7 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Topplista som rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplista som rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
 
 	    						<!-- Topplista över elmätare som har lyckats minska sin elförbrukning mest jämfört med föregående månad. Förändring per person visar den samlade förändringen nuvarande månad."></span>			-->
 	    					</p>
@@ -344,7 +347,7 @@
 	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
 	    					<p class="panel-title" style="font-size:2.5vh">
 	    						Daglig elanvändning
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:90%; color:grey" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden. Klicka på en mätare för att visa mer information."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden. Klicka på en mätare för att visa mer information."></span>
 	    					</p>	
 				        </div>
 	    				<div class="panel-body" style="padding:0; height:90%">
@@ -360,7 +363,7 @@
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-titel" style="font-size:2.5vh">
 		    					Elanvändningen över tid
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:90%; color:grey" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
+	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
 	    					</p>
 		    			</div>
 		    			<div class="panel-body" style="height:90%; padding:0">
@@ -369,13 +372,13 @@
 				    		</div>
 		    				<div class="row" style="height:10%">
 								<div class="col-xs-12 col-sm-4 col-md-4" style="padding:0; text-align:right; height:100%">
-					    			<button type = "button" id ="year-button" class="btn btn-default" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="yearlyview()">Senaste året</button>
+					    			<button type = "button" id ="year-button" class="btn btn-success" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="yearlyview()">Senaste året</button>
 					    		</div>
 								<div class="col-xs-12 col-sm-4 col-md-4" style="padding:0; text-align:center">
-					    			<button type = "button" id ="month-button" class="btn btn-default" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="monthlyview()">Senaste månaden</button>
+					    			<button type = "button" id ="month-button" class="btn btn-success" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="monthlyview()">Senaste månaden</button>
 					    		</div>
 								<div class="col-xs-12 col-sm-4 col-md-4" style="padding:0">
-					    			<button type = "button" id ="week-button" class="btn btn-default" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="weeklyview()">Senaste veckan</button>
+					    			<button type = "button" id ="week-button" class="btn btn-success" style="height:90%; font-size:2vh;padding-top:0; padding-bottom:0" onclick="weeklyview()">Senaste veckan</button>
 					    		</div>
 					    	</div>
 			    		</div>
@@ -621,6 +624,8 @@
 //----------------------------------------------------------------------
 
 		before = new Date();
+
+		playerOn = getParameterByName("player");
 
 		$(function () {
 		  $('[data-toggle="popover"]').popover()
@@ -1658,8 +1663,8 @@
 				else { changeDirection = "ökat";}
 
 				var accumSumDirection = "";
-				if (meterSpecificData.accumSum < 0){ accumSumDirection = "ökat</b> er förbrukning med <b>";}
-				else { accumSumDirection = "sparat ";}
+				if (meterSpecificData.accumSum < 0){ accumSumDirection = "ökning</b> med <b>";}
+				else { accumSumDirection = "minskning</b> med <b>";}
 
 				var ecoFeedbackDirection = "";
 				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "ökade användning</b> som ni haft motsvarar utsläpp av <b>";}
@@ -1696,9 +1701,8 @@
 							"<div style='font-size:1.7vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
 							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li>"+
-							    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen i " + lastMonth + ".</li>"+
-							    	"<li class='dist'>Under " + thisMonth + " har ni <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b>, jämfört med " + lastMonth + ".</li>"+
-							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid.</li>"+
+							    	"<li class='dist'>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ", det är en <b>" + accumSumDirection + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh</b> per person.</li>"+
+							    	"<li class='dist'>Den <b>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li>"+
 							    	"<li class='dist'>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid.</li>"+
 							    	"<li class='dist'><a href=#environment style=''>Läs mer</a> om hur du kan <b>minska din miljöpåverkan</b>.</li>"+
 							    "</ul>"+
@@ -1863,98 +1867,116 @@
 		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 		}
 		
-	    playerOn = getParameterByName("player");
-	    console.log("playerOn", playerOn);
+
 
 	    player = function(){
-		    var i=0;
-		    looper=0;
+		    meterIndex = 0;
+		    looper = 0;
 		    setInterval(function (){
 		    	var rightNow = new Date();
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
 				   	if (looper<meterDomain.length-4){
-				   		$("#start-view").toggleClass('hide', true);
+				   		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
-				   		applyFilter(meterDomain[i]);
-				   		i++
-				   		looper++
-				   		console.log("första 3 mätarna",i, looper)
+				   		console.log("visa startskärmen",meterIndex, looper)
+			    		looper++
 				   	}
 				   	else if (looper < meterDomain.length){ 
-				   		$("#start-view").toggleClass('hide', false);
+				   		$("#start-view").toggleClass('hide', true);
 				   		console.log($("#start-view").hasClass('hide'))
-			    		looper++
-				   		console.log("visa startskärmen",i, looper)
+				   		applyFilter(meterDomain[meterIndex]);
+				   		console.log("första 3 mätarna",meterIndex, looper)
+				   		meterIndex++
+				   		looper++
 			    	}
 			    	else if (looper<meterDomain.length+4){
-			    		$("#start-view").toggleClass('hide', true);
-			    		console.log($("#start-view").hasClass('hide'))
-				   		applyFilter(meterDomain[i]);
-				   		i++
+			    		$("#start-view").toggleClass('hide', false);
+				   		console.log($("#start-view").hasClass('hide'))
+				   		console.log("visa startskärmen",meterIndex,looper)
 				   		looper++
-				   		console.log("sista 4 mätarna",i,looper)
 				   	}
 				   	else if (looper < meterDomain.length+7){ 
-				   		$("#start-view").toggleClass('hide', false);
-				   		console.log($("#start-view").hasClass('hide'))
-				   		looper++
-				   		console.log("visa startskärmen",i,looper)
-			    	}
-			    	else {
+			    		$("#start-view").toggleClass('hide', true);
 			    		console.log($("#start-view").hasClass('hide'))
+				   		applyFilter(meterDomain[meterIndex]);
+				   		console.log("sista 4 mätarna",meterIndex,looper)
+				   		meterIndex++
+				   		looper++
+				   	}
+			    	else {
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
 			    		looper=0
-			    		i=0;
+			    		meterIndex=0;
 			    	}
 			    }
 			},5000);
 	    };
 	    
-	    //Right-click blocker
-	    (function () {
-  			var blockContextMenu, myElement;
-
-		  blockContextMenu = function (evt) {
-		    evt.preventDefault();
-		  };
-
-		  myElement = document.querySelector('body');
-		  myElement.addEventListener('contextmenu', blockContextMenu);
-		})();
-	    
 		if (playerOn){
-			console.log("playerOn check")
+			//Run player
 			player();	
+
+			//Makes everything unselectable
+			var myElements = document.querySelectorAll("*"); 
+			for (var i = 0; i < myElements.length; i++) {
+    			myElements[i].className += " noSelect";
+			    }	
+
+			//Player stopper
+			$('body').on('click',function(){
+				console.log("haj haje")
+				if (playerOn && playerDelay < new Date() - lastClick ){
+					hidePlayerView();
+					meterChart.filterAll();
+					dc.redrawAll();
+					console.log("playerOn click")
+					
+					if (looper<meterDomain.length-4){
+						$("#start-view").toggleClass('hide', true);
+					}
+					else if (looper < meterDomain.length){		
+						console.log("hello")			
+						$("#start-view").toggleClass('hide', false);
+					}
+					else if (looper < meterDomain.length+4){		
+						console.log("hello")			
+						$("#start-view").toggleClass('hide', true);
+					}
+					else if (looper < meterDomain.length+7){
+						$("#start-view").toggleClass('hide', false);
+					}
+					else{$("#start-view").toggleClass('hide', true);}
+
+					meterIndex = 0;
+					looper = 0;
+				}
+					ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				lastClick = new Date();
+			});
+
+		    //Right-click blocker
+		    (function () {
+	  			var blockContextMenu, myElement;
+
+			  blockContextMenu = function (evt) {
+			    evt.preventDefault();
+			  };
+
+			  myElement = document.querySelector('body');
+			  myElement.addEventListener('contextmenu', blockContextMenu);
+			})();
+
+
+
+
 		}
-
 		
 
-		
-		$('body').on('click',function(){
-			if (playerOn && playerDelay < new Date() - lastClick ){
-				hidePlayerView();
-				meterChart.filterAll();
-				dc.redrawAll();
-				console.log("playerOn click")
-				
-				if (looper<meterDomain.length-4){
-					$("#start-view").toggleClass('hide', false);
-				}
-				else if (looper < meterDomain.length){					
-					$("#start-view").toggleClass('hide', true);
-				}
-				else if (looper < meterDomain.length+7){
-					$("#start-view").toggleClass('hide', false);
-				}
-				else{$("#start-view").toggleClass('hide', true);}
 
-			}
-				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
-			lastClick = new Date();
-		});
-		
+
+
 		console.log("end before init(data)",new Date()-before);
 		before = new Date();
 			
