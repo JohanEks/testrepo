@@ -41,7 +41,7 @@
 		<div id="meter-choice-page">
 			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:900px; text-align:center">
 				<div class="dropdown" style="text-align:center">
-					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:6vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span></a>
+					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:6vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare<span class="caret"></span></a>
 
 					<ul class="dropdown-menu multi-level" id="clone-dropdown" role="menu" aria-labelledby="dropdownMenu">
 			            <li class="dropdown-submenu">
@@ -142,7 +142,7 @@
 		            </ul>
 
 				</div>
-				<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
+				<h4 style="font-size: 2.5vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
 			</div>
 		</div>
 
@@ -275,7 +275,7 @@
 					    					    				
 					    					</div>
 					    				</div>
-						        		<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
+						        		<h4 style="font-size: 2vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
 				    				</div>
 					    			<div id="meter-specific-info" class="hide">
 					    			</div>
@@ -1490,10 +1490,10 @@
 			//.ordering(function(d){ return d.value.avg})
 			.label(function(d) { return metaData[d.value.meter].name; })
 			.title(function(d) {
-			    return metaData[d.value.meter].name
+			    /*return metaData[d.value.meter].name
 			        + ' mätares förbrukning per dygn: '
 			        + d3.round(d.value.avg,2)
-			        +'kWh'
+			        +'kWh' */
 			})		
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
@@ -1751,10 +1751,11 @@
 
 
     	usageLineChartFiltered = dc.lineChart(usageLineChart,'Din mätare')
-			.group(usageAvgMeter)
+			.group(usageAvgMeter,"Förbrukning vald mätare")
         	.valueAccessor(function (d) { return d.value.allAvg;})
         	.brushOn(false)
         	.colors("grey")
+
         	/*.title(function(d) {
 			    return d3.round(d.value.allAvg)
 			        +'kWh'
@@ -1762,7 +1763,8 @@
 
 
 		usageLineChartUnfiltered = dc.lineChart(usageLineChart,'Genomsnitt i huset')
-        	.group(usageAvgMeter.unfiltered)
+        	
+        	.group(usageAvgMeter.unfiltered,"Genomsnitt i huset")
         	.valueAccessor(function (d) { return d.value.allAvg})
 			.dashStyle([15,6])
 			.colors("grey")
@@ -1773,7 +1775,7 @@
 
       	usageLineChart
 	      	.dimension(hourDim)
-
+	      	
 			//.rangeChart(barDateBrush)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
 		    .xUnits(d3.time.days)
@@ -1809,8 +1811,8 @@
 			    }
 
 			    if(group!=usageLineChartFiltered.group()){
-			    		usageLineChartFiltered.group(group)
-			    		usageLineChartUnfiltered.group(group.unfiltered)
+			    		usageLineChartFiltered.group(group,"Förbrukning vald mätare")
+			    		usageLineChartUnfiltered.group(group.unfiltered,"Medelförbrukning i hela huset")
 			    	}
 
 			})
@@ -1819,13 +1821,28 @@
 	      			usageLineChartUnfiltered,
 					usageLineChartFiltered
 	      		]);
-
+		usageLineChart.legend(dc.legend().x(50).y(10).itemHeight(13).gap(5));
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
 
 	    dc.renderAll();
 
+/*	    function legendOptions(chart)
+		{
+		    chart.svg().select('g.dc-legend').selectAll('g.dc-legend-item')
+		                //.append("g")
+		                //.attr("class", "dc-legend")
+		                //.append("g")
+		                //.attr("class", "dc-legend-item")
+		                .append("text")
+		                .attr("font-size","300px")
+		                .text("blbla")
+		                //.text(displayText);
+		}
 
+		legendOptions(usageLineChart);
+
+*/
 		function addXAxis(chart, displayText)
 		{
 		    chart.svg()
@@ -1868,30 +1885,30 @@
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
 				   	if (looper<meterDomain.length-4){
-				   		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		console.log("visa startskärmen",meterIndex, looper)
+				   		$("#start-view").toggleClass('hide', false);
 			    		looper++
 				   	}
 				   	else if (looper < meterDomain.length){ 
-				   		$("#start-view").toggleClass('hide', true);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[meterIndex]);
 				   		console.log("första 3 mätarna",meterIndex, looper)
+				   		$("#start-view").toggleClass('hide', true);
 				   		meterIndex++
 				   		looper++
 			    	}
 			    	else if (looper<meterDomain.length+4){
-			    		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		console.log("visa startskärmen",meterIndex,looper)
+			    		$("#start-view").toggleClass('hide', false);
 				   		looper++
 				   	}
 				   	else if (looper < meterDomain.length+7){ 
-			    		$("#start-view").toggleClass('hide', true);
 			    		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[meterIndex]);
 				   		console.log("sista 4 mätarna",meterIndex,looper)
+			    		$("#start-view").toggleClass('hide', true);
 				   		meterIndex++
 				   		looper++
 				   	}
@@ -1917,7 +1934,6 @@
 
 			//Player stopper
 			$('body').on('click',function(){
-				console.log("haj haje")
 				if (playerOn && playerDelay < new Date() - lastClick ){
 					hidePlayerView();
 					meterChart.filterAll();
