@@ -835,8 +835,8 @@
         var metaData = {
         	"s205b":{
         		"people":256,
-        		"color": "rgb(255,0,255)",
-        		"name": "Rosa",
+        		"color": "rgb(0,255,0)",
+        		"name": "Grön",
         		"avgUse": "",
         		"change": "",
         		"accumSum": "",
@@ -879,8 +879,8 @@
         	},
     /*    	"s206a2":{
         		"people":63,
-        		"color": "rgb(0,255,0)",
-        		"name": "Grön",
+        		"color": "rgb(255,0,255)",
+        		"name": "Rosa",
         		"avgUse": "",
         		"change": "",
         		"accumSum": "",
@@ -1899,7 +1899,7 @@
 	    weeklyview();
 	    lastClick = new Date();
 
-	    playerDelay = 3000000;
+	    playerDelay = 120000;
 
 	    function getParameterByName(name) {
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -1917,6 +1917,7 @@
 		    	var rightNow = new Date();
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
+				   	$("#meter-choice-page").toggleClass('hide',true);
 				   	if (looper<meterDomain.length-4){
 				   		console.log($("#start-view").hasClass('hide'))
 				   		console.log("visa startskärmen",meterIndex, looper)
@@ -1977,11 +1978,11 @@
 						$("#start-view").toggleClass('hide', true);
 					}
 					else if (looper < meterDomain.length){		
-						console.log("hello")			
+						console.log("hello1")
 						$("#start-view").toggleClass('hide', false);
 					}
 					else if (looper < meterDomain.length+4){		
-						console.log("hello")			
+						console.log("hello2")			
 						$("#start-view").toggleClass('hide', true);
 					}
 					else if (looper < meterDomain.length+7){
@@ -1989,10 +1990,13 @@
 					}
 					else{$("#start-view").toggleClass('hide', true);}
 
+					$("#meter-choice-page").toggleClass('hide',false);
 					meterIndex = 0;
 					looper = 0;
-				}
 					ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				}
+				ga('send', 'event', 'click-in-body', 'click', 'click-in-body');
+
 				lastClick = new Date();
 			});
 
