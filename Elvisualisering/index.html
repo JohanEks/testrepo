@@ -33,7 +33,7 @@
 
 	    	<div class="container-fluid" style="margin-top:5vh; width:60%; min-width:1400px; text-align:center">
 				<h1 style="font-size:5vh; margin-top:3vh"><b>Hur mycket el använder du på jobbet?</b></h1></br>
-				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete på Sweco Position.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras varje timme och jämför förbrukningen för december 2014 med motsvarande period i november.</h4>
+				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete på Sweco Position.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras kontinuerligt och jämför förbrukningen för december 2014 med motsvarande period i november.</h4>
 				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:6.5vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'></br>Utforska din elanvändning!</br></br> </button></a>
 			</div>
 		</div>
@@ -1661,7 +1661,7 @@
 			table.innerHTML += ''+
 			'<tr id="row-'+meter.value.meter+'">'+
 				'<td><b>'+placeInList+'</b></td>'+
-				'<td style="text-align:left; padding-left:50px"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:160%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
+				'<td style="text-align:left; padding-left:3%"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
 				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
 				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
 				'<td style="text-align:left">' +arrow+'</td>'+
