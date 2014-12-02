@@ -1900,7 +1900,7 @@
 	    weeklyview();
 	    lastClick = new Date();
 
-	    playerDelay = 3000000;
+	    playerDelay = 120000;
 
 	    function getParameterByName(name) {
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -1918,37 +1918,35 @@
 		    	var rightNow = new Date();
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
-				   	if (looper<meterDomain.length-4){
-				   		console.log($("#start-view").hasClass('hide'))
-				   		console.log("visa startskärmen",meterIndex, looper)
+		    		$('#meter-choice-page').toggleClass('hide', true);
+				   	if (looper < 3){
 				   		$("#start-view").toggleClass('hide', false);
+			    		console.log(looper,meterIndex)
 			    		looper++
 				   	}
-				   	else if (looper < meterDomain.length){ 
-				   		console.log($("#start-view").hasClass('hide'))
+				   	else if (looper < 6){ 
 				   		applyFilter(meterDomain[meterIndex]);
-				   		console.log("första 3 mätarna",meterIndex, looper)
 				   		$("#start-view").toggleClass('hide', true);
+				   		console.log(looper,meterIndex)
 				   		meterIndex++
 				   		looper++
 			    	}
-			    	else if (looper<meterDomain.length+4){
-				   		console.log($("#start-view").hasClass('hide'))
-				   		console.log("visa startskärmen",meterIndex,looper)
-			    		$("#start-view").toggleClass('hide', false);
+			    	else if (looper < 9){
+				   		$("#start-view").toggleClass('hide', false);
+				   		console.log(looper,meterIndex)
 				   		looper++
 				   	}
-				   	else if (looper < meterDomain.length+7){ 
-			    		console.log($("#start-view").hasClass('hide'))
-				   		applyFilter(meterDomain[meterIndex]);
-				   		console.log("sista 4 mätarna",meterIndex,looper)
-			    		$("#start-view").toggleClass('hide', true);
+				   	else if (looper < 11){ 
+			    		applyFilter(meterDomain[meterIndex]);
+				   		$("#start-view").toggleClass('hide', true);
+				   		console.log(looper,meterIndex)
 				   		meterIndex++
 				   		looper++
 				   	}
 			    	else {
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
+				   		console.log(looper,meterIndex)
 			    		looper=0
 			    		meterIndex=0;
 			    	}
@@ -1974,26 +1972,32 @@
 					dc.redrawAll();
 					console.log("playerOn click")
 					
-					if (looper<meterDomain.length-4){
+					if (looper < 3+1){
 						$("#start-view").toggleClass('hide', true);
+						console.log("första")
 					}
-					else if (looper < meterDomain.length){		
-						console.log("hello")			
+					else if (looper < 6+1){		
 						$("#start-view").toggleClass('hide', false);
+						console.log("andra")			
 					}
-					else if (looper < meterDomain.length+4){		
-						console.log("hello")			
+					else if (looper < 9+1){		
 						$("#start-view").toggleClass('hide', true);
+						console.log("tredje")			
 					}
-					else if (looper < meterDomain.length+7){
+					else if (looper < 11+1){
 						$("#start-view").toggleClass('hide', false);
+						console.log("fjärde")
 					}
-					else{$("#start-view").toggleClass('hide', true);}
+					else{
+						$("#start-view").toggleClass('hide', true);
+					console.log("femte")
+					}
 
 					meterIndex = 0;
 					looper = 0;
+					$('#meter-choice-page').toggleClass('hide', false);
 				}
-					ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
 				lastClick = new Date();
 			});
 
