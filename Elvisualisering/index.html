@@ -159,12 +159,12 @@
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
 		    						Mätarspecifik information
-		    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Välj din elmätare och se information om er förbrukning."></span>
+		    						<span id="i-meter-specific" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Välj din elmätare och se information om er förbrukning."></span>
 		    					</p>
 		    					<div id="meter-specific-heading">
 		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
 		    							Mätarspecifik information
-		    							<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
+		    							<span id="i-ref-meter" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Det finns tyvärr ingen mätdata för ditt mätarområde."></span>
 										<!--<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>-->
 									</p>
 		    					</div>
@@ -319,7 +319,7 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+	    						<span id="i-top-list" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="<height:90%;padding:0">
@@ -352,7 +352,7 @@
 	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
 	    					<p class="panel-title" style="font-size:2.5vh">
 	    						Daglig elanvändning
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden. Klicka på en mätare för att visa mer information."></span>
+	    						<span id="i-meter-chart" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden. Klicka på en mätare för att visa mer information."></span>
 	    					</p>	
 				        </div>
 	    				<div class="panel-body" style="padding:0; height:90%">
@@ -368,7 +368,7 @@
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-titel" style="font-size:2.5vh">
 		    					Elanvändningen över tid
-	    						<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
+	    						<span id="i-line-chart" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
 	    					</p>
 		    			</div>
 		    			<div class="panel-body" style="height:90%; padding:0">
@@ -594,12 +594,10 @@
 
 		$('#meter-chart').on('click', function() {
 			if (meterChart.filters().length>0){
-				console.log("meter-chart",meterChart.filters()[0])
 				ga('send', 'event', 'meter-chart', 'click', metaData[meterChart.filters()[0]].name + ', playerOn: '+playerOn);
 			}
 			else {
 				ga('send', 'event', 'meter-chart', 'click', 'unfiltered, playerOn: '+playerOn);
-				console.log("meter-chart","unfiltered")
 			}
 		});
 
@@ -611,15 +609,41 @@
 			ga('send', 'event', 'environment-link', 'click', 'environment-link, playerOn: '+playerOn);
 		});
 
-		$('#info-link').on('click', function() {
-			ga('send', 'event', 'info-link', 'click', 'info-link, playerOn: '+playerOn);
+		$('#consequences-link').on('click', function() {
+			ga('send', 'event', 'consequences-link', 'click', 'consequences-link, playerOn: '+playerOn);
 		});
 
-		/*$('#dropdown').on('click', function() {
-			console.log(meterChart.filters()[0]);
-			ga('send', 'event', 'dropdown', 'click', meterChart.filters()[0]);
+		$('#meter-area-link').on('click', function() {
+			ga('send', 'event', "meter-area-link", 'click', 'meter-area-link, playerOn: '+playerOn);
 		});
-*/
+
+		
+		$("#top-list-table").on('click', function() {
+			ga('send', 'event', "top-list", 'click', 'top-list, playerOn: '+playerOn);
+		});
+
+		$("#i-line-chart").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-line-chart, playerOn: '+playerOn);
+		});
+
+		$("#i-meter-chart").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-meter-chart, playerOn: '+playerOn);
+		});
+
+
+		$("#i-top-list").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-top-list, playerOn: '+playerOn);
+		});
+
+
+		$("#i-ref-meter").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-ref-meter, playerOn: '+playerOn);
+		});
+
+		$("#i-meter-specific").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-meter-specific, playerOn: '+playerOn);
+		});
+
 //----------------------------------------------------------------------
 
 		before = new Date();
@@ -715,8 +739,8 @@
 			
 		}
 
-		applyFilter = function (meter){
-			if (meter == "ref"){
+		applyFilterNoGA = function(meter){
+				if (meter == "ref"){
 				$("#reference-meter").toggleClass('hide', false);
 				$("#choose-meter").toggleClass('hide', true);
 			}
@@ -733,8 +757,15 @@
 	//			accumChangeChart.filter(meter);
 				dc.redrawAll();
 			}
-			//ga('send', 'event', 'dropdown', 'click', metaData[meter].name+', playerOn: '+playerOn);
+		};
+
+		applyFilter = function (meter){
+			applyFilterNoGA(meter)
+			ga('send', 'event', 'dropdown', 'click', metaData[meter].name+', playerOn: '+playerOn);
 		}
+
+
+
 
 		checkMeterFilter = function  (){
 			var show = meterChart.filters().length == 0;
@@ -1724,13 +1755,13 @@
 							"<div style='font-size:1.6vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
 							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
-							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ". Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
+							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ". Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a id='environment-link' href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
 							    	"<li>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li></br>"+
-							    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid. <a href=#concequences>Läs mer om den <b>minskade miljöpåverkan</b> som en besparing av 5 % kan leda till</a>.</li>"+
+							    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid. <a id='consequences-link' href=#concequences>Läs mer om den <b>minskade miljöpåverkan</b> som en besparing av 5 % kan leda till</a>.</li>"+
 							    "</ul>"+
 						    "</div>"+
 						"</div>"+
-						'</br><a href="#" data-toggle="modal" data-target="#meter-area-modal" style="font-size:1.6vh">Se vilka som ingår i ditt mätarområde</a>'+
+						'</br><a id="meter-area-link" href="#" data-toggle="modal" data-target="#meter-area-modal" style="font-size:1.6vh">Se vilka som ingår i ditt mätarområde</a>'+
    						'<div class="modal fade" style="margin-top:20vh" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 							'<div class="modal-dialog" style="text-align:left">'+
 						    	'<div class="modal-content">'+
