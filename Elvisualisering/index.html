@@ -41,7 +41,9 @@
 		<div id="meter-choice-page">
 			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:900px; text-align:center">
 				<div class="dropdown" style="text-align:center">
+
 					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:6.5vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span></a>
+
 
 					<ul class="dropdown-menu multi-level" id="clone-dropdown" role="menu" aria-labelledby="dropdownMenu">
 			            <li class="dropdown-submenu">
@@ -58,7 +60,7 @@
 		                    		</ul>
 		                		</li>
 				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Kontorsservice</a></li>
-				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s206a2')">Strategy</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Strategy</a></li>
 		                	</ul>
 		            	</li>
 		            	<li class="dropdown-submenu">
@@ -74,9 +76,9 @@
 		                    		</ul>
 		                		</li>
 				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Energuide</a></li>
-				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s206a3')">Environment</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Environment</a></li>
 				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Sweco International</a></li>
-				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s206a3')">Sweco Sverige</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Sweco Sverige</a></li>
 		                	</ul>
 		            	</li>
 		            	<li class="dropdown-submenu">
@@ -190,7 +192,7 @@
 									                    		</ul>
 									                		</li>
 											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Kontorsservice</a></li>
-											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a2')">Strategy</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Strategy</a></li>
 									                	</ul>
 									            	</li>
 									            	<li class="dropdown-submenu">
@@ -206,9 +208,9 @@
 									                    		</ul>
 									                		</li>
 											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide</a></li>
-											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Environment</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Environment</a></li>
 											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International</a></li>
-											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206a3')">Sweco Sverige</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Sweco Sverige</a></li>
 									                	</ul>
 									            	</li>
 									            	<li class="dropdown-submenu">
@@ -275,14 +277,18 @@
 					    					    				
 					    					</div>
 					    				</div>
+
 						        		<h4 style="font-size: 2.5vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
+
 				    				</div>
 					    			<div id="meter-specific-info" class="hide">
 					    			</div>
 					    			<div id="reference-meter" class="hide">
 					    				<div style="width:60%; margin-left:auto; margin-right:auto">
-							        		<h4 style="font-size: 2.5vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för din mätare. Vi beklagar detta</h4></br>
-							        		<p style="text-align:center; font-size:1.6">Eftersom projektet är en del av ett examensarbete måste vissa akademiska aspekter uppfyllas. Den elmätare som du tillhör har blivit vald till referensmätare, för att undersöka om förbrukningsförändringen skiljer sig åt om man har tillgång till visualiseringen av sin elanvändning eller ej.</p>  
+
+							        		<h4 style="font-size: 2.5vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för den valda mätaren. Vi beklagar detta</h4></br>
+							        		<p style="text-align:center; font-size:1.6">Aningen beror detta på ett tekniskt fel eller så har den elmätare som du tillhör har blivit vald till referensmätare. Dessa kommer att användas för att undersöka om förbrukningsförändringen skiljer sig åt om man har tillgång till visualiseringen av sin elanvändning eller ej.</p>  
+
 							        		<div class = "text-center">
 												<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:2.5vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
 											</div>
@@ -871,7 +877,7 @@
         		"totEcoFeedback": "",
         		"meterArea": "<li class='dist'>Vån 1, 3, 5, 7, 9, 11, 13 och 14 i höghuset</li>"
         	},
-        	"s206a2":{
+    /*    	"s206a2":{
         		"people":63,
         		"color": "rgb(0,255,0)",
         		"name": "Grön",
@@ -881,6 +887,7 @@
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
         		"meterArea": "<li class='dist'>Vån 1: Strategy</li>"
+    */    		
     /*    	},
         	"s204a3":{
         		"people":99,
@@ -913,9 +920,9 @@
         		"accumSum": "",
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
-        		"meterArea": "<li class='dist'>Vån 1: Kontorservice</li>"		*/
-        	},
-        	"s206a3":{
+        		"meterArea": "<li class='dist'>Vån 1: Kontorservice</li>"		
+        	},*/
+        	/*"s206a3":{
         		"people":66,
         		"color": "rgb(0,255,255)",
         		"name": "Turkos",
@@ -925,7 +932,8 @@
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
         		"meterArea": "<li class='dist'>Vån 2: Sweco Sverige</li>"
-        	},
+        	},*/
+
         	"s206f1":{
         		"people":33+11,
         		"color": "rgb(0,0,0)",
@@ -1513,10 +1521,10 @@
 			//.ordering(function(d){ return d.value.avg})
 			.label(function(d) { return metaData[d.value.meter].name; })
 			.title(function(d) {
-			    return metaData[d.value.meter].name
+			    /*return metaData[d.value.meter].name
 			        + ' mätares förbrukning per dygn: '
 			        + d3.round(d.value.avg,2)
-			        +'kWh'
+			        +'kWh' */
 			})		
         	.on('filtered', function(chart, filter){
         	//	onefilter(chart, bubbleChart);
@@ -1653,7 +1661,7 @@
 			table.innerHTML += ''+
 			'<tr id="row-'+meter.value.meter+'">'+
 				'<td><b>'+placeInList+'</b></td>'+
-				'<td style="text-align:left; padding-left:50px"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
+				'<td style="text-align:left; padding-left:50px"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:160%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
 				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
 				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
 				'<td style="text-align:left">' +arrow+'</td>'+
@@ -1774,10 +1782,11 @@
 
 
     	usageLineChartFiltered = dc.lineChart(usageLineChart,'Din mätare')
-			.group(usageAvgMeter)
+			.group(usageAvgMeter,"Förbrukning vald mätare")
         	.valueAccessor(function (d) { return d.value.allAvg;})
         	.brushOn(false)
         	.colors("grey")
+
         	/*.title(function(d) {
 			    return d3.round(d.value.allAvg)
 			        +'kWh'
@@ -1785,7 +1794,8 @@
 
 
 		usageLineChartUnfiltered = dc.lineChart(usageLineChart,'Genomsnitt i huset')
-        	.group(usageAvgMeter.unfiltered)
+        	
+        	.group(usageAvgMeter.unfiltered,"Genomsnitt i huset")
         	.valueAccessor(function (d) { return d.value.allAvg})
 			.dashStyle([15,6])
 			.colors("grey")
@@ -1796,7 +1806,7 @@
 
       	usageLineChart
 	      	.dimension(hourDim)
-
+	      	
 			//.rangeChart(barDateBrush)
 	      	.x(d3.time.scale().domain([minDate,maxDate]))
 		    .xUnits(d3.time.days)
@@ -1832,8 +1842,8 @@
 			    }
 
 			    if(group!=usageLineChartFiltered.group()){
-			    		usageLineChartFiltered.group(group)
-			    		usageLineChartUnfiltered.group(group.unfiltered)
+			    		usageLineChartFiltered.group(group,"Förbrukning vald mätare")
+			    		usageLineChartUnfiltered.group(group.unfiltered,"Medelförbrukning i hela huset")
 			    	}
 
 			})
@@ -1842,12 +1852,29 @@
 	      			usageLineChartUnfiltered,
 					usageLineChartFiltered
 	      		]);
-
+		//usageLineChart.legend(dc.legend().x(50).y(10).itemHeight(13).gap(5));
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
 
 	    dc.renderAll();
+/*
+	    function legendOptions(chart)
+		{
+		    chart.svg().select('g.dc-legend').select('g.dc-legend-item').append('text').attr("font-size","300px")//  forEach(function (legend){ 
+		                //.append("g")
+		                //.attr("class", "dc-legend")
+		                //.append("g")
+		                //.attr("class", "dc-legend-item")
+		                //console.log(legend)
+		                //legend.append("text")
+		                //.attr("font-size","300px")
+		                //.text("blbla")
+		                //.text(displayText);
+		            //})
+		}
 
+		legendOptions(usageLineChart);
+*/
 
 		function addXAxis(chart, displayText)
 		{
@@ -1891,30 +1918,30 @@
 			    if(rightNow - lastClick > playerDelay){
 		    		showPlayerView();
 				   	if (looper<meterDomain.length-4){
-				   		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		console.log("visa startskärmen",meterIndex, looper)
+				   		$("#start-view").toggleClass('hide', false);
 			    		looper++
 				   	}
 				   	else if (looper < meterDomain.length){ 
-				   		$("#start-view").toggleClass('hide', true);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[meterIndex]);
 				   		console.log("första 3 mätarna",meterIndex, looper)
+				   		$("#start-view").toggleClass('hide', true);
 				   		meterIndex++
 				   		looper++
 			    	}
 			    	else if (looper<meterDomain.length+4){
-			    		$("#start-view").toggleClass('hide', false);
 				   		console.log($("#start-view").hasClass('hide'))
 				   		console.log("visa startskärmen",meterIndex,looper)
+			    		$("#start-view").toggleClass('hide', false);
 				   		looper++
 				   	}
 				   	else if (looper < meterDomain.length+7){ 
-			    		$("#start-view").toggleClass('hide', true);
 			    		console.log($("#start-view").hasClass('hide'))
 				   		applyFilter(meterDomain[meterIndex]);
 				   		console.log("sista 4 mätarna",meterIndex,looper)
+			    		$("#start-view").toggleClass('hide', true);
 				   		meterIndex++
 				   		looper++
 				   	}
@@ -1940,7 +1967,6 @@
 
 			//Player stopper
 			$('body').on('click',function(){
-				console.log("haj haje")
 				if (playerOn && playerDelay < new Date() - lastClick ){
 					hidePlayerView();
 					meterChart.filterAll();
