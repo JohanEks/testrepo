@@ -56,7 +56,7 @@
 					
 				}
 				console.log('added: ',added, ' new values for meter ', meter_refs[valCol.id].id, ' based on ', kabonaData);
-				$("#data_area").html(JSON.stringify(data, null, 1));
+				$("#data_area").html("var data = "+JSON.stringify(data, null, 1));
 
 			}
 
