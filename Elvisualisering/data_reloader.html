@@ -23,12 +23,14 @@
 				if(tsCol.id != "ts" || tsCol.p.unit != "ms"){
 					console.log('unexpected column: ', tsCol, ' from ', kabonaData);
 					alert('oops, check konsole');					
+					return;
 				}
 
 				var valCol = kabonaData.table.cols[1];
 				if(meter_refs[valCol.id] == undefined || valCol.p.unit != "kWh"){
 					console.log('unexpected column: ', valCol, ' from ', kabonaData);
-					alert('oops, check konsole');					
+					alert('oops, check konsole');
+					return;					
 				}
 
 				var data_js_data = meter_refs[valCol.id].data;
@@ -64,15 +66,18 @@
 			var meters = [
 				["m21e", "s205b"],
 				["m36e", "s206a2"],
+				["m25e", "s115c1"],
+				["m22e", "s207a"]
 
 			]
 
 			
-			meters.forEach(function(meter){								
+			meters.forEach(function(meter){		
+				var found = false;						
 				data.forEach(function(dataMeter){
 
 					if(dataMeter.id==meter[1]){
-
+						found = true;
 						var kabonaId = "met."+meter[0]+".met.y.max"
 						meter_refs[kabonaId] = dataMeter;
 						$.ajax({
@@ -91,6 +96,10 @@
 						});
 					}
 				})
+
+				if(!found){
+					console.log('no match for ', meter);
+				}
 				
 
 			})
