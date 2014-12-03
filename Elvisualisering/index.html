@@ -31,18 +31,18 @@
 	<body>
 		<div id = "start-view">
 
-	    	<div class="container-fluid" style="margin-top:5vh; width:60%; min-width:1400px; text-align:center">
+	    	<div class="container-fluid" style="margin-top:5vh; width:60%; min-width:650px; text-align:center">
 				<h1 style="font-size:5vh; margin-top:3vh"><b>Hur mycket el använder du på jobbet?</b></h1></br>
 				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete på Sweco Position.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras kontinuerligt och jämför förbrukningen för december 2014 med motsvarande period i november.</h4>
-				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:6.5vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hideStartView()'></br>Utforska din elanvändning!</br></br> </button></a>
+				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:90%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:4vw; padding-top:4vw; padding-bottom:4vw' href="#" onclick='hideStartView()'>Utforska din elanvändning! </button></a>
 			</div>
 		</div>
 
 		<div id="meter-choice-page">
-			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:900px; text-align:center">
+			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:650px; text-align:center">
 				<div class="dropdown" style="text-align:center">
 
-					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:6.5vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span></a>
+					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:4vw; padding-top:2.5vw; padding-bottom:2.5vw">Hitta din elmätare <span class="caret"></span></a>
 
 
 					<ul class="dropdown-menu multi-level" id="clone-dropdown" role="menu" aria-labelledby="dropdownMenu">
@@ -144,17 +144,17 @@
 		            </ul>
 
 				</div>
-				<h4 style="font-size: 2.5vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
+				<h4 style="font-size: 2.5vh; margin-top:2vh; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
 			</div>
 		</div>
 
 		<div id = "info-view" class="">
 
-	    <div class="container-fluid" style="margin-top:5vh; margin-bottom:5vh">
+	    <div class="container-fluid" style="margin-top:5vh; margin-bottom:0; min-width: 650px">
 	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
  
 	    		<div id="meter-specific-view" class="">
-	    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-6" style="height:45vh">
+	    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="height:45vh">
 		    			<div class="panel panel-default" style="height:100%">
 		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
 		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
@@ -171,7 +171,7 @@
 					        </div>
 		    				<div class="panel-body" style="padding:0; height:90%">
 					        
-					        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-12" style="height:100%">
+					        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100%">
 					        		<div id="choose-meter">
 				    					<div style="width:60%; margin-right:auto; margin-left:auto; margin-top:8vh">
 					    					<div class="dropdown" style="text-align:center">
@@ -303,7 +303,7 @@
 	    		</div>
 
 	    		<div id = "player-view" class="hide">
-		    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-6" style="text-align:center;height:100%"> <!-- -->
+		    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="text-align:center;height:100%"> <!-- -->
 				    	<div class="panel panel-default" style="height:45vh">
 			    			<div class="panel-body" style="<height:90%;padding:0">
 
@@ -313,7 +313,7 @@
 					</div>
 				</div>
 
-		    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-6"style="text-align:center;height:100%"> <!-- -->
+		    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6"style="text-align:center;height:100%"> <!-- -->
 		    		<div style="border:3px solid; border-radius:1vh; border-color:grey; height:100%; width:100%"><!-- -->
 			    	<div class="panel panel-default" style="height:100%">
 		    			<div class="panel-heading"style="height:10%; padding:0">
@@ -347,7 +347,7 @@
 	    	</div>   		
 
 	    	<div class="row" style="height:45vh; min-height:250px">	    		
-		   	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-6" style="height:100%">
+		   	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="height:100%">
 	    			<div class="panel panel-default" style="height:100%">
 	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
 	    					<p class="panel-title" style="font-size:2.5vh">
@@ -363,7 +363,7 @@
 		    		</div>
 		    	</div>		
 		   	    
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-lg-6"style="height:100%">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6"style="height:100%">
 	    			<div class="panel panel-default"style="height:100%">
 		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
 		    				<p class="panel-titel" style="font-size:2.5vh">
@@ -393,13 +393,14 @@
 
 
 		    </div>
+		</div>
 
 
 
 
+	    <div class="container-fluid" style="margin-top:0; margin-bottom:0; min-width: 650px">			
 			
-			
-			<div id="environment" style="width:60%; min-width:900px; padding-top:7vh; margin-left:auto; margin-right:auto">
+			<div id="environment" style="width:60%; min-width: 650px; padding-top:7vh; margin-left:auto; margin-right:auto">
 				<div class="row">
 					<div class="panel panel-success" style="height:100%; margin-top:2vh">
 			    		<div class="panel-heading"style="height:5vh; text-align:center; vertical-align:center">
