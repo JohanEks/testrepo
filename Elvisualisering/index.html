@@ -2052,8 +2052,27 @@
 			  myElement.addEventListener('contextmenu', blockContextMenu);
 			})();
 
+			lastAutoUpdate = new Date();
+			autoUpdateTimePlayer = 2*3600*1000;
+			autoUpdateTime = 3*3600*1000;
 
-
+		    autoUpdate = function(){
+			    setInterval(function (){
+			    	var rightNow = new Date();
+			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTimePlayer)
+			    	console.log((rightNow - lastClick) > playerDelay)
+			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTime)
+				    if((rightNow - lastAutoUpdate) > autoUpdateTimePlayer && (rightNow - lastClick) > playerDelay){
+				    	console.log("playeron")
+				    	location.reload(true)
+				    }
+				    else if((rightNow - lastAutoUpdate) > autoUpdateTime){
+				    	console.log('playeroff')
+				    	location.reload(true)
+				    }
+				}, 5000);
+		    };
+		    autoUpdate();
 
 		}
 		
