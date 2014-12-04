@@ -1,30 +1,2097 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Testsida</title>
-    <meta name="description" content="Webpage for experiments" />
-    <!-- http://meyerweb.com/eric/tools/css/reset/ -->
-    <link rel="stylesheet" href="css/style.css" />
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
-    <![endif]-->
-    <script type="text/javascript" src="script/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="script/test.js"></script>
-  </head>
-  <body> 
-    <h1>Rubriken</h1>
-    <div id="main">
-      <p>
-        <strong>Stark</strong> text
-      </p>
-      <p>Andra stycket</p>
-      <p class="orange">Test</p>
-    </div>
-    <div id="repo">
-      <h2>Commits</h2>
-      <ul id="commits">
-      </ul>
-    </div>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+
+		<title>Elförbrukning Marieberg</title>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/dc/1.7.1/dc.css" media="screen"> 
+		<link rel="stylesheet" type="text/css" href="style.css"> 
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-56827816-1', 'auto');
+			ga('send', 'pageview');
+
+		</script>
+	</head>
+<!--<span class="reset" style="display: none;">Current filter: <span class="filter"></span></span>
+
+		    	-->
+
+	<body>
+		<div id = "start-view">
+
+	    	<div class="container-fluid" style="margin-top:5vh; width:60%; min-width:650px; text-align:center">
+				<h1 style="font-size:5vh; margin-top:3vh"><b>Hur mycket el använder du på jobbet?</b></h1></br>
+				<h4 style="font-size:2.5vh;line-height:180%">Som en del av Swecos miljöarbete har elförbrukningen i Marieberg kartlagts och visualiserats. Projektet är en del av ett examensarbete som utförs på uppdrag av Sweco Position och Sweco Energuide.</h4></br><h4 style="font-size:2.5vh;line-height:180%"> Här kan du se hur mycket el som förbrukas per person i området där du har din arbetsplats och jämföra er förbrukning med resten av fastigheten. Sidan uppdateras kontinuerligt och jämför förbrukningen för december 2014 med motsvarande period i november.</h4>
+				<a><button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:90%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:4vw; padding-top:4vw; padding-bottom:4vw' href="#" onclick='hideStartView()'>Utforska din elanvändning! </button></a>
+			</div>
+		</div>
+
+		<div id="meter-choice-page">
+			<div class="container-fluid" style="margin-top:20vh; width:60%; min-width:650px; text-align:center">
+				<div class="dropdown" style="text-align:center">
+
+					<a id="clone" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="width:100%; font-size:4vw; padding-top:2.5vw; padding-bottom:2.5vw">Hitta din elmätare <span class="caret"></span></a>
+
+
+					<ul class="dropdown-menu multi-level" id="clone-dropdown" role="menu" aria-labelledby="dropdownMenu" style="width:25%">
+			            <li class="dropdown-submenu">
+		                	<a tabindex="-1" href="#">Plan 1</a>
+		                	<ul class="dropdown-menu">
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s206f1')">Civil</a></li>
+				                <li class="dropdown-submenu">
+				                    <a href="#">Environment</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Höghuset</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Resultatenhet 1125</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s206f1')">Vänster om vardagsrummet</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Höger om vardagsrummet</a></li>
+		                    		</ul>
+		                		</li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Kontorsservice</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Strategy</a></li>
+		                	</ul>
+		            	</li>
+		            	<li class="dropdown-submenu">
+		                	<a tabindex="-1" href="#">Plan 2</a>
+		                	<ul class="dropdown-menu">
+				                <li class="dropdown-submenu">
+				                    <a href="#">Civil</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Höghuset</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Resultatenhet 2000</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Geoteknik</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Övriga</a></li>
+		                    		</ul>
+		                		</li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Energuide</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Environment</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Sweco International</a></li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Sweco Sverige</a></li>
+		                	</ul>
+		            	</li>
+		            	<li class="dropdown-submenu">
+		                	<a tabindex="-1" href="#">Plan 3</a>
+		                	<ul class="dropdown-menu">
+				                <li class="dropdown-submenu">
+				                    <a href="#">Civil</a>
+				                    <ul class="dropdown-menu">
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Vänster om vardagsrummet</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Höger om vardagsrummet</a></li>
+		                    		</ul>
+		                		</li>
+				                <li class="dropdown-submenu">
+				                    <a href="#">Energuide</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Höghuset</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Låghuset</a></li>
+		                    		</ul>
+		                		</li>
+				                <li class="dropdown-submenu">
+				                    <a href="#">TransportSystems</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Resultatenhet 7107</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Övriga</a></li>
+		                    		</ul>
+		                		</li>
+		                	</ul>
+		            	</li>
+		            	<li class="dropdown-submenu">
+		                	<a tabindex="-1" href="#">Plan 4</a>
+		                	<ul class="dropdown-menu">
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Energuide</a></li>
+				                <li class="dropdown-submenu">
+				                    <a href="#">Structure</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Höghuset</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Resultatenhet 2500</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Övriga</a></li>
+		                    		</ul>
+		                		</li>
+				                <li class="dropdown-submenu">
+				                    <a href="#">Sweco Sverige</a>
+				                    <ul class="dropdown-menu">
+				                        <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s205b')">Resultatenhet 6400/6444</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">Resultatenhet 7000</a></li>
+				                    	<li><a href="#" onclick="hideMeterChoicePage(); applyFilter('ref')">Övriga</a></li>
+		                    		</ul>
+		                		</li>
+				                <li><a tabindex="-1" href="#" onclick="hideMeterChoicePage(); applyFilter('s207a')">TransportSystems</a></li>
+		                	</ul>
+		            	</li>
+
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 5</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Plan 6</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 7</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Plan 8</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 9</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Plan 10</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 11</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s227a')">Plan 12</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 13</a></li>
+			            <li><a href="#" onclick="hideMeterChoicePage(); applyFilter('s228a')">Plan 14</a></li>
+		            </ul>
+
+				</div>
+				<h4 style="font-size: 2.5vh; margin-top:2vh; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör.</h4>
+			</div>
+		</div>
+
+		<div id = "info-view" class="">
+
+	    <div class="container-fluid" style="margin-top:5vh; margin-bottom:0; min-width: 650px">
+	    	<div class="row" style="height:45vh; min-height:250px; margin-bottom:20px">
+ 
+	    		<div id="meter-specific-view" class="">
+	    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="height:45vh">
+		    			<div class="panel panel-default" style="height:100%">
+		    				<div class="panel-heading panel-default" style="height:10%; text-align:center; float:center; padding:0">
+		    					<p class="panel-title" id="choose-meter-heading" style="font-size:2.5vh">
+		    						Mätarspecifik information
+		    						<span id="i-meter-specific" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Välj din elmätare och se information om er förbrukning."></span>
+		    					</p>
+		    					<div id="meter-specific-heading">
+		    						<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">
+		    							Mätarspecifik information
+										<!--<a id ='reset-button' style='text-align:right; float:right; margin-top:1vh; font-size:2.5vh; margin-right:5px' href="#" onclick='resetMeterChoice()'><u>Välj en annan mätare</u></a>-->
+									</p>
+		    					</div>
+					        </div>
+		    				<div class="panel-body" style="padding:0; height:90%">
+					        
+					        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100%">
+					        		<div id="choose-meter">
+				    					<div style="width:60%; margin-right:auto; margin-left:auto; margin-top:8vh">
+					    					<div class="dropdown" style="text-align:center">
+					    						<a id="choose-meter-dropdown" class="btn btn-lg btn-success" role="button" data-toggle="dropdown" data-target="#" href="/page.html" style="font-size:3.5vh; width:100%; padding-top:2.5vh; padding-bottom:2.5vh">Hitta din elmätare <span class="caret"></span>
+									            </a>
+									    		<ul class="dropdown-menu multi-level" id="dropdown" role="menu" aria-labelledby="dropdownMenu">
+										            <li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 1</a>
+									                	<ul class="dropdown-menu">
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s206f1')">Civil</a></li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Environment</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 1125</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s206f1')">Vänster om vardagsrummet</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Kontorsservice</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Strategy</a></li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 2</a>
+									                	<ul class="dropdown-menu">
+											                <li class="dropdown-submenu">
+											                    <a href="#">Civil</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 2000</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Geoteknik</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Energuide</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Environment</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s205b')">Sweco International</a></li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('ref')">Sweco Sverige</a></li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 3</a>
+									                	<ul class="dropdown-menu">
+											                <li class="dropdown-submenu">
+											                    <a href="#">Civil</a>
+											                    <ul class="dropdown-menu">
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Vänster om vardagsrummet</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Höger om vardagsrummet</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Energuide</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s228a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Låghuset</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">TransportSystems</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7107</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+									                	</ul>
+									            	</li>
+									            	<li class="dropdown-submenu">
+									                	<a tabindex="-1" href="#">Plan 4</a>
+									                	<ul class="dropdown-menu">
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">Energuide</a></li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Structure</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s227a')">Höghuset</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Resultatenhet 2500</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s205b')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li class="dropdown-submenu">
+											                    <a href="#">Sweco Sverige</a>
+											                    <ul class="dropdown-menu">
+											                        <li><a href="#" onclick="applyFilter('s205b')">Resultatenhet 6400/6444</a></li>
+											                    	<li><a href="#" onclick="applyFilter('s207a')">Resultatenhet 7000</a></li>
+											                    	<li><a href="#" onclick="applyFilter('ref')">Övriga</a></li>
+									                    		</ul>
+									                		</li>
+											                <li><a tabindex="-1" href="#" onclick="applyFilter('s207a')">TransportSystems</a></li>
+									                	</ul>
+									            	</li>
+
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 5</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 6</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 7</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 8</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 9</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 10</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 11</a></li>
+										            <li><a href="#" onclick="applyFilter('s227a')">Plan 12</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 13</a></li>
+										            <li><a href="#" onclick="applyFilter('s228a')">Plan 14</a></li>
+									            </ul>
+					    					    				
+					    					</div>
+					    				</div>
+
+						        		<h4 style="font-size: 2.5vh; margin-top:2vh; width:60%; text-align:center; margin-left:auto; margin-right:auto">Välj din elmätare och se specifika värden för elanvändningen i området som du tillhör!</h4>
+
+				    				</div>
+					    			<div id="meter-specific-info" class="hide">
+					    			</div>
+					    			<div id="reference-meter" class="hide">
+					    				<div style="width:60%; margin-left:auto; margin-right:auto">
+
+							        		<h4 style="font-size: 2.5vh; margin-top:2vh; text-align:center; margin-top:7vh">Det finns tyvärr ingen data att visa för den valda mätaren. Vi beklagar detta</h4></br>
+							        		<p style="text-align:center; font-size:1.6">Aningen beror detta på ett tekniskt fel eller så har den elmätare som du tillhör har blivit vald till referensmätare. Dessa kommer att användas för att undersöka om förbrukningsförändringen skiljer sig åt om man har tillgång till visualiseringen av sin elanvändning eller ej.</p>  
+
+							        		<div class = "text-center">
+												<button class="btn btn-success" id ='reset-button' style='text-align:center; width:60%; margin-left:auto; margin-right:auto; margin-top:2vh; font-size:2.5vh' href="#" onclick="applyFilter('startView')">Välj en annan mätare </button>
+											</div>
+										</div>
+					    			</div>
+
+			    				</div>
+				    		</div>
+
+		    			</div>
+		    		</div>
+	    		</div>
+
+	    		<div id = "player-view" class="hide">
+		    		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="text-align:center;height:100%"> <!-- -->
+				    	<div class="panel panel-default" style="height:45vh">
+			    			<div class="panel-body" style="<height:90%;padding:0">
+
+								<button class="btn btn-lg btn-success" id ='reset-button' style='text-align:center; width:80%; margin-left:auto; margin-right:auto; margin-top:15vh; font-size:3.5vh; padding-top:2.5vh; padding-bottom:2.5vh' href="#" onclick='hidePlayerView()'></br>Klicka för att utforska din elanvändning!</br></br> </button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6"style="text-align:center;height:100%"> <!-- -->
+		    		<div style="border:3px solid; border-radius:1vh; border-color:grey; height:100%; width:100%"><!-- -->
+			    	<div class="panel panel-default" style="height:100%">
+		    			<div class="panel-heading"style="height:10%; padding:0">
+		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
+		    					Topplistan <span id="current-month"></span>
+	    						<span id="i-top-list" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+	    					</p>
+		    			</div> 
+		    			<div class="panel-body" style="<height:90%;padding:0">
+		    				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100%; padding:0">
+
+		    				        <table class='table table-hover table-striped table-condensed'style="max-height:100%" >
+								        <thead>
+								          <tr class='header' style="font-weight:normal">
+								          	<th style="text-align:center">Placering</th>
+								            <th style="text-align:center">Elmätare</th>
+								            <th style="text-align:center">Förändring per person</th>
+								            <th style="text-align:right">%</th>
+								            <th style="text-align:center"></th>
+								        </tr>
+								    </thead>
+								    <tbody id="top-list-table">
+								    </tbody>
+								</table>
+							</div>
+							</div>
+		    			</div>
+		    		</div>
+		    	</div>
+
+	    	</div>   		
+
+	    	<div class="row" style="height:45vh; min-height:250px">	    		
+		   	    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" style="height:100%">
+	    			<div class="panel panel-default" style="height:100%">
+	    				<div class="panel-heading panel-default" style="height:10%; text-align:center; padding:0">
+	    					<p class="panel-title" style="font-size:2.5vh">
+	    						Daglig elanvändning
+	    						<span id="i-meter-chart" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:100%; color:#468847" data-content="Genomsnittlig elanvändning för de olika mätarna under den valda tidsperioden. Klicka på en mätare för att visa mer information."></span>
+	    					</p>	
+				        </div>
+	    				<div class="panel-body" style="padding:0; height:90%">
+				        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="height:100%">
+		    					<div id="meter-chart" style="height:90%; width:100%"></div>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</div>		
+		   	    
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6"style="height:100%">
+	    			<div class="panel panel-default"style="height:100%">
+		    			<div class ="panel-heading" style="height:10%; text-align:center; padding:0">
+		    				<p class="panel-titel" style="font-size:2.5vh">
+		    					Elanvändningen över tid
+	    						<span id="i-line-chart" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Timvis elanvändning för den valda perioden. Den grå streckade linjen visar hela kontorets medelanvändning per person. Klicka på knapparna under grafen för att byta tidsperiod."></span>
+	    					</p>
+		    			</div>
+		    			<div class="panel-body" style="height:90%; padding:0">
+					    	<div class="row" style="height:90%">
+				    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="usage-line-chart" style="height:90%; width:90%;margin-left:5px"></div>
+				    		</div>
+		    				<div class="row" style="height:10%">
+								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding:0; text-align:right">
+					    			<button type = "button" id ="year-button" class="btn btn-success" style="height:90%; font-size:1.6vh;padding-top:0; padding-bottom:0" onclick="yearlyview()">Senaste året</button>
+					    		</div>
+								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding:0; text-align:center">
+					    			<button type = "button" id ="month-button" class="btn btn-success" style="height:90%; font-size:1.6vh;padding-top:0; padding-bottom:0" onclick="monthlyview()">Senaste månaden</button>
+					    		</div>
+								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding:0">
+					    			<button type = "button" id ="week-button" class="btn btn-success" style="height:90%; font-size:1.6vh;padding-top:0; padding-bottom:0" onclick="weeklyview()">Senaste veckan</button>
+					    		</div>
+					    	</div>
+			    		</div>
+			    	</div>
+	    		</div>
+
+
+
+		    </div>
+		</div>
+		<div class="container-fluid" style="margin-top:0; margin-bottom:5vh; width:60%; min-width:650px">
+			
+			<div id="environment" style="padding-top:7vh; margin-left:auto; margin-right:auto">
+				<div class="row">
+					<div class="panel panel-success" style="height:100%; margin-top:2vh">
+			    		<div class="panel-heading"style="height:5vh; text-align:center; vertical-align:center">
+			    			<div class="panel-title" style="font-size:2.5vh">
+			    				<b>Minska din elanvändning med 5 %</b>
+			    			</div> 
+			    		</div> 
+			    		<div class="panel-body" style="font-size:1.6vh">
+			    			<div class="row">
+				    			<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+					   				<ul><li><b style="color:#468847">Släck skärmen</b> under lunchen, fikan och möten</li></ul>
+					   			</div>
+				    			<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+					    			<p><i>- spara 0,63 kWh i veckan</i></p>
+					    		</div>
+					    	</div>
+			    			<div class="row">
+				    			<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+				    				<ul><li><b style="color:#468847">Sätt datorn i strömsparläge</b> under lunchen, fikan och möten</li></ul>
+				    			</div>
+			    				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+				    				<p><i>- spara 0,25 kWh i veckan</i></p>
+				    			</div>
+				    		</div>
+			   				<div class="row">
+			    				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+				    				<ul><li><b style="color:#468847">Använd samma kaffekopp</b> och vattenglas under hela dagen</li></ul>
+				    			</div>
+			    				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+				    				<p><i>- spara 0,38 kWh i veckan</i></p>
+				    			</div>
+				    		</div>
+			  				<div class="row">
+			    				<div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+				    				<ul><li><b style="color:#468847">Stäng av datorn och skärmen helt</b> på nätter och helger</li></ul>
+				    			</div>
+			    				<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+				    				<p><i>- spara 0,21 kWh i veckan</i></p>
+				    			</div>
+				    		</div>
+					   		<div class="row">
+						   		<div style="width:80%; margin-left:auto; margin-right:auto; margin-top:1vh">
+						   			<ul>
+						   				<li>Möjliga besparingar: 1,5 kWh per person och vecka</li>
+						   				<li>Genomsnittlig användning november: 23 kWh per person och vecka.</li>
+						   				<b style="color:#468847"><span class="glyphicon glyphicon-arrow-right"></span><i> Möjlig minskning med 6,3 %</i></b>
+						   			</ul></br>
+						   		</div>
+					  			<ul>
+					  				<p style="margin:0">Slutligen, tänk på att <b style="color:#468847">släcka lampan</b> efter dig i konferensrummet.</p>
+					    			<p><i> - Ett konferensrum som lyser 2 timmar i onödan mån-fre drar 0,3 kWh i veckan</p></i>
+					    		</ul>
+					   		</div>
+			    			<div class="row" style="text-align:right; margin-right:25px">
+			   					<a id="environment-calc" href="#" data-toggle="modal" data-target="#eco-feedback-modal">Så här har vi räknat</a>
+		   						<div class="modal fade" id="eco-feedback-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:15vh">
+									<div class="modal-dialog" style="text-align:left">
+								    	<div class="modal-content">
+										    <div class="modal-header">
+										        <button id="close-eco-feedback"type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+										        <h4 class="modal-title">Så här har vi räknat</h4>
+										    </div>
+										    <div class="modal-body">
+										        <ul>
+										        	<li><b style="color:#468847">Släck skärmen.</b> En datorskärm som lämnas påslagen drar 0,05 kWh per timme. Om skärmen stängs av 2,5h per dag sparas därmed 0,625 kWh per vecka.</li></br>
+										        	<li><b style="color:#468847">Sätt datorn i strömsparläge.</b> En dator som bara lämnas drar 0,02 kWh mer i timmen än en dator som är i strömsparläge. Om datorn sätts i strömsparläge 2,5h per dag sparas därmed 0,25 kWh per vecka.</li></br>
+										        	<li><b style="color:#468847">Använd samma kopp och glas.</b> En diskmaskin rymmer ungefär 40 koppar/glas och den kräver ca 1,5 kWh. Om du använder 2 koppar/glas mindre om dagen minskar du diskbehovet - att diska dessa hade krävt 5% av maskinens kapacitet, alltså 0,075 kWh per dag. På en vecka kan du därmed spara 0,375 kWh.</li></br>
+										        	<li><b style="color:#468847">Stäng av dator och skärm på kvällar och helger.</b> En dator och en skärm som är påslagna men i strömsparläge drar knappt 0,002 kWh per timme. Om de stängs av helt under nätter och helger (totalt 120 timmar/vecka) minskas elanvändningen med ca 0,21 kWh per vecka.</li></br>
+										        	<li><b style="color:#468847">Lampan.</b> Om ett konferensrum har 6 st 5W-ledlampor så drar dessa 0,06 kWh på två timmar. På en vecka blir detta 0,3 kWh.</li>
+										        </ul>
+										    </div>
+										    <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+										    </div>
+								    	</div><!-- /.modal-content -->
+									 </div><!-- /.modal-dialog -->
+								</div><!-- /.modal --></br>
+			    				<a href="#" onclick="scrollToTop()" style="float:right; text-align:right; font-size:1.6vh">Till toppen av sidan</a>
+				    		</div>
+		    			</div>
+		    		</div>
+		    	</div>
+				<div id="concequences" class="row" style="margin-top:2vh">
+		    		<div class="panel panel-success" style="height:100%">
+			    		<div class="panel-heading" style="height:5vh; text-align:center; vertical-align:center">
+			    			<div class="panel-title" style="font-size:2.5vh">
+			    				<b>Konsekvenser</b>
+			    			</div> 
+			    		</div> 
+			    		<div class="panel-body" style="font-size:1.6vh">
+			    			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			    				<p>Om du <b>minskar din elanvändning med 5 %</b> så motsvarar det en minskning av 1,15 kWh i veckan, eller ca 52 kWh om året. Detta motsvarar 5,2 kg koldioxidekvivalenter om året.</p></br>
+			    				<p>Om alla i hela Marieberg minskar sin elanvändning med 5 % så minskas kontorets elförbrukning med <b>75 000 kWh om året</b>, motsvarande:</p>
+			    				<ul><li><b>75 000 kr</b>, eller</li></br>
+			    				<li><b>7,5 ton koldioxidekvivalenter</b>. <i>För motsvarande utsläpp kan man:</i></p></li>
+			    				<ul>
+			    					<b style="color:#468847"><li class="dist">köra tur och retur mellan Stockholm och Rom 8 gånger med en bensinbil,</li>
+			    					<li class="dist">göra 19 tur- och returresor med flyg mellan Stockholm och Rom, eller </li>
+			    					<li class="dist">odla 75 ton potatis!</b></li>
+			    				</ul>
+			    				<div style="float:right; text-align:right; margin-right:25px">
+			    					<a id="concequences-calc" href="#" data-toggle="modal" data-target="#consequences-modal">Så här har vi räknat</a>
+			    				</div>
+		   						<div class="modal fade" id="consequences-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top:20vh">
+									<div class="modal-dialog" style="text-align:left">
+								    	<div class="modal-content">
+										    <div class="modal-header">
+										        <button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+										        <h4 class="modal-title">Så här har vi räknat</h4>
+										    </div>
+										    <div class="modal-body">
+										        <ul>
+										        	<li><b style="color:#468847">Pengar.</b> En kWh el beräknas kosta 1kr.</li></br>
+										        	<li><b style="color:#468847">Koldioxid.</b> En kWh från den nordiska elmixen släpper ut 100 g koldioxidekvivalenter.</li></br>
+										        	<ul>
+										        		<li><b style="color:#468847">Bilen:</b> Medelbilen i den svenska fordonsflottan släpper ut 189 g CO2 per km. För 7,5 ton CO2 kan man därmed köra 40 000 km. Sträckan Stockholm-Rom är ca 2 500 km, vilket gör att man kan göra 8 st tur- och returresor.</li></br>
+										        		<li><b style="color:#468847">Flyget:</b> En flygning tur och retur mellan Stockholm och Rom släpper ut 390 kg CO2 per passagerare. För 7,5 ton CO2 kan man därmed göra 19 personresor tur- och retur.</li></br>
+										        		<li><b style="color:#468847">Potatisen:</b> Klimatavtrycket för 1 kg potatis är 100 g CO2. För 7,5 ton CO2 kan man därmed odla 75 ton potatis.</li></br>
+										        	</ul>
+										        </ul>
+										    </div>
+										    <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+										    </div>
+								    	</div><!-- /.modal-content -->
+									 </div><!-- /.modal-dialog -->
+								</div><!-- /.modal --></br>
+			    				<a href="#" onclick="scrollToTop()" style="float:right; text-align:right; font-size:1.6vh; margin-right:25px">Till toppen av sidan</a>
+			    			</div>
+			    		</div>
+			    	</div>	
+				</div>
+				
+				<div class="row" style="margin-top:2vh;height:20vh">
+					<p style="font-size:2.5vh"><b>Intresserad av att veta mer?</p></b>
+					<p style="font-size:1.6vh">Det här projektet är en del av ett examensarbete om visualisering av elförbrukning i kontorsfastigheter. Kontakta gärna oss om du har några synpunkter eller funderingar kring sidan eller om du har ytterligare förslag på hur det går att minska elförbrukningen.</p>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<p style="font-size:1.6vh">Johan Ekström</p>
+						<p style="font-size:1.4vh; line-height:80%">johan.ekstrom@sweco.se</p>
+						<p style="font-size:1.4vh; line-height:80%">0739-76 10 34</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<p style="font-size:1.6vh">Sofia Stadler</p>
+						<p style="font-size:1.4vh; line-height:80%">sofia.stadler@sweco.se</p>
+						<p style="font-size:1.4vh; line-height:80%">0705-34 16 61</p>
+					</div>
+				</div>
+				<div class="row" style="margin-right:25px;font-size:1.6vh">
+					<p style="float:left; text-align:left">Återigen, släck lampan!</p></br>
+					<a href="#" onclick="goToStartView()" style="float:right; text-align:right">Tillbaka till startsidan</a></br>
+					<a href="#" onclick="scrollToTop()" style="float:right; text-align:right">Till toppen av sidan</a>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <!--<script src="../../dist/js/bootstrap.min.js"></script>
+	    <script src="../../assets/js/docs.min.js"></script>
+	    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>	--> 
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js" type="text/javascript"></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.js"></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.12/d3.js" ></script>
+	    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-alpha.2/dc.js" ></script>    
+	    <script type="text/javascript"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	    <script src="data.js"></script>
+	    <script type="text/javascript">
+
+
+	//	$("#meter-specific-info").hide();
+
+	var maxPointsInLineChart = 150;
+	var groupByHours = [1,2,4,8,24];
+
+	var init = function(data){
+
+
+//----------Google Analytics----------------
+
+
+		$('#month-button').on('click', function() {
+			ga('send', 'event', 'time-button', 'click', 'month-button, playerOn: '+playerOn);
+		});
+
+		$('#week-button').on('click', function() {
+			ga('send', 'event', 'time-button', 'click', 'week-button, playerOn: '+playerOn);
+		});
+
+		$('#year-button').on('click', function() {
+			ga('send', 'event', 'time-button', 'click', 'year-button, playerOn: '+playerOn);
+		});
+
+		$('#meter-chart').on('click', function() {
+			if (meterChart.filters().length>0){
+				ga('send', 'event', 'meter-chart', 'click', metaData[meterChart.filters()[0]].name + ', playerOn: '+playerOn);
+			}
+			else {
+				ga('send', 'event', 'meter-chart', 'click', 'unfiltered, playerOn: '+playerOn);
+			}
+		});
+
+		$('#usage-line-chart').on('click', function() {
+			ga('send', 'event', 'usage-line-chart', 'click', 'usage-line-chart, playerOn: '+playerOn);
+		});
+
+		$('#environment-link').on('click', function() {
+			ga('send', 'event', 'environment-link', 'click', 'environment-link, playerOn: '+playerOn);
+		});
+
+		$('#environment-calc').on('click', function() {
+			ga('send', 'event', 'environment-calc', 'click', 'environment-calc, playerOn: '+playerOn);
+		});
+
+		$('#consequences-link').on('click', function() {
+			ga('send', 'event', 'consequences-link', 'click', 'consequences-link, playerOn: '+playerOn);
+		});
+
+		$('#concequences-calc').on('click', function() {
+			ga('send', 'event', 'concequences-calc', 'click', 'concequences-calc, playerOn: '+playerOn);
+		});
+
+		$('#meter-area-link').on('click', function() {
+			ga('send', 'event', "meter-area-link", 'click', 'meter-area-link, playerOn: '+playerOn);
+		});
+
+		
+		$("#top-list-table").on('click', function() {
+			ga('send', 'event', "top-list", 'click', 'top-list, playerOn: '+playerOn);
+		});
+
+		$("#i-line-chart").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-line-chart, playerOn: '+playerOn);
+		});
+
+		$("#i-meter-chart").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-meter-chart, playerOn: '+playerOn);
+		});
+
+
+		$("#i-top-list").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-top-list, playerOn: '+playerOn);
+		});
+
+
+		$("#i-ref-meter").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-ref-meter, playerOn: '+playerOn);
+		});
+
+		$("#i-meter-specific").on('click', function() {
+			ga('send', 'event', "i", 'click', 'i-meter-specific, playerOn: '+playerOn);
+		});
+
+//----------------------------------------------------------------------
+
+		before = new Date();
+
+		playerOn = getParameterByName("player");
+
+		$(function () {
+		  $('[data-toggle="popover"]').popover()
+		})
+
+		$( ".dropdown-submenu" ).mouseover(function(event) {
+		    if ('$( ".dropdown" ).find(".dropdown-submenu")' != this ){
+		    	$( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+		    }
+		});
+		
+
+		$( ".dropdown-submenu" ).click(function(event) {
+    		// stop bootstrap.js to hide the parents
+		    event.stopPropagation();
+		    // hide the open children
+		    
+		    if ('$( ".dropdown" ).find(".dropdown-submenu")' != this ){
+		    	$( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+		    }
+
+		    $( this ).find(".dropdown-submenu").removeClass('open');
+		    // add 'open' class to all parents with class 'dropdown-submenu'
+		    $( this ).parents(".dropdown-submenu").addClass('open');
+		    // this is also open (or was)
+		    $( this ).toggleClass('open');
+		});
+
+		// this event fires when the dropdown hiden.
+	    $('.dropdown').on('hidden.bs.dropdown', function () {
+	        $( ".dropdown" ).find(".dropdown-submenu").removeClass('open');
+	    });
+
+/*	    $(document).ready(function(){
+	      	$("#choose-meter-dropdown").click(function(){
+	        	$("#meter-specific-info").toggle();
+	        	$("#choose-meter").toggle();
+	      	});
+	      	$("#meter-specific-info").click(function(){
+	        	$("#choose-meter").toggle();
+	        	$("#meter-specific-info").toggle();
+	      	});
+	    });*/
+
+	  //  changeView = function (){
+
+	   		
+	   // 	$("#meter-specific-info").toggle();
+	   //     $("#choose-meter").toggle();
+	   // }
+
+		scrollToTop = function(){
+			window.scrollTo(0, 0);
+		}
+
+		goToStartView = function(){
+			$("#meter-choice-page").toggleClass('hide', false);
+			$("#start-view").toggleClass('hide', false);
+			scrollToTop();
+		}
+
+		hideStartView = function (){
+			$("#start-view").toggleClass('hide', true);
+			scrollToTop();
+		}
+
+		hideMeterChoicePage = function(){
+			$("#meter-choice-page").toggleClass('hide', true);
+			scrollToTop();
+		}
+
+		hidePlayerView = function (){
+			$("#player-view").toggleClass('hide', true);
+			$("#meter-specific-view").toggleClass('hide', false);
+		}
+
+		showPlayerView = function (){
+			scrollToTop();
+			$("#player-view").toggleClass('hide', false);
+			$("#meter-specific-view").toggleClass('hide', true);
+
+			$('#eco-feedback-modal').modal('hide');
+			$('#consequences-modal').modal('hide');
+			$('#meter-area-modal').modal('hide');
+
+			//document.getElementById('close-eco-feedback').click();
+			//document.getElementById('close-consequences').click();
+			
+		}
+
+		applyFilterNoGA = function(meter){
+				if (meter == "ref"){
+				$("#reference-meter").toggleClass('hide', false);
+				$("#choose-meter").toggleClass('hide', true);
+			}
+			else if (meter == "startView"){
+				$("#reference-meter").toggleClass('hide', true);
+				$("#choose-meter").toggleClass('hide', false);
+			}
+			else {
+				meterChart.filterAll();
+				meterChart.filter(meter);
+				console.log("filter!")
+				//document.getElementById("use-per-person").innerHTML=d3.round(meterDayAvg.top(1)[0].value.avg,2);
+	//			bubbleChart.filter(meter);
+	//			accumChangeChart.filter(meter);
+				dc.redrawAll();
+			}
+		};
+
+		applyFilter = function (meter){
+			applyFilterNoGA(meter)
+			ga('send', 'event', 'dropdown', 'click', metaData[meter].name+', playerOn: '+playerOn);
+		}
+
+
+
+
+		checkMeterFilter = function  (){
+			var show = meterChart.filters().length == 0;
+			$("#meter-specific-info").toggleClass('hide', show);
+	   		$("#choose-meter").toggleClass('hide', !show);
+	   		$("#meter-heading").toggleClass('hide', show);
+	   		$("#choose-meter-heading").toggleClass('hide', !show);
+			$("#reference-meter").toggleClass('hide', true);
+	   		if(!show){
+	   			meterChart.filters()[0]
+	   		}
+		}
+
+		yearlyview = function (){
+			usageLineChart.xAxis().ticks(12).tickFormat(function(t){ return ["jan", "feb", "mar", "apr", "maj", "jun", "jul","aug","sep","okt","nov","dec"][t.getMonth()]});
+
+			if (hourDim.bottom(1)[0] < 31536000000){
+	   			updateTimeInterval(hourDim.top(1)[0].hourDate, hourDim.bottom(1)[0])
+			}
+	   		else {updateTimeInterval(hourDim.top(1)[0].hourDate, 31536000000)}
+	   		
+		};
+
+
+		monthlyview = function (){
+			
+			usageLineChart.xAxis().ticks(7).tickFormat(function(t){ return t.getDate()+'/'+(t.getMonth()+1)});
+	   		updateTimeInterval(hourDim.top(1)[0].hourDate, 2678400000);
+
+		};
+
+		weeklyview = function(){
+    		updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000)
+    		usageLineChart.xAxis().ticks(7).tickFormat(function(t){return ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"][t.getDay()]});
+		};
+
+		dailyview = function (){
+			updateTimeInterval(hourDim.top(1)[0].hourDate, 86400000)
+			
+		};
+
+		function updateTimeInterval(max, diff){
+			var minDateDay = new Date(max-diff);
+			//barDateBrush.filterAll()
+			//barDateBrush.filter([minDateDay, max]);
+			usageLineChart.focus([minDateDay,max]);
+			hourDim.filterAll();
+			
+		}
+
+		resetMeterChoice = function(){
+			meterChart.filterAll();
+			meterChart.redraw();
+			usageLineChart.redraw();
+		}
+
+		
+	    colorLineChart = function(meter){
+		    if (meter == ""){
+		    	usageLineChartFiltered.colors("grey")
+		    }
+		    else{
+		    	usageLineChartFiltered.colors(metaData[meter].color)
+		    }
+		}
+
+/*
+		var onefilter = function(chart, otherChart){
+        	if(!chart.dontlisten1){
+    			otherChart.dontlisten1 = true;
+				var filters = chart.filters();
+				if (filters.length > 1){
+					var lastFilter = filters[filters.length-1];
+					chart.filterAll();
+					chart.filter(lastFilter);
+				}
+        		otherChart.dontlisten1 = false;
+        	}
+
+			generateMeterSpecificInfo(chart.filters());
+
+			colorLineChart(chart.filters());
+
+        }
+
+        */
+/*
+        var syncfilters = function(chart, otherChart){
+        	if(!chart.dontlisten){
+    			otherChart.dontlisten = true;
+    			otherChart.filterAll();
+    			chart.filters().forEach(function(e){
+    				otherChart.filter(e);
+    			})
+    			otherChart.redraw()
+        		otherChart.dontlisten = false;
+        	}
+        }
+*/
+        var metaData = {
+        	"s205b":{
+        		"people":256,
+        		"color": "rgb(0,255,0)",
+        		"name": "Grön",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1: Environment höger om vardagsrummet</li class='dist'><li class='dist'>Vån 2: Energuide samt Sweco International</li><li class='dist'>Vån 3: Transportsystems <i>exklusive</i> resultatenhet 7101</li><li class='dist'>Vån 4: Structure <i>exklusive</i> höghuset samt resultatenhet 2500</li>"
+        	},
+        	"s207a":{
+        		"people":166,
+        		"color": "rgb(255,0,0)",
+        		"name": "Röd",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1: Environment resultatenhet 1125</li><li class='dist'>Vån 2: Civil resultatenhet 2000 samt Civil geoteknik</li><li class='dist'>Vån 3: Energuide låghuset, Civil vänster om vardagsrummet samt TransportSystems resultatenhet 7107</li><li class='dist'>Vån 4: Energuide, TransportSystems samt Sweco Sverige resultatenhet 7000</li>"
+        	},
+        	"s227a":{
+        		"people":421,
+        		"color": "rgb(245,245,0)",
+        		"name": "Gul",
+        		"avgUse":"",
+        		"change":"",
+        		"accumSum":"",
+        		"ecoFeedback":"",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 2, 4, 6, 8, 10 och 12 i höghuset</li>"
+        	},
+        	"s228a":{
+        		"people":428,
+        		"color": "rgb(0,0,255)",
+        		"name": "Blå",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1, 3, 5, 7, 9, 11, 13 och 14 i höghuset</li>"
+        	},
+    /*    	"s206a2":{
+        		"people":63,
+        		"color": "rgb(255,0,255)",
+        		"name": "Rosa",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1: Strategy</li>"
+    */    		
+    /*    	},
+        	"s204a3":{
+        		"people":99,
+        		"color": "white"
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 2: Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt geoteknik</li>"
+        	},
+        	"s107a1":{
+        		"people":35,
+        		"color": "white"
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 4: Structure resultatenhet 2500, Sweco Sverige <i>exklusive</i> resultatenheterna 6400, 6444 och 7000</li>"
+        	},
+        	"s204b2":{
+        		"people":8,
+        		"color": "white"
+        		"name": "",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1: Kontorservice</li>"		
+        	},*/
+        	/*"s206a3":{
+        		"people":66,
+        		"color": "rgb(0,255,255)",
+        		"name": "Turkos",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 2: Sweco Sverige</li>"
+        	},*/
+
+        	"s206f1":{
+        		"people":33+11,
+        		"color": "rgb(0,0,0)",
+        		"name": "Svart",
+        		"avgUse": "",
+        		"change": "",
+        		"accumSum": "",
+        		"ecoFeedback": "",
+        		"totEcoFeedback": "",
+        		"meterArea": "<li class='dist'>Vån 1: Civil, Environment vänster om vardagsrummet</li>"
+        	}
+        }
+        
+        console.log(new Date()-before);
+		before= new Date();
+
+		var objectifiedData =[];
+		
+		var totUsers = 0;		
+		var refs = {};
+		var refsWeekdays = {};
+		var days = {};
+		var meanHourUseByDay = {};
+		var meanMonthUse = {};
+		var meterDomain = [];
+		var colorRange = [];
+
+		
+		startRefPeriod1 = new Date(2014,10,1);
+		endRefPeriod1 = new Date(2014,11,0,23,59);
+		
+		//Real ref period
+		//startRefPeriod1 = new Date(2014,10,1);
+		//endRefPeriod1 = new Date(2014,11,0,23,59);
+		
+		//Old junk
+		/*
+		startRefPeriod1 = new Date(2014,2,1);
+		endRefPeriod1 = new Date(2014,4,31,23,59);
+		startRefPeriod2 = new Date(2014,8,1);
+		endRefPeriod2 = new Date(2014,9,31,23,59);
+		*/
+	
+		startMonthRefPeriod = new Date(2014,1,1);
+		endMonthRefPeriod = new Date(2014,9,31,23,59);
+
+
+		data.forEach(function(meter){
+			if(!metaData[meter.id]){
+				return;
+			}
+			// add/generate metadata
+			//totUsers += meter.people; //old
+			meterDomain.push(meter.id);
+			colorRange.push(metaData[meter.id].color);
+			totUsers += metaData[meter.id].people;
+			refs[meter.id] = [0,0,0,0,0,0,0]; //usage
+			refsWeekdays[meter.id] = 0;
+			days[meter.id] = [0,0,0,0,0,0,0]; //number of datapoints
+			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
+			meanMonthUse[meter.id] = 0;
+
+			meter.data.forEach(function(dataPoint){
+				var usageDate = new Date(dataPoint[0]);
+	        	var dayDate = new Date(0)
+	        	dayDate.setFullYear(usageDate.getFullYear())
+	        	dayDate.setMonth(usageDate.getMonth())
+	        	dayDate.setDate(usageDate.getDate())
+
+	        	var usage = dataPoint[1];
+	        	var nrUsers = metaData[meter.id].people
+
+
+	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1){
+	        			refs[meter.id][dayDate.getDay()] += usage;
+	        			++days[meter.id][dayDate.getDay()];
+
+	        			if(dayDate.getDay() > 0 && dayDate.getDay() < 6){
+	        				refsWeekdays[meter.id] += usage;
+	        			}
+	        	}
+
+	        	if (dayDate >= startMonthRefPeriod && dayDate < endMonthRefPeriod){
+	        		meanMonthUse[meter.id] +=usage;
+	        	}
+
+	        	objectifiedData.push({	
+        			hourDate: usageDate, 
+        			dayDate: dayDate, 
+        			usage: usage, 
+        			meter: meter.id, 
+        			meanUse: usage/nrUsers, 
+        			nrUsers: nrUsers
+	        	})
+			});
+			for (var i = 0; i < meanHourUseByDay[meter.id].length; i++){
+				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*metaData[meter.id].people);
+
+			}
+		});
+
+		console.log("loading data",new Date()-before);
+		before = new Date();
+
+		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
+
+	    
+	    var ndx = crossfilter(objectifiedData);	    
+
+	    var hourDim = ndx.dimension(function (d) {
+    		return d.hourDate;
+    	});
+
+	    meterDim = ndx.dimension(function (d) {
+	    	return d.meter;
+	    });
+
+	    console.log("creating filters",new Date()-before);
+		before = new Date();
+		
+	    //Not used
+	    //var usageMeanHour = hourDim.group().reduceSum(function (d) {return d.meanUse;});
+
+   	    //var usageSumHour = hourDim.group().reduceSum(function (d) {return d.usage;});
+
+
+/*   	    var usageSumDate = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduceSum(function (d) {return d.usage;});
+
+   	    usageSumDate.dispose();
+*/
+
+   	    //var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
+
+
+
+
+   	    function reduceAddAvg(p,v) {
+   	    	++p.hours
+   	    	p.elUse  += v.meanUse;
+   	    	p.avg = p.elUse/(p.hours/24);
+   	    	p.meter = v.meter;
+   	    	return p;
+   	    }
+   	    function reduceRemoveAvg(p,v) {
+   	    	--p.hours
+   	    	p.elUse -= v.meanUse;
+   	    	p.avg = p.elUse/(p.hours/24);
+   	    	return p;
+   	    }
+   	    function reduceInitAvg() {
+   	    	return {hours:0, elUse:0, avg:0, meter:""};
+   	    }
+   	    
+   	    var meterDayAvg = meterDim.group().reduce(reduceAddAvg, reduceRemoveAvg, reduceInitAvg);
+
+   	    meterDayAvg.top(200).forEach(function (meter) {
+   	    	metaData[meter.value.meter].avgUse = meter.value.avg;
+   	    })
+   	    
+   	    console.log("after meterDatAvg",new Date()-before);
+		before = new Date();
+		
+   	    function allReduceAddAvg(p,v) {
+   	    	++p.allHours
+   	    	p.users += v.nrUsers;
+   	    	p.allElUse  += v.usage;
+   	    	p.allAvg = p.allElUse/p.users;
+   	    	return p;
+   	    }
+   	    function allReduceRemoveAvg(p,v) {
+   	    	--p.allHours
+   	    	p.users -= v.nrUsers;
+   	    	p.allElUse -= v.usage;
+   	    	p.allAvg = p.allElUse/p.users;
+
+   	    	return p;
+   	    }
+   	    function allReduceInitAvg() {
+   	    	return {allHours:0, users:0, allElUse:0, allAvg:0};
+   	    }
+
+   	    console.log("should be 0",new Date()-before);
+		before = new Date();
+		
+
+		//Unused
+   	    //var lineHourAvg = hourDim.group().reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+   	    //lineHourAvg.dispose();
+   	    
+
+   	    // Create groups for different levels of granularity (1-hour, 6-hour etc)
+   	    var prev;
+   	    var usageAvgMeter;
+   	    for(var i = 0; i < groupByHours.length; i++){
+
+   	    	var timediff = (1000*60*60*groupByHours[i]);
+   	    	var groupFunction = function (d){   	    	
+	   	    	return new Date(d.getTime()-d.getTime() % timediff);
+	   	    };
+
+   	    	var group = hourDim.group(groupFunction).reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+
+	   	    group.maxSpan = timediff*maxPointsInLineChart
+	   	    group.prev = prev;
+	   	    if(prev){
+	   	    	prev.next = group;
+	   	    }
+	   	    prev = group;
+	   	    
+	   	    // lets create an identical group, but dispose it so it doesn't get filtered
+	   	    group.unfiltered = hourDim.group(groupFunction).reduce(allReduceAddAvg, allReduceRemoveAvg, allReduceInitAvg);
+	   	    group.unfiltered.dispose()
+	   	    usageAvgMeter = group;   
+   	    }
+
+   	    console.log("after creating the different groups for linechart",new Date()-before);
+		before = new Date();
+		
+   	    var projStartDate = new Date()
+   	    projStartDate.setFullYear(2014)
+   	    projStartDate.setMonth(11)
+   	    projStartDate.setDate(1)
+   	    projStartDate.setHours(0)
+   	    projStartDate.setMinutes(0)
+   	    projStartDate.setSeconds(0);
+   	    
+   	    
+/*
+   	    function bubbleReduceAdd(p,v){
+   	    	++p.dataPoints;
+   	    	++p.nrWeekdays[v.hourDate.getDay()]; 
+
+   	    	p.users = v.nrUsers;
+   	    	p.usage += v.usage;
+   	    	p.meter = v.meter;
+   	    	var refSum = 0;
+   	    	var refUsage = 0;
+   	    	for(i=0; i < p.nrWeekdays.length; i++){
+   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];  // antalet måndagstimmar i det valda intervallet * referensmåndagsanv / antalet referensmåndagsh
+   	    		//refUsage = p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];
+   	    	}
+   	    	p.change = (p.usage-refSum)/refSum;	// --> (måndagsanvändningen-referensmåndagsanvändningen)/referensmåndagsanvändningen
+
+   	    	//	console.log(v.hourDate, v.meter, "Användning", v.usage, "Referensvärde", refUsage, "Accumulerad förändring", p.accumChange);
+   	    	
+   	    	return p;
+   	    }
+   	    function bubbleReduceRemove(p,v){
+   	    	--p.dataPoints
+
+   	    	--p.nrWeekdays[v.hourDate.getDay()]; 
+   	    	
+   	    	p.users = v.nrUsers;
+   	    	p.usage -= v.usage;
+   	    	refSum = 0;
+   	    	for(i=0; i < p.nrWeekdays.length; i++){
+   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];
+   	    	}
+   	    	p.change = (p.usage-refSum)/refSum;
+   	    	return p;
+
+   	    }
+   	    function bubbleReduceInit(){
+   	    	return {nrWeekdays:[0,0,0,0,0,0,0], usage:0, change:0, users:0, dataPoints:0, meter:""}
+
+   	    }
+   	    var changeBubble = meterDim.group().reduce(bubbleReduceAdd,bubbleReduceRemove,bubbleReduceInit);		*/
+/*
+
+   	    function monthAvgReduceAdd(p,v) {
+   	    	++p.hours
+   	    	if (p.meters.indexOf(v.meter) == -1){ 
+   	    		p.meters[p.meters.length] = v.meter;
+   	    		p.users += v.nrUsers;
+   	    		p.monthAvg += meanMonthUse[v.meter]/9;
+   	    	};
+
+   	    	p.sumUse += v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
+   	    	return p;
+   	    }
+   	    function monthAvgReduceRemove(p,v) {
+   	    	--p.hours
+   	    	if (p.meters.indexOf(v.meter) !== -1){
+   	    		p.meters.splice(p.meters.indexOf(v.meter),1);
+   	    		p.users -= v.nrUsers;
+   	    		p.monthAvg -= meanMonthUse[v.meter]/9
+   	    	};
+
+   	    	p.sumUse -= v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
+   	    	return p;
+   	    }
+   	    function monthAvgReduceInit() {
+   	    	var obj = {hours:0, users:0, sumUse:0, sumUseAvg:0, meters:[], monthAvg:0};   	    	
+   	    	obj.getMonthAvg = function(){
+   	    		return this.monthAvg/this.users;
+   	    	}
+   	    	obj.getColors = function(){
+   	    		var avg = this.getMonthAvg();
+   	    		var r = {};
+   	    		r.green = Math.min(this.sumUseAvg, avg*0.9);
+   	    		r.yellow = Math.min(this.sumUseAvg-r.green, avg*0.1);
+   	    		r.red = this.sumUseAvg-r.green-r.yellow;
+   	    		return r;
+   	    	}
+   	    	return obj;
+   	    }
+   	    
+   	    var usageSumMonth = hourDim.group(function (d){
+   	    	var month = new Date(0)
+	        	month.setFullYear(d.getFullYear())
+	        	month.setMonth(d.getMonth())
+	        	return month;
+   	    }).reduce(monthAvgReduceAdd, monthAvgReduceRemove, monthAvgReduceInit);
+
+*/
+
+/*
+
+   	    function dayAvgReduceAdd(p,v) {
+   	    	++p.hours
+   	    	if (p.meters.indexOf(v.meter) == -1){ 
+   	    		p.meters[p.meters.length] = v.meter;
+   	    		p.users += v.nrUsers;
+   	    		p.refUse += refsWeekdays[v.meter]/5;
+   	    //		p.refUse += refs[v.meter][v.hourDate.getDay()];
+   	    	};
+			
+
+   	    	p.sumUse += v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;	
+
+
+   	    	return p;
+   	    }
+   	    function dayAvgReduceRemove(p,v) {
+   	    	--p.hours
+   	    	if (p.meters.indexOf(v.meter) !== -1){
+   	    		p.meters.splice(p.meters.indexOf(v.meter),1);
+   	    		p.users -= v.nrUsers;
+   	    		p.refUse -= refsWeekdays[v.meter]/5;
+   	    		//p.refUse -= refs[v.meter][v.hourDate.getDay()];
+   	    	};
+
+   	    	p.sumUse -= v.usage;
+   	    	p.sumUseAvg = p.sumUse/p.users;
+   	    	
+   	    	return p;
+   	    }
+   	    function dayAvgReduceInit() {
+   	    	var obj = {hours:0, users:0, sumUse:0, sumUseAvg:0, refUse:0, meters:[]};   	    	
+   	    	obj.getDayAvg = function(){
+   	    		return this.refUse/24/this.users;
+   	    	}
+   	    	obj.getColors = function(){
+   	    		var avg = this.getDayAvg();
+   	    		var r = {};
+   	    		r.green = Math.min(this.sumUseAvg, avg*0.9);
+   	    		r.yellow = Math.min(this.sumUseAvg-r.green, avg*0.2);
+   	    		r.red = this.sumUseAvg-r.green-r.yellow;
+   	    		return r;
+   	    	}
+   	    	return obj;
+   	    }
+
+
+
+   	    var usageSumDay = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduce(dayAvgReduceAdd, dayAvgReduceRemove, dayAvgReduceInit);
+
+*/
+   	    console.log("before savings group",new Date()-before);
+		before = new Date();
+		
+   	    function savingsReduceAdd(p,v){
+   	   	    if (v.hourDate >= projStartDate /*&& v.hourDate < new Date(2014,10,10)*/){
+   	   	    	//++p.saveByDay[v.hourDate.getDay()];
+   	   	    	
+   	   	    	//Det gamla som funkar
+   	   	    	p.meter=v.meter;
+   	    		p.accumChange += meanHourUseByDay[v.meter][v.hourDate.getDay()] - v.usage/v.nrUsers;
+	   	    	//------
+	   	    	++p.dataPoints;
+	   	    	++p.nrWeekdays[v.hourDate.getDay()]; 
+
+	   	    	p.users = v.nrUsers;
+	   	    	p.usage += v.usage;
+	   	    	var refSum = 0;
+	   	    	var refUsage = 0;
+	   	    	for(i=0; i < p.nrWeekdays.length; i++){
+	   	    		refSum += p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];  // antalet måndagstimmar i det valda intervallet * referensmåndagsanv / antalet referensmåndagsh
+	   	    		//refUsage = p.nrWeekdays[i]*refs[v.meter][i]/days[v.meter][i];*/
+	   	    	}
+	   	    	
+   	    		p.change = (p.usage-refSum)/refSum;	// --> (måndagsanvändningen-referensmåndagsanvändningen)/referensmåndagsanvändningen
+   	    	}
+
+
+   	    	//	console.log(v.hourDate, v.meter, "Användning", v.usage, "Referensvärde", refUsage, "Accumulerad förändring", p.accumChange);
+   	    	
+   	    	return p;
+   	    }
+   	    function savingsReduceRemove(p,v){
+   	    	return p;
+   	    }
+
+   	    function savingsReduceInit(){
+   	    	return {accumChange:0, meter:"", users:0, usage:0, nrWeekdays:[0,0,0,0,0,0,0], change:0}
+   	    }
+
+   	    var savingsGroup = meterDim.group().reduce(savingsReduceAdd, savingsReduceRemove, savingsReduceInit);
+   	    savingsGroup.dispose();
+
+   	    console.log("after savingsGroup",new Date()-before);
+		before = new Date();
+		
+		
+   	    savingsGroup.top(200).forEach(function (meter) {
+   	    	metaData[meter.value.meter].change = meter.value.change;
+   	    	metaData[meter.value.meter].accumSum = meter.value.accumChange;
+
+   	    	var nordicElMix = 0.1; // 0,1 kg CO2e/kWh
+   	    	metaData[meter.value.meter].ecoFeedback = meter.value.accumChange*nordicElMix;
+   	    	metaData[meter.value.meter].totEcoFeedback = meter.value.accumChange*nordicElMix*metaData[meter.value.meter].people;
+   	    })
+
+
+   	 
+
+
+   	    
+
+        var minDate = hourDim.bottom(1)[0].hourDate;
+        var maxDate = hourDim.top(1)[0].hourDate;
+
+
+		
+/*
+        bubbleChart = dc.bubbleChart("#bubble-chart");
+        bubbleChart
+        	.dimension(meterDim)
+        	.group(changeBubble)
+      		.colors(colorScale)
+      		.colorAccessor(function (d) { return d.value.meter;})
+			.keyAccessor(function (p) { return p.value.usage/(p.value.dataPoints*p.value.users/24);})
+        	.valueAccessor(function (p) { return p.value.change;})
+        	.radiusValueAccessor(function (p) { return p.value.users;})
+        	.maxBubbleRelativeSize(0.1)
+        	.x(d3.scale.linear().domain([0,7]))
+        	.y(d3.scale.linear().domain([0.2,-0.4]))
+        	//.elasticX(true)
+        	//.elasticY(true)
+        	.r(d3.scale.linear().domain([0, 700]))
+        	.yAxisLabel("Förändring")
+        	//.xAxisLabel("kWh per person och dygn")
+        	.renderHorizontalGridLines(true)
+        	.yAxisPadding(0.03)
+        	.xAxisPadding(0.5)
+	      	.margins({ top: 10, left: 50, right: 30, bottom: 30 })
+
+
+        	.on('filtered', function(chart, filter){
+        		onefilter(chart, meterChart);
+        		syncfilters(chart, meterChart);
+        		onefilter(chart, accumChangeChart);
+        		syncfilters(chart, accumChangeChart);
+        	})
+        	
+        	bubbleChart.yAxis().tickFormat(function (v) {return v*100 + '%';})
+*/
+/*
+        var today = new Date(hourDim.top(1)[0].hourDate);
+        var oneYearAgo = new Date(hourDim.top(1)[0].hourDate);
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear()-1);
+        var oneWeekAgo = new Date(hourDim.top(1)[0].hourDate-604800000);
+  */      
+/*       	monthChart = dc.barChart("#month-chart");
+        monthChart
+        	.dimension(hourDim)
+        	.group(usageSumMonth)
+          	.x(d3.time.scale().domain([oneYearAgo, today]))
+		    .xUnits(function (d){return 20})
+	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 40 })
+          	.brushOn(false)
+          	.centerBar(true)
+          	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
+        	.valueAccessor(function (d){return d.value.getColors()['green'];})
+        	.ordinalColors(["#27ae60","#FFF380","red"])
+
+        	.y(d3.scale.linear().domain([0,200]))
+        	.elasticY(true)
+        	.yAxisLabel("kWh").renderlet(function (chart) {chart.selectAll("g.x text").attr('dx', '-17').attr('dy', '5').attr('transform', "rotate(-45)");})
+ 			.minHeight(10)
+ 			//.xAxis().ticks(12)
+
+
+			monthChart.renderlet(function (chart) {
+			  chart.selectAll('rect').on("click", function (d) {
+			    var minDate = d.x;
+			    var maxDate = new Date(minDate);
+			    maxDate.setMonth(maxDate.getMonth()+1);
+			    maxDate.setHours(maxDate.getHours()-1);
+			    if (maxDate > new Date()){
+			    	maxDate = new Date(new Date()-86400000);
+			    }
+			    chart.filterAll();
+			    chart.filter([minDate,maxDate]);
+			    syncfilters(chart,barDateBrush);
+			  });
+			});
+
+			monthChart.stack(usageSumMonth, function (d){
+         		return d.value.getColors()['yellow'];}
+         		)
+        	monthChart.stack(usageSumMonth, function (d){
+        		return d.value.getColors()['red'];}
+        		)
+
+
+        dayChart = dc.barChart("#day-chart");
+        dayChart
+        	.dimension(hourDim)
+        	.group(usageSumDay)
+        	//.valueAccessor(function (d){ return d.value.sumUseAvg;})
+        	.valueAccessor(function (d){return d.value.getColors()['green'];})
+        	
+        	
+        	.ordinalColors(["#27ae60","#FFF380","red"])
+          	.x(d3.time.scale().domain([new Date(oneWeekAgo-12*3600*1000), new Date(today-12*3600*1000)]))
+		   .xUnits(function (d){return 20})
+ 			.margins({ top: 10, left: 30, right: 50, bottom: 40 })
+	      	//.margins({ top: 50, left: 50, right: 50, bottom: 100 })
+          	.brushOn(false)
+          	.centerBar(true)
+          	
+          	.y(d3.scale.linear().domain([0,8]))
+          	.elasticY(true)
+ 			.yAxisLabel("kWh")
+ 			.minHeight(10)
+ 			.xAxis().ticks(7)
+*/
+/*
+		dayChart.renderlet(function (chart) {
+			chart.selectAll('rect').on("click", function (d) {
+			    var minDate = d.x;
+			    var maxDate = new Date(minDate);
+			    maxDate.setDate(maxDate.getDate()+1);
+			    maxDate.setHours(maxDate.getHours()-1);
+			    chart.filterAll();
+			    chart.filter([minDate,maxDate]);
+			    syncfilters(chart,barDateBrush);
+			});
+		});
+
+         	
+         	dayChart.stack(usageSumDay, function (d){
+         		return d.value.getColors()['yellow'];}
+         		)
+        	dayChart.stack(usageSumDay, function (d){
+        		return d.value.getColors()['red'];}
+        		)
+*/
+        meterChart = dc.rowChart("#meter-chart");
+		meterChart
+			.dimension(meterDim)
+			.group(meterDayAvg)
+			.valueAccessor(function (d) { return d.value.avg; })
+	      	.margins({ top: 10, left: 30, right: 50, bottom: 50 })
+
+	      	.colors(colorScale)
+	      	.colorAccessor(function (d) { return d.value.meter;})
+			//.ordering(function(d){ return d.value.avg})
+			.label(function(d) { return metaData[d.value.meter].name; })
+			.title(function(d) {
+			    /*return metaData[d.value.meter].name
+			        + ' mätares förbrukning per dygn: '
+			        + d3.round(d.value.avg,2)
+			        +'kWh' */
+			})		
+        	.on('filtered', function(chart, filter){
+        	//	onefilter(chart, bubbleChart);
+        	//	syncfilters(chart, bubbleChart);
+
+				var filters = chart.filters();
+				if (filters.length > 1){
+					var lastFilter = filters[filters.length-1];
+					chart.filterAll();
+					chart.filter(lastFilter);
+				}
+				/*
+				if(filters.length>0){
+					console.log("add legend")
+        			usageLineChart.legend(dc.legend().x(400).y(10).itemHeight(13).gap(5));
+        		}
+        		else{
+        			console.log("remove legend")
+        			usageLineChart.legend(dc.legend().x(0).y(-10).itemHeight(0).gap(0));
+        		} */
+				generateMeterSpecificInfo(chart.filters());
+
+				colorLineChart(chart.filters());
+
+
+        	//	onefilter(chart, accumChangeChart);
+        	//	syncfilters(chart, accumChangeChart);
+        		checkMeterFilter();
+        	})
+	   //   	.x(d3.scale.linear().domain([0,0.25]))
+	     // 	.xAxis().tickValues([0, 0.05, 0.1, 0.15, 0.2])
+	     	.elasticX(true)
+
+
+/*
+	    accumChangeChart = dc.rowChart("#accum-change-chart");
+	    accumChangeChart
+	    	.dimension(meterDim)
+	    	.group(savingsGroup)
+	    	.valueAccessor(function (d) { return d.value.accumChange;})
+	    	.colors(colorScale)
+	    	.colorAccessor(function (d) { return d.value.meter;})
+	    	.elasticX(true)
+			.ordering(function(d){ return -d.value.accumChange})
+			.margins({ top: 10, left: 30, right: 50, bottom: 40 })
+        	.on('filtered', function(chart, filter){
+        //		onefilter(chart, bubbleChart);
+        //		syncfilters(chart, bubbleChart);
+        //		onefilter(chart, meterChart);
+        //		syncfilters(chart, meterChart);
+        	})
+*/
+			// dimension by item name
+			/*dim.items = xf.dimension(function (d) { return d.name; });
+			group.itemsRollup = dim.items.group().reduce(
+			  function add (p, v) {
+			    // add
+			  },
+			  function rem (p, v) {
+			    // remove
+			  },
+			  function ini () { return { count: 0, totalSales: 0, totalSold: 0 }
+			);
+
+			dim.itemsTable = {
+			  top: function (x) {
+			    return group.itemsRollup.top(x)
+			      .map(function (grp) { return item: grp.key, rollup: grp.value } } );
+			  }
+			};*/
+		console.log('before tableDim',new Date()-before);
+		before = new Date();
+		
+		/*tableDim = {
+			top: function (x) {
+				return savingsGroup.top(x)
+					.map(function (grp) { return {"meter": grp.key, "change": grp.value} })
+			}
+		};
+		*/
+		
+		console.log("after tableDim",new Date()-before);
+		before = new Date();
+		
+		//
+
+
+
+/*
+		toplistTable = dc.dataTable("#top-list-table")
+		toplistTable
+			.dimension(tableDim)
+			.group(function(d) {return "";})
+			.size(30)
+			.sortBy(function(d) {
+		        return d.change.accumChange;
+		    })
+		    .order(d3.descending)
+			.columns([
+					function (d){
+						return d.change.meter;
+					},
+					function (d){
+						return d3.round(d.change.accumChange,2)+" kWh";
+				}
+			])
+
+*/	
+		currentMonth = document.getElementById("current-month");
+
+		monthArray = ["januari", "februari", "mars", "april", "maj", "juni", "juli","augusti","september","oktober","november","december"];
+		currentMonth.innerHTML = monthArray[new Date().getMonth()];
+
+
+		table = document.getElementById("top-list-table");
+		
+		sortByChange = crossfilter.quicksort.by(function(d) { return -d.value.accumChange; });
+		
+		savingsGroupTop = savingsGroup.top(100);
+		sorted = sortByChange(savingsGroupTop,0,savingsGroupTop.length)
+		placeInList = 1;
+		sorted.forEach(function (meter){
+			var meterData = metaData[meter.value.meter];
+			//table.append('<tr><td>'+meter.value.meter+'</td>+<td>'+meter.value.accumChange+'</td></tr>') 
+			if(meter.value.change<0){
+				incOrDec=''//minskning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-down" style="color:green"></span>';
+				positive='';
+			}
+			else {
+				incOrDec=''//ökning  '
+				arrow = '<span class="glyphicon glyphicon-chevron-up" style="color:red"></span>';
+				positive='+';}
+			table.innerHTML += ''+
+			'<tr id="row-'+meter.value.meter+'">'+
+				'<td><b>'+placeInList+'</b></td>'+
+				'<td style="text-align:left; padding-left:3%"><span class="glyphicon glyphicon-stop" style="padding:0;font-size:100%; color:'+meterData.color+'"></span>'+'<span style="margin-left:10px">' + meterData.name+'</span></td>'+
+				'<td><b>'+positive+d3.round(-meterData.accumSum,2)+'</b> kWh</td>'+
+				'<td style="text-align:right">'+positive+d3.round(meterData.change*100,2)+"% "+incOrDec+'</td>'+
+				'<td style="text-align:left">' +arrow+'</td>'+
+			'</tr>'
+;
+			++placeInList;
+		})
+
+		
+
+		meterSpecificInfo = document.getElementById("meter-specific-info");
+	//	meterSpecificHeading = document.getElementById("meter-specific-heading");
+
+
+		generateMeterSpecificInfo = function (meter){
+			var meterSpecificData = metaData[meter];
+			
+			if (meter == ""){}
+			else{
+				var changeDirection = "";
+				if (meterSpecificData.change < 0){ changeDirection = "minskat";}
+				else { changeDirection = "ökat";}
+
+				var accumSumDirection = "";
+				if (meterSpecificData.accumSum < 0){ accumSumDirection = "ökning med ";}
+				else { accumSumDirection = "minskning med ";}
+
+				var ecoFeedbackDirection = "";
+				if (meterSpecificData.accumSum < 0){ ecoFeedbackDirection = "<b>Den ökade användningen</b> motsvarar utsläpp av <b>";}
+				else { ecoFeedbackDirection = "Besparingen</b> motsvarar utsläpp av <b>";}
+
+				var lastMonth = monthArray[new Date().getMonth()-1];
+				var thisMonth = monthArray[new Date().getMonth()];
+
+				var highValueExplanation = "";
+				if (meterSpecificData.name == "Svart"){
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att geolabbet drar mer el än en vanlig kontorsplats.</i>"
+				}
+				else if (meterSpecificData.name == "Röd"){
+					highValueExplanation = "<i>Det höga värdet tror vi beror på att lamporna i vardagsrummet hör till denna mätare.</i>"
+				}
+
+
+
+
+		/*		meterSpecificHeading.innerHTML = 
+					'<p class="panel-title hide" id="meter-heading" style="height:100%; font-size:2.5vh">'+
+						meterSpecificData.name + ' mätare '+
+						'<span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="caret; caret-right; font-size:70%; color:grey" data-content="Välj din elmätare och se information om er förbrukning."></span>'+
+					'</p>'
+*/
+
+					
+				meterSpecificInfo.innerHTML = 
+					"<div style='width:80%; height:100%; margin-left:auto; margin-right:auto'>" + 
+						"<p style='font-size:3vh; margin-top:1vh; margin-bottom:0'>" + meterSpecificData.name + " mätare" +
+							"<button id ='reset-button' class='btn btn-success' style='float:right; text-align:right; font-size:1.6vh; margin-top:0; margin-bottom:0' href='#' onclick='resetMeterChoice()'>Välj en annan mätare</button>" +
+						"</p>" +
+						"<div class='panel panel-default' style='margin-top:1vh; margin-bottom:0'>"+
+							"<div style='font-size:1.6vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
+							    "<ul>"+
+							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
+							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ". Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a id='environment-link' href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
+							    	"<li>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li></br>"+
+							    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid. <a id='consequences-link' href=#concequences>Läs mer om den <b>minskade miljöpåverkan</b> som en besparing av 5 % kan leda till</a>.</li>"+
+							    "</ul>"+
+						    "</div>"+
+						"</div>"+
+						'</br><a id="meter-area-link" href="#" data-toggle="modal" data-target="#meter-area-modal" style="font-size:1.6vh">Se vilka som ingår i ditt mätarområde</a>'+
+   						'<div class="modal fade" style="margin-top:20vh" id="meter-area-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+							'<div class="modal-dialog" style="text-align:left">'+
+						    	'<div class="modal-content">'+
+								    '<div class="modal-header">'+
+								        '<button id="close-consequences" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'+
+								        '<h4 class="modal-title" style="font-size:3vh">Ditt mätarområde - ' + meterSpecificData.name + ' mätare</h4>'+
+								    '</div>'+
+								    '<div class="modal-body">'+
+								    	"<ul style='font-size:2vh'>"+
+								        	meterSpecificData.meterArea +
+								        "</ul>"+
+								    '</div>'+
+								    '<div class="modal-footer">'+
+								        '<button type="button" class="btn btn-default" data-dismiss="modal" style="font-size:1.7vh">Stäng</button>'+
+								    '</div>'+
+						    	'</div>'+
+							 '</div>'+
+						'</div>'+
+						'</br><p style="font-size:1.2vh">' + highValueExplanation + '</p>' +
+					"</div>";
+
+			}	
+		}
+		
+
+
+				        	
+
+
+				/*.sortBy(function(d) {
+        		return d.value.meter;
+    			})
+			        	
+*/
+
+/*        barDateBrush = dc.barChart("#bar-date-brush");
+        barDateBrush
+        	.elasticX(false)
+        	.minHeight(10)
+        	.dimension(hourDim)
+        	.group(usageSumDate)
+        	.x(d3.time.scale().domain([minDate,maxDate]))
+        	.xUnits(d3.time.days)
+        	.yAxis().ticks(0)
+*/
+
+
+    	usageLineChart  = dc.compositeChart("#usage-line-chart");
+
+
+    	usageLineChartFiltered = dc.lineChart(usageLineChart,'Din mätare')
+			.group(usageAvgMeter,"Förbrukning vald mätare")
+        	.valueAccessor(function (d) { return d.value.allAvg;})
+        	.brushOn(false)
+        	.colors("grey")
+
+        	/*.title(function(d) {
+			    return d3.round(d.value.allAvg)
+			        +'kWh'
+			})*/
+
+
+		usageLineChartUnfiltered = dc.lineChart(usageLineChart,'Genomsnitt i huset')
+        	
+        	.group(usageAvgMeter.unfiltered,"Genomsnitt i huset")
+        	.valueAccessor(function (d) { return d.value.allAvg})
+			.dashStyle([15,6])
+			.colors("grey")
+			.brushOn(false)
+			
+				
+
+
+      	usageLineChart
+	      	.dimension(hourDim)
+	      	
+			//.rangeChart(barDateBrush)
+	      	.x(d3.time.scale().domain([minDate,maxDate]))
+		    .xUnits(d3.time.days)
+		    .minHeight(1)
+		    .brushOn(false) 
+		    .elasticY(true)
+		    .yAxisLabel("kWh per person och timme")
+		    .margins({ top: 10, left: 60, right: 30, bottom: 30 })
+		    .title(function(d) {
+			    return d3.round(d.value.allAvg,2)
+			        +' kWh'
+			})
+
+
+		    .on('preRedraw', function(chart){
+		    	//var chart = barDateBrush;
+		    	var group = usageLineChartFiltered.group();
+		    	if (chart.filter() != null){
+			    	var timediff = (chart.filter()[1]-chart.filter()[0]);
+			    	
+			    	while(timediff > group.maxSpan && group.next) {
+			    		group = group.next;		    		
+			    	}
+			    	while(timediff < group.maxSpan && group.prev) {
+			    		group = group.prev;		    		
+			    	}
+			    }
+			    else {
+			    	var group = usageLineChartFiltered.group();
+			    	while(group.next){
+			    		group=group.next;
+			    	}
+			    }
+
+			    if(group!=usageLineChartFiltered.group()){
+			    		usageLineChartFiltered.group(group,"Förbrukning vald mätare")
+			    		usageLineChartUnfiltered.group(group.unfiltered,"Medelförbrukning i hela huset")
+			    	}
+
+			})
+
+			.compose([
+	      			usageLineChartUnfiltered,
+					usageLineChartFiltered
+	      		]);
+		//usageLineChart.legend(dc.legend().x(50).y(10).itemHeight(13).gap(5));
+	    usageLineChart.xAxis().ticks(7);
+	    usageLineChart.yAxis().ticks(4);
+
+	    dc.renderAll();
+/*
+	    function legendOptions(chart)
+		{
+		    chart.svg().select('g.dc-legend').select('g.dc-legend-item').append('text').attr("font-size","300px")//  forEach(function (legend){ 
+		                //.append("g")
+		                //.attr("class", "dc-legend")
+		                //.append("g")
+		                //.attr("class", "dc-legend-item")
+		                //console.log(legend)
+		                //legend.append("text")
+		                //.attr("font-size","300px")
+		                //.text("blbla")
+		                //.text(displayText);
+		            //})
+		}
+
+		legendOptions(usageLineChart);
+*/
+
+		function addXAxis(chart, displayText)
+		{
+		    chart.svg()
+		                .append("text")
+		                .attr("class", "x-axis-label")
+		                .attr("text-anchor", "middle")
+		                .attr("x", chart.width()/2)
+		                .attr("y", chart.height()-4)
+		                .attr("overflow","visible")
+		                .attr("margin-bottom","70px")
+		                .attr("font-size","100%")
+		                .text(displayText);
+		}
+		
+		addXAxis(meterChart, "kWh per person och dygn");
+	//	addXAxis(accumChangeChart, "kWh");
+	//	addXAxis(bubbleChart, "kWh per person och dygn");
+
+	    //updateTimeInterval(hourDim.top(1)[0].hourDate, 604800000);
+	    //barDateBrush.render();
+	    monthlyview();
+	    weeklyview();
+	    lastClick = new Date();
+
+	    playerDelay = 120000;
+
+	    function getParameterByName(name) {
+		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		        results = regex.exec(location.search);
+		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+		
+
+
+	    player = function(){
+		    meterIndex = 0;
+		    looper = 0;
+		    setInterval(function (){
+		    	var rightNow = new Date();
+			    if(rightNow - lastClick > playerDelay){
+		    		showPlayerView();
+		    		$('#meter-choice-page').toggleClass('hide', true);
+				   	if (looper < 3){
+				   		$("#start-view").toggleClass('hide', false);
+			    		console.log(looper,meterIndex)
+			    		looper++
+				   	}
+				   	else if (looper < 6){ 
+				   		applyFilterNoGA(meterDomain[meterIndex]);
+				   		$("#start-view").toggleClass('hide', true);
+				   		console.log(looper,meterIndex)
+				   		meterIndex++
+				   		looper++
+			    	}
+			    	else if (looper < 9){
+				   		$("#start-view").toggleClass('hide', false);
+				   		console.log(looper,meterIndex)
+				   		looper++
+				   	}
+				   	else if (looper < 11){ 
+			    		applyFilterNoGA(meterDomain[meterIndex]);
+				   		$("#start-view").toggleClass('hide', true);
+				   		console.log(looper,meterIndex)
+				   		meterIndex++
+				   		looper++
+				   	}
+			    	else {
+				   		meterChart.filterAll()
+				   		dc.redrawAll();
+				   		console.log(looper,meterIndex)
+			    		looper=0
+			    		meterIndex=0;
+			    	}
+			    }
+			},5000);
+	    };
+	    
+		if (playerOn){
+			//Run player
+			player();	
+
+			//Makes everything unselectable
+			var myElements = document.querySelectorAll("*"); 
+			for (var i = 0; i < myElements.length; i++) {
+    			myElements[i].className += " noSelect";
+			    }	
+
+			//Player stopper
+			$('body').on('click',function(){
+				if (playerOn && playerDelay < new Date() - lastClick ){
+					hidePlayerView();
+					meterChart.filterAll();
+					dc.redrawAll();
+					console.log("playerOn click")
+					
+					if (looper < 3+1){
+						$("#start-view").toggleClass('hide', true);
+						console.log("första")
+					}
+					else if (looper < 6+1){		
+						$("#start-view").toggleClass('hide', false);
+						console.log("andra")			
+					}
+					else if (looper < 9+1){		
+						$("#start-view").toggleClass('hide', true);
+						console.log("tredje")			
+					}
+					else if (looper < 11+1){
+						$("#start-view").toggleClass('hide', false);
+						console.log("fjärde")
+					}
+					else{
+						$("#start-view").toggleClass('hide', true);
+					console.log("femte")
+					}
+
+					$("#meter-choice-page").toggleClass('hide',false);
+					meterIndex = 0;
+					looper = 0;
+					ga('send', 'event', 'player-stop', 'click', 'player-stop, playerOn: '+playerOn);
+				
+				}
+				ga('send', 'event', 'click-in-body', 'click', 'click-in-body');
+				lastClick = new Date();
+			});
+
+		    //Right-click blocker
+		    (function () {
+	  			var blockContextMenu, myElement;
+
+			  blockContextMenu = function (evt) {
+			    evt.preventDefault();
+			  };
+
+			  myElement = document.querySelector('body');
+			  myElement.addEventListener('contextmenu', blockContextMenu);
+			})();
+
+			lastAutoUpdate = new Date();
+			autoUpdateTimePlayer = 2*3600*1000;
+			autoUpdateTime = 3*3600*1000;
+
+		    autoUpdate = function(){
+			    setInterval(function (){
+			    	var rightNow = new Date();
+			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTimePlayer)
+			    	console.log((rightNow - lastClick) > playerDelay)
+			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTime)
+				    if((rightNow - lastAutoUpdate) > autoUpdateTimePlayer && (rightNow - lastClick) > playerDelay){
+				    	console.log("playeron")
+				    	location.reload(true)
+				    }
+				    else if((rightNow - lastAutoUpdate) > autoUpdateTime){
+				    	console.log('playeroff')
+				    	location.reload(true)
+				    }
+				}, 10*60*1000);
+		    };
+		    autoUpdate();
+
+		}
+		
+
+
+
+
+		console.log("end before init(data)",new Date()-before);
+		before = new Date();
+			
+	};	
+
+	// so that we later can call this with data loaded dynamically
+	// currently hardcoded in data.js
+
+	init(data);
+	//player();
+	    </script>
+
+	</body>
+
 </html>
