@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<title>Elförbrukning Marieberg - uppdatera data.js</title>
+		<script src="data.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			console.log(data);
+			google = {};
+			google.visualization = {};
+			google.visualization.Query = {};
+			var current_meter;
+			var meter_refs = {}
+			google.visualization.Query.setResponse = function(kabonaData){				
+				// validate
+				var tsCol = kabonaData.table.cols[0];
+				if(tsCol.id != "ts" || tsCol.p.unit != "ms"){
+					console.log('unexpected column: ', tsCol, ' from ', kabonaData);
+					alert('oops, check konsole');					
+					return;
+				}
+
+				var valCol = kabonaData.table.cols[1];
+				if(meter_refs[valCol.id] == undefined || valCol.p.unit != "kWh"){
+					console.log('unexpected column: ', valCol, ' from ', kabonaData);
+					alert('oops, check konsole');
+					return;					
+				}
+
+				var data_js_data = meter_refs[valCol.id].data;
+				var data_js_last_timestamp = data_js_data[data_js_data.length-1][0];
+
+				var rows = kabonaData.table.rows;
+				var lastValue = 0;
+				var added = 0;
+				for(var i = 0;i<kabonaData.table.rows.length;i++){
+					var row = kabonaData.table.rows[i];
+
+					var meterValue = row.c[1].v;
+					var diff = lastValue ? meterValue-lastValue: 0;
+					lastValue = meterValue;
+
+
+					if(row.c[0].v.getTime()>data_js_last_timestamp){
+						var newRow = [row.c[0].v.getTime(), diff];
+						data_js_data.push(newRow);		
+						added++;				
+					}else{
+						//console.log("too old", row)
+					}
+					
+					
+				}
+				console.log('added: ',added, ' new values for meter ', meter_refs[valCol.id].id, ' based on ', kabonaData);
+				$("#data_area").html("var data = "+JSON.stringify(data, null, 1));
+
+			}
+
+
+			var meters = [
+				["m21e", "s205b"],
+				["m22e", "s207a"],
+				["m2e", "s227a"],
+				["m1e", "s228a"],
+				["m36e", "s206a2"],
+				["m28e", "s204a3"],
+				["m48e", "s107a1"],
+				["m32e", "s204b2"],
+				["m35e", "s206a3"],
+				["m29e", "s206f1"],
+				["m25e", "s115c1"],
+				["m17e", "s220h1"],
+				["m8e", "s223d1"]
+
+
+			]
+
+			
+			meters.forEach(function(meter){		
+				var found = false;						
+				data.forEach(function(dataMeter){
+
+					if(dataMeter.id==meter[1]){
+						found = true;
+						var kabonaId = "met."+meter[0]+".met.y.max"
+						meter_refs[kabonaId] = dataMeter;
+						$.ajax({
+						   type: 'GET',
+						    url: "http://trangkaren.mywdc.org:8082/cgi-bin/json.cgi?gvlog=l1&tfrmt=timet&tqx=reqId:123&tq=select%20"+kabonaId+"%20where%20ts%20%3E%20datetime%20%27{fromDateTime}%27#",
+						    async: false,
+						    jsonpCallback: 'google.visualization.Query.setResponse',
+						    contentType: "application/json",
+						    dataType: 'jsonp',
+						    success: function(json) {
+						       
+						    },
+						    error: function(e) {
+						       console.log(e.message);
+						    }
+						});
+					}
+				})
+
+				if(!found){
+					console.log('no match for ', meter);
+				}
+				
+
+			})
+			
+
+		</script>
+		<style type="text/css">
+			html, body {
+			    height: 100%;
+			}
+
+			textarea {
+			    width: 100%;
+			    height: 100%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<textarea id="data_area"></textarea>
+		
+	</body>
+
+</html>
