@@ -1893,6 +1893,16 @@
 	    usageLineChart.xAxis().ticks(7);
 	    usageLineChart.yAxis().ticks(4);
 
+		usageLineChart.renderlet(function(chart){
+            var ticks = $("#usage-line-chart svg g.axis.x .tick");
+            console.log("ticks: ", ticks)
+            var getCoords = function(elem) {
+                return d3.transform(d3.select(elem).attr("transform")).translate
+            }
+            var xLabelDiff = (getCoords(ticks[1])[0]-getCoords(ticks[0])[0])/2;                
+            $("#usage-line-chart svg g.axis.x text").attr("transform", "translate("+ xLabelDiff +", 0)");
+        })
+
 	    dc.renderAll();
 /*
 	    function legendOptions(chart)
