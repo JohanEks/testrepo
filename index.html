@@ -755,7 +755,7 @@
 			else {
 				meterChart.filterAll();
 				meterChart.filter(meter);
-				console.log("filter!")
+				//console.log("filter!")
 				//document.getElementById("use-per-person").innerHTML=d3.round(meterDayAvg.top(1)[0].value.avg,2);
 	//			bubbleChart.filter(meter);
 	//			accumChangeChart.filter(meter);
@@ -984,7 +984,7 @@
         	}
         }
         
-        console.log(new Date()-before);
+        //console.log(new Date()-before);
 		before= new Date();
 
 		var objectifiedData =[];
@@ -1072,7 +1072,7 @@
 			}
 		});
 
-		console.log("loading data",new Date()-before);
+		//console.log("loading data",new Date()-before);
 		before = new Date();
 
 		var colorScale = d3.scale.ordinal().domain(meterDomain).range(colorRange);
@@ -1088,7 +1088,7 @@
 	    	return d.meter;
 	    });
 
-	    console.log("creating filters",new Date()-before);
+	    //console.log("creating filters",new Date()-before);
 		before = new Date();
 		
 	    //Not used
@@ -1136,7 +1136,7 @@
    	    	metaData[meter.value.meter].avgUse = meter.value.avg;
    	    })
    	    
-   	    console.log("after meterDatAvg",new Date()-before);
+   	    //console.log("after meterDatAvg",new Date()-before);
 		before = new Date();
 		
    	    function allReduceAddAvg(p,v) {
@@ -1158,7 +1158,7 @@
    	    	return {allHours:0, users:0, allElUse:0, allAvg:0};
    	    }
 
-   	    console.log("should be 0",new Date()-before);
+   	    //console.log("should be 0",new Date()-before);
 		before = new Date();
 		
 
@@ -1192,7 +1192,7 @@
 	   	    usageAvgMeter = group;   
    	    }
 
-   	    console.log("after creating the different groups for linechart",new Date()-before);
+   	    //console.log("after creating the different groups for linechart",new Date()-before);
 		before = new Date();
 		
    	    var projStartDate = new Date()
@@ -1354,7 +1354,7 @@
    	    }).reduce(dayAvgReduceAdd, dayAvgReduceRemove, dayAvgReduceInit);
 
 */
-   	    console.log("before savings group",new Date()-before);
+   	    //console.log("before savings group",new Date()-before);
 		before = new Date();
 		
    	    function savingsReduceAdd(p,v){
@@ -1396,7 +1396,7 @@
    	    var savingsGroup = meterDim.group().reduce(savingsReduceAdd, savingsReduceRemove, savingsReduceInit);
    	    savingsGroup.dispose();
 
-   	    console.log("after savingsGroup",new Date()-before);
+   	    //console.log("after savingsGroup",new Date()-before);
 		before = new Date();
 		
 		
@@ -1632,7 +1632,7 @@
 			      .map(function (grp) { return item: grp.key, rollup: grp.value } } );
 			  }
 			};*/
-		console.log('before tableDim',new Date()-before);
+		//console.log('before tableDim',new Date()-before);
 		before = new Date();
 		
 		/*tableDim = {
@@ -1643,7 +1643,7 @@
 		};
 		*/
 		
-		console.log("after tableDim",new Date()-before);
+		//console.log("after tableDim",new Date()-before);
 		before = new Date();
 		
 		//
@@ -1896,7 +1896,7 @@
 		usageLineChart.renderlet(function(chart){
 			if((usageLineChart.filters()[0][1]-usageLineChart.filters()[0][0]) < 2678400000 || (usageLineChart.filters()[0][1]-usageLineChart.filters()[0][0]) > 2678400000){
 	            var ticks = $("#usage-line-chart svg g.axis.x .tick");
-	            console.log("ticks: ", ticks)
+	            //console.log("ticks: ", ticks)
 	            var getCoords = function(elem) {
 	                return d3.transform(d3.select(elem).attr("transform")).translate
 	            }
@@ -1970,32 +1970,32 @@
 		    		$('#meter-choice-page').toggleClass('hide', true);
 				   	if (looper < 3){
 				   		$("#start-view").toggleClass('hide', false);
-			    		console.log(looper,meterIndex)
+			    		//console.log(looper,meterIndex)
 			    		looper++
 				   	}
 				   	else if (looper < 6){ 
 				   		applyFilterNoGA(meterDomain[meterIndex]);
 				   		$("#start-view").toggleClass('hide', true);
-				   		console.log(looper,meterIndex)
+				   		//console.log(looper,meterIndex)
 				   		meterIndex++
 				   		looper++
 			    	}
 			    	else if (looper < 9){
 				   		$("#start-view").toggleClass('hide', false);
-				   		console.log(looper,meterIndex)
+				   		//console.log(looper,meterIndex)
 				   		looper++
 				   	}
 				   	else if (looper < 11){ 
 			    		applyFilterNoGA(meterDomain[meterIndex]);
 				   		$("#start-view").toggleClass('hide', true);
-				   		console.log(looper,meterIndex)
+				   		//console.log(looper,meterIndex)
 				   		meterIndex++
 				   		looper++
 				   	}
 			    	else {
 				   		meterChart.filterAll()
 				   		dc.redrawAll();
-				   		console.log(looper,meterIndex)
+				   		//console.log(looper,meterIndex)
 			    		looper=0
 			    		meterIndex=0;
 			    	}
@@ -2019,27 +2019,27 @@
 					hidePlayerView();
 					meterChart.filterAll();
 					dc.redrawAll();
-					console.log("playerOn click")
+					//console.log("playerOn click")
 					
 					if (looper < 3+1){
 						$("#start-view").toggleClass('hide', true);
-						console.log("första")
+						//console.log("första")
 					}
 					else if (looper < 6+1){		
 						$("#start-view").toggleClass('hide', false);
-						console.log("andra")			
+						//console.log("andra")			
 					}
 					else if (looper < 9+1){		
 						$("#start-view").toggleClass('hide', true);
-						console.log("tredje")			
+						//console.log("tredje")			
 					}
 					else if (looper < 11+1){
 						$("#start-view").toggleClass('hide', false);
-						console.log("fjärde")
+						//console.log("fjärde")
 					}
 					else{
 						$("#start-view").toggleClass('hide', true);
-					console.log("femte")
+						//console.log("femte")
 					}
 
 					$("#meter-choice-page").toggleClass('hide',false);
@@ -2071,15 +2071,15 @@
 		    autoUpdate = function(){
 			    setInterval(function (){
 			    	var rightNow = new Date();
-			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTimePlayer)
-			    	console.log((rightNow - lastClick) > playerDelay)
-			    	console.log((rightNow - lastAutoUpdate) > autoUpdateTime)
+			    	//console.log((rightNow - lastAutoUpdate) > autoUpdateTimePlayer)
+			    	//console.log((rightNow - lastClick) > playerDelay)
+			    	//console.log((rightNow - lastAutoUpdate) > autoUpdateTime)
 				    if((rightNow - lastAutoUpdate) > autoUpdateTimePlayer && (rightNow - lastClick) > playerDelay){
-				    	console.log("playeron")
+				    	//console.log("playeron")
 				    	location.reload(true)
 				    }
 				    else if((rightNow - lastAutoUpdate) > autoUpdateTime){
-				    	console.log('playeroff')
+				    	//console.log('playeroff')
 				    	location.reload(true)
 				    }
 				}, 10*60*1000);
@@ -2092,7 +2092,7 @@
 
 
 
-		console.log("end before init(data)",new Date()-before);
+		//console.log("end before init(data)",new Date()-before);
 		before = new Date();
 			
 	};	
