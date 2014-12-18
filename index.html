@@ -318,7 +318,7 @@
 		    			<div class="panel-heading"style="height:10%; padding:0">
 		    				<p class="panel-title" style="font-size:2.5vh; text-align:center">
 		    					Topplistan <span id="current-month"></span>
-	    						<span id="i-top-list" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som amvänts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
+	    						<span id="i-top-list" class="glyphicon glyphicon-info-sign" aria-hidden="true" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" style="font-size:100%; color:#468847" data-content="Topplistan rangordnar elmätarområdena efter hur mycket el som använts under nuvarande månad jämfört med föregående. Rangordningen sker efter den samlade förändringen per person under den nuvarande månaden."></span>
 	    					</p>
 		    			</div> 
 		    			<div class="panel-body" style="<height:90%;padding:0">
@@ -2065,8 +2065,8 @@
 			})();
 
 			lastAutoUpdate = new Date();
-			autoUpdateTimePlayer = 2*3600*1000;
-			autoUpdateTime = 3*3600*1000;
+			autoUpdateTimePlayer = 0.5*3600*1000;
+			autoUpdateTime = 2*3600*1000;
 
 		    autoUpdate = function(){
 			    setInterval(function (){
