@@ -1673,7 +1673,7 @@
 		currentMonth = document.getElementById("current-month");
 
 		monthArray = ["januari", "februari", "mars", "april", "maj", "juni", "juli","augusti","september","oktober","november","december"];
-		currentMonth.innerHTML = monthArray[new Date().getMonth()];
+		currentMonth.innerHTML = "december";
 
 
 		table = document.getElementById("top-list-table");
@@ -1761,7 +1761,7 @@
 							"<div style='font-size:1.6vh; border-left: 5px solid; border-color:" + meterSpecificData.color + "; width:100%; height:100%'>"+
 							    "<ul>"+
 							    	"<li class='dist'>Den senaste veckan har ni i genomsnitt gjort av med <b>"+ d3.round(meterSpecificData.avgUse,2) + " kWh per person och dygn</b>.</li></br>"+
-							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under " + thisMonth + ", jämfört med förbrukningen under motsvarande period i " + lastMonth + ". Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a id='environment-link' href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
+							    	"<li>Ni har <b>"+ changeDirection + "</b> er förbrukning med <b>" + d3.round(meterSpecificData.change*100,2) + " %</b> under december, jämfört med förbrukningen under motsvarande period i november. Det är en " + accumSumDirection + "<b>" + Math.abs(d3.round(meterSpecificData.accumSum,2)) + " kWh </b> per person. <a id='environment-link' href=#environment style=''>Läs hur du kan <b>minska din elanvändning med 5 %</a></b>.</li></br>"+
 							    	"<li>" + ecoFeedbackDirection + Math.abs(d3.round(meterSpecificData.ecoFeedback,2)) + " kg</b> koldioxid per person.</li></br>"+
 							    	"<li>För hela mätarområdet blir det <b>" + Math.abs(d3.round(meterSpecificData.totEcoFeedback,2)) + " kg</b> koldioxid. <a id='consequences-link' href=#concequences>Läs mer om den <b>minskade miljöpåverkan</b> som en besparing av 5 % kan leda till</a>.</li>"+
 							    "</ul>"+
