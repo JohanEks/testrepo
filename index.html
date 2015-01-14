@@ -1110,8 +1110,15 @@
 
    	    //var usageSumMeter = meterDim.group().reduceSum(function (d) {return d.meanUse;});
 
+   	    var usageSumDateMeter = hourDim.group(function (d){
+   	    	var dayDate = new Date(0)
+	        	dayDate.setFullYear(d.getFullYear())
+	        	dayDate.setMonth(d.getMonth())
+	        	dayDate.setDate(d.getDate())
+	        	return dayDate;
+   	    }).reduceSum(function (d) {return d.usage;});
 
-
+   	    console.log(usageSumDateMeter)
 
    	    function reduceAddAvg(p,v) {
    	    	++p.hours
