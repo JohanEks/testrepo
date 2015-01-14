@@ -924,11 +924,11 @@
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
         		"meterArea": "<li class='dist'>Vån 1: Strategy</li>"
-    */    		
-    /*    	},
+        		
+        	},*/
         	"s204a3":{
         		"people":99,
-        		"color": "white"
+        		"color": "white",
         		"name": "",
         		"avgUse": "",
         		"change": "",
@@ -936,7 +936,7 @@
         		"ecoFeedback": "",
         		"totEcoFeedback": "",
         		"meterArea": "<li class='dist'>Vån 2: Civil <i>exklusive</i> höghuset, resultatenhet 2000 samt geoteknik</li>"
-        	},
+        	},/*
         	"s107a1":{
         		"people":35,
         		"color": "white"
@@ -998,7 +998,8 @@
 		var meterDomain = [];
 		var colorRange = [];
 
-		
+		var stats = {};
+
 		startRefPeriod1 = new Date(2014,10,1);
 		endRefPeriod1 = new Date(2014,11,0,23,59);
 		
@@ -1033,6 +1034,9 @@
 			meanHourUseByDay[meter.id] = [0,0,0,0,0,0,0];
 			meanMonthUse[meter.id] = 0;
 
+			stats[meter.id] = [];
+
+
 			meter.data.forEach(function(dataPoint){
 				var usageDate = new Date(dataPoint[0]);
 	        	var dayDate = new Date(0)
@@ -1043,7 +1047,22 @@
 	        	var usage = dataPoint[1];
 	        	var nrUsers = metaData[meter.id].people
 
+	        	usagePerPerson = usage/nrUsers;
 
+	        	if (dayDate.getMonth() > 9){
+	        		if (stats[meter.id].length == 0){
+	        			stats[meter.id][0]=[dayDate,usagePerPerson]
+	        		}	
+	        		else{
+	        			if (stats[meter.id][stats[meter.id].length-1][0].getTime() == dayDate.getTime()){
+	        			stats[meter.id][stats[meter.id].length-1][1] += usagePerPerson;
+	        			}
+	        			else{
+	        				stats[meter.id].push([dayDate, usagePerPerson]); 
+
+	        			}
+	        		}
+	        	}
 	        	if (dayDate >= startRefPeriod1 && dayDate < endRefPeriod1){
 	        			refs[meter.id][dayDate.getDay()] += usage;
 	        			++days[meter.id][dayDate.getDay()];
@@ -1066,12 +1085,21 @@
         			nrUsers: nrUsers
 	        	})
 			});
+			
+			valueString="";
+			for (i = 0; i < stats[meter.id].length; i++){
+				valueString += stats[meter.id][i][1] + ",";
+			}
+			console.log(meter.id, valueString)
+
 			for (var i = 0; i < meanHourUseByDay[meter.id].length; i++){
 				meanHourUseByDay[meter.id][i]=refs[meter.id][i]/(days[meter.id][i]*metaData[meter.id].people);
 
 			}
 		});
+		
 
+		console.log(stats);
 		//console.log("loading data",new Date()-before);
 		before = new Date();
 
@@ -1118,7 +1146,7 @@
 	        	return dayDate;
    	    }).reduceSum(function (d) {return d.usage;});
 
-   	    console.log(usageSumDateMeter)
+   	    //console.log(usageSumDateMeter.top(200))
 
    	    function reduceAddAvg(p,v) {
    	    	++p.hours
